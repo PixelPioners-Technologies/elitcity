@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Complex
+from .serializers import ComplexSerializer
 
-# Create your views here.
+class ComplexViewSet(viewsets.ModelViewSet):
+    queryset = Complex.objects.all()
+    serializer_class = ComplexSerializer
