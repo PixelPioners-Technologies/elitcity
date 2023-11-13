@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Complex , ComplexImage
 
-# Register your models here.
+
+
+admin.site.register(Complex)
+admin.site.register(ComplexImage)
