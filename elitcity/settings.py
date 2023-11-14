@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'storages',
+    'city_locations',
+    'mptt',
 
 ]
 
