@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from .models import Complex , ComplexImage
+from .models import Complex , ComplexImage, Company
+
+''' Serializer for Company model '''
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
 
 
 class ComplexImageSerializer(serializers.ModelSerializer):
