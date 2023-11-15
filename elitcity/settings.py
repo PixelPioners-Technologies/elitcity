@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'complex',
+    'complex',  
     'rest_framework',
+    'django_filters',
     'corsheaders',
     'storages',
 
@@ -160,3 +161,8 @@ STORAGES = {
 AWS_ACCESS_KEY_ID = "AKIAVSIQSNG5MQ5K5VNJ"
 AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = "elitecity"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE':10
+}
