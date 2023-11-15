@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Complex , ComplexImage, Company
-from .serializers import ComplexSerializer , ComplexImageSerializer, CompanySerializer
+from .models import Complex , ComplexImage, Company, Apartment
+from .serializers import ComplexSerializer , ComplexImageSerializer, CompanySerializer, ApartmentSerializer
 
 
 class ComplexViewSet(viewsets.ModelViewSet):
@@ -21,3 +21,8 @@ class ComplexImageViewSet(viewsets.ModelViewSet):
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
+
+
+class ApartmentViewSet(viewsets.ModelViewSet):
+    queryset = Apartment.objects.all()
+    serializer_class = ApartmentSerializer
