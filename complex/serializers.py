@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Complex , ComplexImage, Company
 
-''' Serializer for Company model '''
+
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
@@ -12,9 +12,6 @@ class ComplexImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ComplexImage
         fields = ['complex', 'image']
-
-
-
 
 
 class ComplexSerializer(serializers.ModelSerializer):

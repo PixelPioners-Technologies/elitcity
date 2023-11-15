@@ -1,4 +1,4 @@
-from rest_framework import viewsets , generics
+from rest_framework import viewsets
 from .models import Complex , ComplexImage, Company
 from .serializers import ComplexSerializer , ComplexImageSerializer, CompanySerializer
 
@@ -17,12 +17,7 @@ class ComplexImageViewSet(viewsets.ModelViewSet):
 ''' კომპანიის ცხრილის შექმნა, ზოგიერთი ველის შეყვანას აუცილებელი ველები არ აქვს
 ანუ დამრეგისტრირებელს შეუძლია ის ინფორმაცია მიაწოდოს რაც აწყობს
 '''
-class CompanyListCreateView(generics.ListCreateAPIView):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
 
-
-''' კომპანიის ცხრილის ამოღება ( ჩვენება )... სავარაუდოდ ფრონტს გამოადგება'''
-class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer

@@ -30,6 +30,12 @@ class Company(models.Model):
     ''' კომპანიის ლოგო'''
     logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True)
 
+    ''' კომპანიის background ფოტო'''
+    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True)
+
+    ''' facebook - ის მისამართი'''
+    facebook_page = models.URLField(blank=True, null=True)
+
 
     def __str__(self):
         return self.name

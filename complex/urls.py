@@ -1,15 +1,13 @@
 from django.urls import path , include
 from rest_framework.routers import DefaultRouter
-from .views import ComplexViewSet , ComplexImageViewSet, CompanyListCreateView, CompanyDetailView
+from .views import ComplexViewSet , ComplexImageViewSet, CompanyViewSet
 
 
 router = DefaultRouter()
 router.register(r'complex' , ComplexViewSet , basename='complex')
+router.register(r'companies' , CompanyViewSet , basename='companies' ) 
 router.register(r'images' ,  ComplexImageViewSet , basename='images' ) 
 
-
 urlpatterns = [
-    path('' , include(router.urls)),
-    path('companies/', CompanyListCreateView.as_view(), name='company-list-create'),
-    path('companies/<int:pk>/', CompanyDetailView.as_view(), name='company-detail'),
+    path('' , include(router.urls))
 ]
