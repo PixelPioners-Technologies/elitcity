@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Complex , ComplexImage, Company
+from .models import Complex , ComplexImage, Company, Apartment
 
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -18,4 +18,10 @@ class ComplexSerializer(serializers.ModelSerializer):
     images = ComplexImageSerializer(many=True, read_only=True)
     class Meta:
         model = Complex
+        fields = '__all__'
+
+
+class ApartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Apartment
         fields = '__all__'
