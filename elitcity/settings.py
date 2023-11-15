@@ -160,3 +160,10 @@ STORAGES = {
 AWS_ACCESS_KEY_ID = "AKIAVSIQSNG5MQ5K5VNJ"
 AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = "elitecity"
+
+
+# Page-pagination using rest
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 5
+}
