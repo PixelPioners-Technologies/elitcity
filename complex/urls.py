@@ -9,6 +9,7 @@ router.register(r'companies' , CompanyViewSet , basename='companies' )
 router.register(r'images' ,  ComplexImageViewSet , basename='images' ) 
 router.register(r'apartments', ApartmentViewSet)
 
+
 urlpatterns = [
     path('' , include(router.urls))
 ]
