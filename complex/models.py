@@ -1,15 +1,14 @@
 from django.db import models
 
 
-'''
-    The Company's Model
-'''
+
 class Company(models.Model):
 
     ''' კომპანიის სახელი ( დასახელება )'''
     name = models.CharField(max_length=255)
 
-    ''' კომპანიის მისამართი. მაგ: ილია ჭავჭავაძის გამზირი # 36 
+    ''' 
+    კომპანიის მისამართი. მაგ: ილია ჭავჭავაძის გამზირი # 36 
     '''
     address = models.TextField()
     
@@ -60,7 +59,7 @@ class Complex(models.Model):
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2)
     type_of_roof = models.CharField(max_length=100)
-
+    
     def __str__(self):
         return self.name
 
