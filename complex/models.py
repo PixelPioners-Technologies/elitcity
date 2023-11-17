@@ -47,7 +47,7 @@ class Complex(models.Model):
     ''' This ForeignKey establishes a many-to-one relationship between the Complex and Company models
     indicating that each Complex is associated with one Company
     and each Company can be associated with multiple Complex instances '''
-    company = models.ForeignKey(Company, related_name='complex', on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, related_name='complexes', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=255)
     address = models.TextField()
@@ -60,6 +60,9 @@ class Complex(models.Model):
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2)
     type_of_roof = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
 
     
 
