@@ -1,4 +1,5 @@
 from django.db import models
+from djangoarrayfield.fields import DjangoArrayField
 
 
 
@@ -78,5 +79,5 @@ class Apartment(models.Model):
 
 
 class ComplexImage(models.Model):
-    complex = models.ForeignKey(Complex, related_name='images', on_delete=models.CASCADE)
+    complex = models.ForeignKey(Complex, related_name='test_images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='complex_images/')
