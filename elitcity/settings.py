@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'complex',
     'rest_framework',
     'django_filters',
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,10 +85,10 @@ WSGI_APPLICATION = 'elitcity.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'elitcitydb',
-        'USER': 'elitcity',
-        'PASSWORD': 'elitcity5432',
-        'HOST': 'ec2-34-201-93-104.compute-1.amazonaws.com',
+        'NAME': 'postgresito',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres5432',
+        'HOST': 'database-2.cdrym9kklu4m.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -172,3 +173,4 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5
 }
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
