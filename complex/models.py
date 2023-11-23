@@ -60,6 +60,9 @@ class Complex(models.Model):
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2)
     type_of_roof = models.CharField(max_length=100)
+
+    ''' add for favorites. heart klick'''
+    favorite = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name
@@ -73,6 +76,8 @@ class Apartment(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2)
     floor_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
+    ''' add for favorites. heart klick'''
+    favorite = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.number_of_rooms} room(s) - {self.area}m² - {self.complex.name}"
