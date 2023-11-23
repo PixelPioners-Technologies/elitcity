@@ -41,8 +41,30 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
+class DirectAddress(models.Model):
+    street = models.CharField(max_length=200)
+    def __str__(self):
+        return self.street
+    
+class District(models.Model):
+    street = models.ForeignKey(DirectAddress,on_delete=models.CASCADE, related_name="ubnebi")
+    district = models.CharField(max_length=200)
+    def __str__(self):
+        return self.district
 
+class GeoUbani(models.Model):
+    district = models.ForeignKey(District,on_delete=models.CASCADE, related_name="raionebi")
+    sub_city = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.sub_city
+class GeoCities(models.Model):
+    ubani = models.ForeignKey(GeoUbani, on_delete=models.CASCADE, related_name="ubani")
+    geo_city = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.geo_city
+    
 class Complex(models.Model):
     ''' This ForeignKey establishes a many-to-one relationship between the Complex and Company models
     indicating that each Complex is associated with one Company
@@ -50,7 +72,7 @@ class Complex(models.Model):
     company = models.ForeignKey(Company, related_name='complexes', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=255)
-    address = models.TextField()
+    address = models.ForeignKey(DirectAddress,on_delete=models.CASCADE, related_name="project_address")
     price_per_sq_meter = models.DecimalField(max_digits=10, decimal_places=2)
     finished = models.BooleanField()
     space = models.DecimalField(max_digits=10, decimal_places=2)
@@ -63,8 +85,6 @@ class Complex(models.Model):
     
     def __str__(self):
         return self.name
-
-    
 
 class Apartment(models.Model):
     complex = models.ForeignKey(Complex, related_name='apartments', on_delete=models.CASCADE)
