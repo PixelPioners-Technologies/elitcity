@@ -81,3 +81,10 @@ class Apartment(models.Model):
 class ComplexImage(models.Model):
     complex = models.ForeignKey(Complex, related_name='test_images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='complex_images/')
+
+
+class VIPComplex(models.Model):
+    complex = models.OneToOneField(Complex , on_delete=models.CASCADE , related_name='vip_details' )
+
+    def __str__(self):
+        return self.complex.name
