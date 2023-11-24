@@ -60,7 +60,15 @@ class Complex(models.Model):
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2)
     type_of_roof = models.CharField(max_length=100)
-    
+    text1 = models.CharField(max_length=300, blank=True, null=True)
+    text2 = models.CharField(max_length=300, blank=True, null=True)
+    text3 = models.CharField(max_length=300, blank=True, null=True)
+    text4 = models.CharField(max_length=300, blank=True, null=True)
+    text5 = models.CharField(max_length=300, blank=True, null=True)
+    text6 = models.CharField(max_length=300, blank=True, null=True)
+    text7 = models.CharField(max_length=300, blank=True, null=True)
+    text8 = models.CharField(max_length=300, blank=True, null=True)
+
     def __str__(self):
         return self.name
 
@@ -88,3 +96,6 @@ class VIPComplex(models.Model):
 
     def __str__(self):
         return self.complex.name
+    
+
+

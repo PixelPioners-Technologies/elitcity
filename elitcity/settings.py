@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'elitcity.urls'
@@ -104,14 +106,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -195,3 +189,17 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5
 }
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+
+LANGUAGES = [
+    ('en', 'English'),
+    ('ru', 'Russian'),
+]
+
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en' 
+
+# IS_MONOLINGUAL=False
+
+USE_I18N = True
