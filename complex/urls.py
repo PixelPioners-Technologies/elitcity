@@ -9,7 +9,7 @@ router.register(r'companies' , CompanyViewSet , basename='companies' )
 router.register(r'images' ,  ComplexImageViewSet , basename='images' ) 
 router.register(r'apartments', ApartmentViewSet)
 router.register(r'vip-complexes', VIPComplexView, )
-router.register(r'top-complexes', TopCompanyViewSet, )
+router.register(r'top-company', TopCompanyViewSet, )
 
 
 urlpatterns = [
