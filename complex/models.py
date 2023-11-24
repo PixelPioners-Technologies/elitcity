@@ -98,4 +98,9 @@ class VIPComplex(models.Model):
         return self.complex.name
     
 
+class TopCompany(models.Model):
+    company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name='top_company' )
 
+    def __str__(self):
+        return self.company.name
+    

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Complex , ComplexImage, Company, Apartment , VIPComplex
+from .models import Complex , ComplexImage, Company, Apartment , VIPComplex , TopCompany
 
 
 
@@ -44,5 +44,7 @@ class VIPComplexSerializer(serializers.ModelSerializer):
 
 
 
-
-
+class TopCompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TopCompany
+        fields = '__all__'
