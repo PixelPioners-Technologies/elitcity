@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Complex, Apartment, Company, ComplexImage, GeoCities, GeoUbani, District, DirectAddress
-from .serializers import ComplexSerializer, ApartmentSerializer, CompanySerializer, ComplexImageSerializer,DirectAddressSerializer,DistrictSerializer,GeoCitiesSerializer,GeoUbaniSerializer
+from .models import Complex, Apartment, Company, DirectAddress, District, PharentDistrict, City, ComplexImage
+from .serializers import ComplexSerializer, ApartmentSerializer, CompanySerializer, DirectAddressSerializer, DistrictSerializer, PharentDistrictSerializer, CitySerializer, ComplexImageSerializer
 from .filters import ComplexFilter, ApartmentFilter
 from rest_framework.pagination import LimitOffsetPagination
 
@@ -9,14 +9,14 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 10
     max_limit = 100
 
-class GeoCitiesViewset(viewsets.ModelViewSet):
-    queryset = GeoCities.objects.all()
-    serializer_class = GeoCitiesSerializer
+class CityViewset(viewsets.ModelViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
     pagination_class = CustomLimitOffsetPagination
 
-class GeoUbaniViewset(viewsets.ModelViewSet):
-    queryset = GeoUbani.objects.all()
-    serializer_class = GeoUbaniSerializer
+class PharentDistrictViewset(viewsets.ModelViewSet):
+    queryset = PharentDistrict.objects.all()
+    serializer_class = PharentDistrictSerializer
     pagination_class = CustomLimitOffsetPagination
 
 class DistrictViewset(viewsets.ModelViewSet):

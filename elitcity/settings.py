@@ -85,10 +85,10 @@ WSGI_APPLICATION = 'elitcity.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgresito',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'postgres5432',
-        'HOST': 'database-2.cdrym9kklu4m.us-east-1.rds.amazonaws.com',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

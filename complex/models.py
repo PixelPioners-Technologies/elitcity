@@ -1,78 +1,55 @@
 from django.db import models
-
+from django.contrib.postgres.fields import ArrayField
 
 
 
 class Company(models.Model):
-
-    ''' კომპანიის სახელი ( დასახელება )'''
     name = models.CharField(max_length=255)
-
-    ''' 
-    კომპანიის მისამართი. მაგ: ილია ჭავჭავაძის გამზირი # 36 
-    '''
     address = models.TextField()
-    
-    ''' მობილური ტელეფონოის ნომერი, მაგ: 595456545'''
     Mobile = models.CharField(max_length=20)
-
-    ''' სახლის ტელეფონი. მაგ: 03222654854'''
     Mobile_Home = models.CharField(max_length=20)
-
-    ''' ცომპანიის მაილის მისამართი'''
     email = models.EmailField()
-
-    ''' კომპანიის ვებ გვერდის მისამართი (ლინკი)'''
     companyweb = models.URLField(max_length=200, blank=True, null=True)
-
-    ''' კომპანიის შესახებ ტექსტური ინფორმაცია'''
     aboutcompany = models.TextField(blank=True, null=True)
-
-    ''' კომპანიის ლოგო'''
     logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True)
-
-    ''' კომპანიის background ფოტო'''
     background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True)
-
-    ''' facebook - ის მისამართი'''
     facebook_page = models.URLField(blank=True, null=True)
-
 
     def __str__(self):
         return self.name
+    
+class City(models.Model):
+    city = models.CharField(max_length=50)
 
-class DirectAddress(models.Model):
-    street = models.CharField(max_length=200)
     def __str__(self):
-        return self.street
+        return self.city
+    
+class PharentDistrict(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="pharent_districts")
+    pharentDistrict = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.pharentDistrict
     
 class District(models.Model):
-    street = models.ForeignKey(DirectAddress,on_delete=models.CASCADE, related_name="ubnebi")
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="districts")
+    pharentDistrict = models.ForeignKey(PharentDistrict, on_delete=models.CASCADE, related_name="districts")
     district = models.CharField(max_length=200)
     def __str__(self):
         return self.district
-
-class GeoUbani(models.Model):
-    district = models.ForeignKey(District,on_delete=models.CASCADE, related_name="raionebi")
-    sub_city = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.sub_city
-class GeoCities(models.Model):
-    ubani = models.ForeignKey(GeoUbani, on_delete=models.CASCADE, related_name="ubani")
-    geo_city = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.geo_city
     
+class DirectAddress(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="direct_addresses")
+    pharentDistrict = models.ForeignKey(PharentDistrict, on_delete=models.CASCADE, related_name="direct_addresses")
+    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name="direct_addresses")
+    street = models.CharField(max_length=200)
+    def __str__(self):
+        return self.street
+        
 class Complex(models.Model):
-    ''' This ForeignKey establishes a many-to-one relationship between the Complex and Company models
-    indicating that each Complex is associated with one Company
-    and each Company can be associated with multiple Complex instances '''
     company = models.ForeignKey(Company, related_name='complexes', on_delete=models.CASCADE)
-
     name = models.CharField(max_length=255)
-    address = models.ForeignKey(DirectAddress,on_delete=models.CASCADE, related_name="project_address")
+    address = models.ForeignKey(DirectAddress,on_delete=models.CASCADE, related_name="complex")
     price_per_sq_meter = models.DecimalField(max_digits=10, decimal_places=2)
     finished = models.BooleanField()
     space = models.DecimalField(max_digits=10, decimal_places=2)
@@ -99,5 +76,7 @@ class Apartment(models.Model):
 
 
 class ComplexImage(models.Model):
-    complex = models.ForeignKey(Complex, related_name='test_images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='complex_images/')
+    complex = models.ForeignKey(Complex, related_name='images', on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='complex_images/')
+    def __str__(self):
+        return self.complex.name
