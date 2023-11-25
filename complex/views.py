@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Complex, Apartment, Company, ComplexImage , VIPComplex , TopCompany
-from .serializers import ComplexSerializer, ApartmentSerializer, CompanySerializer, ComplexImageSerializer , VIPComplexSerializer , TopCompanySerializer
+from .serializers import ComplexSerializer, ApartmentSerializer, CompanySerializer , VIPComplexSerializer , TopCompanySerializer ,SecomdComplexImageSerializer
 from .filters import ComplexFilter, ApartmentFilter
 from rest_framework.pagination import LimitOffsetPagination
 
@@ -32,7 +32,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
 
 class ComplexImageViewSet(viewsets.ModelViewSet):
     queryset = ComplexImage.objects.all()
-    serializer_class = ComplexImageSerializer
+    serializer_class = SecomdComplexImageSerializer
     pagination_class = CustomLimitOffsetPagination
 
 

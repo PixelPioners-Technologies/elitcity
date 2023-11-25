@@ -3,10 +3,22 @@ from .models import Complex , ComplexImage, Company, Apartment , VIPComplex , To
 
 
 
+class SecomdComplexImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ComplexImage
+        fields = '__all__'
+
+
+
 class ComplexImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ComplexImage
-        fields = ['complex', 'image']
+        fields = ['image']
+
+    # Override the to_representation method to return only the image URL
+    # ეს ფუნქცია აბრუნებინებს მხოლოდ სურატებს  ფიგურული ფრჩხილების გარეშე
+    def to_representation(self, instance):
+        return instance.image.url
 
 class ApartmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,6 +36,8 @@ class ComplexSerializer(serializers.ModelSerializer):
     def get_apartments(self, obj):
         return list(obj.apartments.values_list('id', flat=True))
 
+    def get_images(self, obj):
+        return list(obj.apartments.values_list('image', flat=True))
 
 
 class CompanySerializer(serializers.ModelSerializer):

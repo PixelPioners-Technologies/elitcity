@@ -87,9 +87,13 @@ class Apartment(models.Model):
 
 
 class ComplexImage(models.Model):
-    complex = models.ForeignKey(Complex, related_name='test_images', on_delete=models.CASCADE)
+    complex = models.ForeignKey(Complex, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='complex_images/')
 
+    # def save(self, *args, **kwargs):
+    #     if not self.complex_id:
+    #         raise ValueError("Complex ID must be set")
+    #     super(ComplexImage, self).save(*args, **kwargs)
 
 class VIPComplex(models.Model):
     complex = models.OneToOneField(Complex , on_delete=models.CASCADE , related_name='vip_details' )
