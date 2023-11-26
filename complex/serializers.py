@@ -13,10 +13,7 @@ class CompanySerializerForView(serializers.ModelSerializer):
     def get_complexes(self, obj):
         return list(obj.complexes.values_list('id', flat=True))
 
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = '__all__'
+
     
 class ApartmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -129,9 +126,12 @@ class ApartmentImageSerializer(serializers.ModelSerializer):
         model = ApartmentImage
         fields = ['apartment', 
                   'images']        
-
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = '__all__'
+        
 class ComplexSerializer(serializers.ModelSerializer):
-    # address = DirectAddressSerializer(read_only=True)
     company = CompanySerializer(read_only=True)
     images = ComplexImageSerializer(many=True, read_only=True)
     address = serializers.PrimaryKeyRelatedField(
@@ -145,36 +145,17 @@ class ComplexSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Complex
-        fields = ['id', 
-                  'company', 
-                  'address',
-                  'name',
-                  'price_per_sq_meter', 
-                  'finished', 'space', 
-                  'number_of_apartments', 
-                  'number_of_houses', 
-                  'number_of_floors', 
-                  'phone_number', 
-                  'plot_area', 
-                  'type_of_roof', 
-                  'images']
+        fields ='__all__'
         
     def create(self, validated_data):
         address_data = validated_data.pop('address')
-        # direct_address_instance = DirectAddress.objects.create(**address_data)
         complex_instance = Complex.objects.create(address=address_data, **validated_data)
         return complex_instance
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        # Include the 'address' field in the response
         data['address'] = DirectAddressSerializer(instance.address).data
         data['company'] = CompanySerializer(instance.company).data
         return data
-    # def to_representation(self, instance):
-    #     data = super().to_representation(instance)
-    #     # Include the 'address' field in the response
-        
-    #     return data
 
 class VIPComplexSerializer(serializers.ModelSerializer):
     class Meta:

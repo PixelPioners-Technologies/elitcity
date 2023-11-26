@@ -1,6 +1,10 @@
 from modeltranslation.translator import translator, TranslationOptions
 from .models import Complex , Company
 
+class CompanyTranslationOptions(TranslationOptions):
+    fields = ( 'name', 
+              'address', 
+              'aboutcompany' ,  )
 class ComplexTranslationOptions(TranslationOptions):
     fields = ('name', 
                 'address',
@@ -16,11 +20,4 @@ class ComplexTranslationOptions(TranslationOptions):
                   )
 
 translator.register(Complex, ComplexTranslationOptions)
-
-
-class CompanyTranslationOptions(TranslationOptions):
-    fields = ( 'name', 'address', 'aboutcompany' ,  )
-
-
-
 translator.register(Company , CompanyTranslationOptions )
