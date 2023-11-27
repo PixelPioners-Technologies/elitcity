@@ -5,11 +5,9 @@ from .models import Complex , Company, Apartment, \
 
 class CompanySerializerForView(serializers.ModelSerializer):
     complexes = serializers.SerializerMethodField()
-
     class Meta:
         model = Company
         fields = '__all__'
-
     def get_complexes(self, obj):
         return list(obj.complexes.values_list('id', flat=True))
 
@@ -166,3 +164,4 @@ class TopCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = TopCompany
         fields = '__all__'
+
