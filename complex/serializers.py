@@ -1,188 +1,622 @@
 from rest_framework import serializers
 from .models import *
 
-
-
-class CitySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = ['city_ka', 'city_en', 'city_ru']
-
-class PharentDistrictSerializer(serializers.ModelSerializer):
-    city = serializers.StringRelatedField()
-    class Meta:
-        model = PharentDistrict
-        fields = '__all__'
-
 class LangSerializer(serializers.ModelSerializer):
-    # cities = CitySerializer(many=True)
 
     class Meta:
-        model = Lang
-        fields = ['language', 'cities']
+        model = Language
+        fields = ['language']
+'''
+-----------------------------------------------------------------------
+            CITY SERIALIZERS
+-----------------------------------------------------------------------
+'''
+class City_KA_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    lang = LangSerializer(many=True, read_only=True)
+    class Meta:
+        model = City_KA
+        fields = ['city_ka','lang','lang_id']
+
+class City_EN_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    lang = LangSerializer(many=True, read_only=True)
+    class Meta:
+        model = City_EN
+        fields = ['city_en','lang','lang_id']
+        
+class City_RU_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    lang = LangSerializer(many=True, read_only=True)
+    class Meta:
+        model = City_RU
+        fields = ['city_ru','lang','lang_id']
+'''
+-----------------------------------------------------------------------
+            PHARENTDISTRICT SERIALIZERS
+-----------------------------------------------------------------------
+'''
+class PharentDistrict_KA_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_KA.objects.all(),
+        source = 'city_ka',
+        write_only = True,
+    )
+    city_ka = City_KA_Serializer( read_only=True)
+    class Meta:
+        model = PharentDistrict_KA
+        fields = ['city_id','city_ka', 'pharentDistrict_ka', 'lang_id']
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'city_ka': representation['city_ka']['city_ka'],
+            'pharentDistrict_ka': representation['pharentDistrict_ka'],
+            'lang': representation['city_ka']['lang'],
+        }
+
+class PharentDistrict_EN_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_EN.objects.all(),
+        source = 'city_en',
+        write_only = True,
+    )
+    city_en = City_EN_Serializer(read_only=True)
+    class Meta:
+        model = PharentDistrict_EN
+        fields = ['city_id','city_en', 'pharentDistrict_en', 'lang_id']
 
     def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'city_en': representation['city_en']['city_en'],
+            'pharentDistrict_en': representation['pharentDistrict_en'],
+            'lang': representation['city_en']['lang'],
+        }
+
+class PharentDistrict_RU_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_RU.objects.all(),
+        source = 'city_ru',
+        write_only = True,
+    )
+    city_ru = City_EN_Serializer(read_only=True)
+    class Meta:
+        model = PharentDistrict_RU
+        fields = ['city_id','city_ru', 'pharentDistrict_ru', 'lang_id']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'city_ru': representation['city_ru']['city_ru'],
+            'pharentDistrict_ru': representation['pharentDistrict_ru'],
+            'lang': representation['city_ru']['lang'],
+        }
+'''
+-----------------------------------------------------------------------
+            DISTRICT SERIALIZERS
+-----------------------------------------------------------------------
+'''
+class District_KA_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_KA.objects.all(),
+        source = 'city_ka',
+        write_only = True,
+    )
+    pharentDistrict_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = PharentDistrict_KA.objects.all(),
+        source = 'pharentDistrict_ka',
+        write_only = True,
+    )
+    pharentDistrict_ka = PharentDistrict_KA_Serializer(read_only=True)
+    class Meta:
+        model = District_KA
+        fields = ['id','city_id', 'pharentDistrict_ka_id', 'pharentDistrict_ka', 'district_ka', 'lang_id']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'id': representation['id'],
+            'lang': representation['pharentDistrict_ka']['lang'][0]["language"],
+            'city_ka': representation['pharentDistrict_ka']['city_ka'],
+            'pharentDistrict_ka': representation['pharentDistrict_ka']['pharentDistrict_ka'],
+            'district_ka': representation['district_ka'],
+            
+        }
+
+class District_EN_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_EN.objects.all(),
+        source = 'city_en',
+        write_only = True,
+    )
+
+    pharentDistrict_en = PharentDistrict_EN_Serializer(read_only=True)
+    class Meta:
+        model = District_EN
+        fields = ['city_id', 'city_en', 'pharentDistrict_en', 'district_en', 'lang_id']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'id': representation['id'],
+            'lang': representation['pharentDistrict_ka']['lang'][0]["language"],
+            'city_en': representation['pharentDistrict_en']['city_en'],
+            'pharentDistrict_en': representation['pharentDistrict_en']['pharentDistrict_en'],
+            'district_en': representation['district_en'],
+            'lang': representation['pharentDistrict_en']['lang'],
+        }
+
+class District_RU_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_RU.objects.all(),
+        source = 'city_ru',
+        write_only = True,
+    )
+    pharentDistrict_ru = PharentDistrict_EN_Serializer(read_only=True)
+    class Meta:
+        model = District_RU
+        fields = ['city_id', 'city_ru', 'pharentDistrict_ru', 'district_ru', 'lang_id']
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'id': representation['id'],
+            'lang': representation['pharentDistrict_ka']['lang'][0]["language"],
+            'city_ru': representation['pharentDistrict_ru']['city_ru'],
+            'pharentDistrict_ru': representation['pharentDistrict_ru']['pharentDistrict_ru'],
+            'district_ru': representation['district_ru'],
+            'lang': representation['pharentDistrict_ru']['lang'],
+        }
+'''
+-----------------------------------------------------------------------
+            STREETNAME SERIALIZERS
+-----------------------------------------------------------------------
+'''
+class Street_Name_KA_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_KA.objects.all(),
+        source = 'city_ka',
+        write_only = True,
+    )
+    district_id = serializers.PrimaryKeyRelatedField(
+        queryset = District_KA.objects.all(),
+        source = 'district_ka',
+        write_only = True,
+    )
+    district_ka = District_KA_Serializer(read_only=True)
+    class Meta:
+        model = Street_Name_KA
+        fields = ['id',"city_id", 'pharentDistrict_ka', 'district_id','district_ka', 'street_name_ka', "lang_id"]
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'id': representation['id'],
+            'lang': representation['district_ka']['lang'],
+            'city_ka': representation['district_ka']['city_ka'],
+            'pharentDistrict_ka': representation['district_ka']['pharentDistrict_ka'],
+            'district_ka': representation['district_ka']['district_ka'],
+            'street_name_ka':representation['street_name_ka'],
+        }
+
+class Street_Name_EN_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_KA.objects.all(),
+        source = 'city_en',
+        write_only = True,
+    )
+    district_ka = District_EN_Serializer(read_only=True)
+    class Meta:
+        model = Street_Name_EN
+        fields = ['id',"city_id",'city_en', 'pharentDistrict_en', 'district_en', 'street_name_en', "lang_id"]
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'id': representation['id'],
+            'lang': representation['district_en']['lang'],
+            'city_en': representation['district_en']['city_en'],
+            'pharentDistrict_en': representation['district_en']['pharentDistrict_en'],
+            'district_en': representation['district_en']['district_en'],
+            'street_name_en':representation['street_name_en'],
+        }
+
+class Street_Name_RU_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_RU.objects.all(),
+        source = 'city_ru',
+        write_only = True,
+    )
+    district_ka = District_EN_Serializer(read_only=True)
+    class Meta:
+        model = Street_Name_EN
+        fields = ['id',"city_id",'city_ru', 'pharentDistrict_ru', 'district_ru', 'street_name_ru', "lang_id"]
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        return {
+            'id': representation['id'],
+            'lang': representation['district_ru']['lang'],
+            'city_ru': representation['district_ru']['city_ru'],
+            'pharentDistrict_ru': representation['district_ru']['pharentDistrict_ru'],
+            'district_ru': representation['district_ru']['district_ru'],
+            'street_name_ru':representation['street_name_ru'],
+        }
+
+'''
+-----------------------------------------------------------------------
+            ADDRESS SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class Address_KA_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_KA.objects.all(),
+        source = 'city_ka',
+        write_only = True,
+    )
+    district_id = serializers.PrimaryKeyRelatedField(
+        queryset = District_KA.objects.all(),
+        source = 'district_ka',
+        write_only = True,
+    )
+    street_name_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = Street_Name_KA.objects.all(),
+        source = 'street_name_ka',
+        write_only = True,
+    )
+    street_name_ka = Street_Name_KA_Serializer(read_only=True)
+    class Meta:
+        model = Address_KA
+        fields = ['city_id','pharentDistrict_ka','district_id','street_name_ka_id','id', 'street_name_ka',"address_ka", "longitude", "latitude",'lang_id']
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        print(representation)
+        return {
+            'id': representation['id'],
+            'lang': representation['street_name_ka']['lang'],
+            'city_ka': representation['street_name_ka']['city_ka'],
+            'pharentDistrict_ka': representation['street_name_ka']['pharentDistrict_ka'],
+            'district_ka': representation['street_name_ka']['district_ka'],
+            'street_name_ka':representation['street_name_ka']['street_name_ka'],
+            'address_ka':representation['address_ka'],
+            'longitude': representation['longitude'],
+            'latitude': representation['latitude'],
+        }
+
+class Address_EN_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_EN.objects.all(),
+        source = 'city_en',
+        write_only = True,
+    )
+    district_id = serializers.PrimaryKeyRelatedField(
+        queryset = District_EN.objects.all(),
+        source = 'district_en',
+        write_only = True,
+    )
+    street_name_en_id = serializers.PrimaryKeyRelatedField(
+        queryset = Street_Name_EN.objects.all(),
+        source = 'street_name_en',
+        write_only = True,
+    )
+    street_name_en = Street_Name_EN_Serializer(read_only=True)
+    class Meta:
+        model = Address_EN
+        fields = ['city_id','pharentDistrict_en','district_id','street_name_en_id','id', 'street_name_en',"address_en", "longitude", "latitude",'lang_id']
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        print(representation)
+        return {
+            'id': representation['id'],
+            'lang': representation['street_name_en']['lang'],
+            'city_en': representation['street_name_en']['city_en'],
+            'pharentDistrict_en': representation['street_name_en']['pharentDistrict_en'],
+            'district_en': representation['street_name_en']['district_en'],
+            'street_name_en':representation['street_name_en']['street_name_en'],
+            'address_en':representation['address_en'],
+            'longitude': representation['longitude'],
+            'latitude': representation['latitude'],
+        }
+
+class Address_RU_Serializer(serializers.ModelSerializer):
+    lang_id = serializers.PrimaryKeyRelatedField(
+        queryset = Language.objects.all(),
+        source = 'lang',
+        many = True,
+        write_only = True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        queryset = City_RU.objects.all(),
+        source = 'city_ru',
+        write_only = True,
+    )
+    district_id = serializers.PrimaryKeyRelatedField(
+        queryset = District_RU.objects.all(),
+        source = 'district_ru',
+        write_only = True,
+    )
+    street_name_ru_id = serializers.PrimaryKeyRelatedField(
+        queryset = Street_Name_RU.objects.all(),
+        source = 'street_name_ru',
+        write_only = True,
+    )
+    street_name_ru = Street_Name_RU_Serializer(read_only=True)
+    class Meta:
+        model = Address_RU
+        fields = ['city_id','pharentDistrict_ru','district_id','street_name_ru_id','id', 'street_name_ru',"address_ru", "longitude", "latitude",'lang_id']
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        print(representation)
+        return {
+            'id': representation['id'],
+            'lang': representation['street_name_ru']['lang'],
+            'city_ru': representation['street_name_ru']['city_ru'],
+            'pharentDistrict_ru': representation['street_name_ru']['pharentDistrict_ru'],
+            'district_ru': representation['street_name_ru']['district_ru'],
+            'street_name_ru':representation['street_name_ru']['street_name_ru'],
+            'address_ru':representation['address_ru'],
+            'longitude': representation['longitude'],
+            'latitude': representation['latitude'],
+        }
+    
+'''
+-----------------------------------------------------------------------
+            COMAPNY SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class Company_name_serializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = Company_Names
+        fields = '__all__'
+    
+    
+class Company_Image_serializers(serializers.ModelSerializer):
+    internal_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_Names.objects.all(),
+        source = 'internal_name',
+        write_only = True
+    )
+    internal_name = Company_name_serializers(read_only = True)
+    class Meta:
+        model = Company_Images
+        fields = ['id',"internal_name_id",'internal_name','logocompany','background_image']
+    def to_representation(self, instance):
         data = super().to_representation(instance)
-        temp_dict = {}
+        return {
+            'id':data['id'],
+            'record_id':data['internal_name']['id'],
+            'internal_name':data['internal_name']['internal_name'],
+            'Mobile':data['internal_name']['Mobile'],
+            'Mobile_Home':data['internal_name']['Mobile_Home'],
+            'email':data['internal_name']['email'],
+            'companyweb':data['internal_name']['companyweb'],
+            'facebook_page':data['internal_name']['facebook_page'],
+            'logocompany':data['logocompany'],
+            'background_image':data['background_image'],
+        }
 
-        # Dynamically construct the field name based on the language suffix
-        language_field = f"city_{data['language'].lower()}"
+class Company_KA_serializers(serializers.ModelSerializer):
+    internal_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_Images.objects.all(),
+        source = 'internal_name',
+        write_only = True,
+    )
+    internal_name = Company_Image_serializers(read_only=True)
+    class Meta:
+        model = Company_KA
+        fields = ['internal_name_id', "internal_name", 'name_ka', 'address_ka', 'aboutcompany_ka']
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        return {
+            #'id':data['id'],
+            'record_id':data['internal_name']['id'],
+            'internal_name':data['internal_name']['internal_name'],
+            'Mobile':data['internal_name']['Mobile'],
+            'Mobile_Home':data['internal_name']['Mobile_Home'],
+            'email':data['internal_name']['email'],
+            'companyweb':data['internal_name']['companyweb'],
+            'facebook_page':data['internal_name']['facebook_page'],
+            'logocompany':data['internal_name']['logocompany'],
+            'background_image':data['internal_name']['background_image'],
+            'name_ka': data['name_ka'],
+            'address_ka':data['address_ka'],
+            'aboutcompany_ka':data['aboutcompany_ka'],
+        }
 
-        # Query City data for the specific language
-        test = City.objects.values(language_field)
-
-        temp_dict['language'] = data['language']
-        temp_dict['cities'] = test  # Add the queried City data to the result
-
-        return temp_dict
-# class CompanySerializerForView(serializers.ModelSerializer):
-#     complexes = serializers.SerializerMethodField()
-#     class Meta:
-#         model = Company
-#         fields = '__all__'
-#     def get_complexes(self, obj):
-#         return list(obj.complexes.values_list('id', flat=True))
-
-
-    
-# class ApartmentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Apartment
-#         fields = '__all__'
-
-# class CitySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = City
-#         fields = ['city']
-
-
-
-# class DistrictSerializer(serializers.ModelSerializer):
-#     city = serializers.StringRelatedField()
-#     pharentDistrict = serializers.StringRelatedField()
-#     city_id = serializers.PrimaryKeyRelatedField(
-#         queryset = City.objects.all(),
-#         source = 'city',
-#         write_only = True,
-#     )
-#     pharentDistrict_id = serializers.PrimaryKeyRelatedField(
-#         queryset = PharentDistrict.objects.all(),
-#         source = 'pharentDistrict',
-#         write_only = True,
-#     )
-#     class Meta:
-#         model = District
-#         fields = ['city',
-#                   'pharentDistrict',
-#                   'district',
-#                   'city_id',
-#                   'pharentDistrict_id']
-
-# class DirectAddressSerializerForView(serializers.ModelSerializer):
-
-#     city = serializers.StringRelatedField()
-#     pharentDistrict = serializers.StringRelatedField()
-#     district = serializers.StringRelatedField()
-#     city_id = serializers.PrimaryKeyRelatedField(
-#         queryset = City.objects.all(),
-#         source = 'city',
-#         write_only = True,
-#     )
-#     pharentDistrict_id = serializers.PrimaryKeyRelatedField(
-#         queryset = PharentDistrict.objects.all(),
-#         source = 'pharentDistrict',
-#         write_only = True,
-#     )
-#     district_id = serializers.PrimaryKeyRelatedField(
-#         queryset = District.objects.all(),
-#         source = 'district',
-#         write_only = True,
-#     )
-    
-#     class Meta:
-#         model = DirectAddress
-#         fields = ['id',
-#                   'city', 
-#                   'pharentDistrict', 
-#                   'district',
-#                   'street',
-#                   'latitude', 
-#                   'longitude',
-#                   'city_id', 
-#                   'pharentDistrict_id',
-#                   'district_id']
-
-# class DirectAddressSerializer(serializers.ModelSerializer):
-
-#     city = serializers.StringRelatedField()
-#     pharentDistrict = serializers.StringRelatedField()
-#     district = serializers.StringRelatedField()
-#     class Meta:
-#         model = DirectAddress
-#         fields = ['id',
-#                   'city', 
-#                   'pharentDistrict', 
-#                   'district',
-#                   'street',
-#                   'latitude', 
-#                   'longitude']
-
-# class ComplexImageSerializerForView(serializers.ModelSerializer):
-#     class Meta:
-#         model = ComplexImage
-#         fields = ['complex', 
-#                   'images']
-
-# class ComplexImageSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ComplexImage
-#         fields = ['images']
-#     def to_representation(self, instance):
-#         return instance.images.url
-
-# class ApartmentImageSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ApartmentImage
-#         fields = ['apartment', 
-#                   'images']        
-# class CompanySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Company
-#         fields = '__all__'
+class Company_EN_serializers(serializers.ModelSerializer):
+    internal_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_Images.objects.all(),
+        source = 'internal_name',
+        write_only = True,
+    )
+    internal_name = Company_Image_serializers(read_only=True)
+    class Meta:
+        model = Company_EN
+        fields = ['id','internal_name_id', "internal_name", 'name_en', 'address_en', 'aboutcompany_en']
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
         
-# class ComplexSerializer(serializers.ModelSerializer):
-#     company = CompanySerializer(read_only=True)
-#     images = ComplexImageSerializer(many=True, read_only=True)
-#     address = serializers.PrimaryKeyRelatedField(
-#         queryset=DirectAddress.objects.all(),
-#         write_only=True
-#     )
-#     company = serializers.PrimaryKeyRelatedField(
-#         queryset=Company.objects.all(),
-#         write_only=True
-#     )
+        return {
+            'id':data['id'],
+            'record_id':data['internal_name']['id'],
+            'internal_name':data['internal_name']['internal_name'],
+            'Mobile':data['internal_name']['Mobile'],
+            'Mobile_Home':data['internal_name']['Mobile_Home'],
+            'email':data['internal_name']['email'],
+            'companyweb':data['internal_name']['companyweb'],
+            'facebook_page':data['internal_name']['facebook_page'],
+            'logocompany':data['internal_name']['logocompany'],
+            'background_image':data['internal_name']['background_image'],
+            'name_en': data['name_en'],
+            'address_en':data['address_en'],
+            'aboutcompany_en':data['aboutcompany_en'],
+        }
 
-#     class Meta:
-#         model = Complex
-#         fields ='__all__'
+class Company_RU_serializers(serializers.ModelSerializer):
+    internal_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_Images.objects.all(),
+        source = 'internal_name',
+        write_only = True,
+    )
+    internal_name = Company_Image_serializers(read_only=True)
+    class Meta:
+        model = Company_RU
+        fields = ['internal_name_id', "internal_name", 'name_ru', 'address_ru', 'aboutcompany_ru']
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        return {
+            'id':data['id'],
+            'record_id':data['internal_name']['id'],
+            'internal_name':data['internal_name']['internal_name'],
+            'Mobile':data['internal_name']['Mobile'],
+            'Mobile_Home':data['internal_name']['Mobile_Home'],
+            'email':data['internal_name']['email'],
+            'companyweb':data['internal_name']['companyweb'],
+            'facebook_page':data['internal_name']['facebook_page'],
+            'logocompany':data['internal_name']['logocompany'],
+            'background_image':data['internal_name']['background_image'],
+            'name_ru': data['name_ru'],
+            'address_ru':data['address_ru'],
+            'aboutcompany_ru':data['aboutcompany_ru'],
+        }
+
+'''
+-----------------------------------------------------------------------
+            COMPLEX SERIALIZERS
+-----------------------------------------------------------------------
+'''
+class Complex_Name_Serializers(serializers.ModelSerializer):
+    class Meta:
+        model = Complex_Names
+        fields = '__all__'
+    
+class Complex_Image_Serializers(serializers.ModelSerializer):
+    class Meta:
+        model = Complex_Images
+        fields = '__all__'
+
+class Complex_Image_Serializers_For_Complexes(serializers.ModelSerializer):
+    class Meta:
+        model = Complex_Images
+        fields = ["images"]
+    def to_representation(self, instance):
+        if isinstance(instance, QuerySet):
+            return [image.images.url for image in instance]
+        return instance.images.url
         
-#     def create(self, validated_data):
-#         address_data = validated_data.pop('address')
-#         complex_instance = Complex.objects.create(address=address_data, **validated_data)
-#         return complex_instance
-#     def to_representation(self, instance):
-#         data = super().to_representation(instance)
-#         data['address'] = DirectAddressSerializer(instance.address).data
-#         data['company'] = CompanySerializer(instance.company).data
-#         return data
 
-# class VIPComplexSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = VIPComplex
-#         fields = '__all__'
-
-# class TopCompanySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = TopCompany
-#         fields = '__all__'
-
+class Complex_KA_Serializers(serializers.ModelSerializer):
+    internal_complex_name = Complex_Image_Serializers_For_Complexes(many=True, read_only=True)
+    company_ka = Company_KA_serializers(read_only=True)
+    address_ka = Address_KA_Serializer(read_only=True)
+    address_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_KA.objects.all(),
+        source = 'address_ka',
+        write_only = True
+    )
+    internal_complex_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Images.objects.all(),
+        source = 'internal_complex_name',
+        write_only = True
+    )
+    company_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_KA.objects.all(),
+        source = 'company_ka',
+        write_only = True
+    )
+    class Meta:
+        model = Complex_KA
+        fields = '__all__'
+    
+class Complex_EN_Serializers(serializers.ModelSerializer):
+    class Meta:
+        model = Complex_EN
+        fields = '__all__'
+    
+class Complex_RU_Serializers(serializers.ModelSerializer):
+    class Meta:
+        model = Complex_RU
+        fields = '__all__'
