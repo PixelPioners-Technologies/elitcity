@@ -62,7 +62,7 @@ class City_RU_Serializer(serializers.ModelSerializer):
         print(data)
         return {'id': data['id'],
                 'city_ru': data['city_ru'],
-                'language': data['language']}
+                'language': data['lang'][0]['language']}
 '''
 -----------------------------------------------------------------------
             PHARENTDISTRICT SERIALIZERS
@@ -241,11 +241,11 @@ class District_RU_Serializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         return {
             'id': representation['id'],
-            'lang': representation['pharentDistrict_ka']["language"],
+            'lang': representation['pharentDistrict_ru']["language"],
             'city_ru': representation['pharentDistrict_ru']['city_ru'],
             'pharentDistrict_ru': representation['pharentDistrict_ru']['pharentDistrict_ru'],
             'district_ru': representation['district_ru'],
-            'lang': representation['pharentDistrict_ru']['lang'],
+            'lang': representation['pharentDistrict_ru']['language'],
         }
 '''
 -----------------------------------------------------------------------
@@ -292,14 +292,19 @@ class Street_Name_EN_Serializer(serializers.ModelSerializer):
         write_only = True,
     )
     city_id = serializers.PrimaryKeyRelatedField(
-        queryset = City_KA.objects.all(),
+        queryset = City_EN.objects.all(),
         source = 'city_en',
         write_only = True,
     )
-    district_ka = District_EN_Serializer(read_only=True)
+    district_id = serializers.PrimaryKeyRelatedField(
+        queryset = District_EN.objects.all(),
+        source = 'district_en',
+        write_only = True,
+    )
+    district_en = District_EN_Serializer(read_only=True)
     class Meta:
         model = Street_Name_EN
-        fields = ['id',"city_id",'city_en', 'pharentDistrict_en', 'district_en', 'street_name_en', "lang_id"]
+        fields = ['id',"city_id", 'pharentDistrict_en', "district_id",'district_en', 'street_name_en', "lang_id"]
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
