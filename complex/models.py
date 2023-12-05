@@ -41,7 +41,7 @@ class PharentDistrict_KA(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.pharentDistrict_ka
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka}"
     
 
 class PharentDistrict_EN(models.Model):
@@ -50,7 +50,7 @@ class PharentDistrict_EN(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.pharentDistrict_en
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en}"
     
 class PharentDistrict_RU(models.Model):
     city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
@@ -58,7 +58,7 @@ class PharentDistrict_RU(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.pharentDistrict_ru 
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru}"
 '''
 -----------------------------------------------------------------------
             DISTRICT MODELS
@@ -71,7 +71,7 @@ class District_KA(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.district_ka
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka}"
 
 class District_EN(models.Model):
     city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
@@ -80,7 +80,7 @@ class District_EN(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.district_en
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en}"
     
 class District_RU(models.Model):
     city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
@@ -89,7 +89,7 @@ class District_RU(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.district_ru
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru.pharentDistrict_ru} - {self.district_ru}"
 '''
 -----------------------------------------------------------------------
             STREET_NAME MODELS
