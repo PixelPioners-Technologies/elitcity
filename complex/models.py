@@ -103,7 +103,7 @@ class Street_Name_KA(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.street_name_ka
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka.district_ka} - {self.street_name_ka}" 
 
 class Street_Name_EN(models.Model):
     city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
@@ -113,7 +113,7 @@ class Street_Name_EN(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.street_name_en
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en.district_en} - {self.street_name_en}" 
     
 class Street_Name_RU(models.Model):
     city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
@@ -123,7 +123,7 @@ class Street_Name_RU(models.Model):
     lang = models.ManyToManyField(Language)
 
     def __str__(self):
-        return self.street_name_ru
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru.pharentDistrict_ru} - {self.district_ru.district_ru} - {self.street_name_ru}" 
 '''
 -----------------------------------------------------------------------
             ADDRESS MODELS

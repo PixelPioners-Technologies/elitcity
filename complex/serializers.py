@@ -340,14 +340,15 @@ class Street_Name_RU_Serializer(serializers.ModelSerializer):
         fields = ['id',"city_id", 'pharentDistrict_ru', 'district_id','district_ru', 'street_name_ru', "lang_id"]
 
     def to_representation(self, instance):
-        representation = super().to_representation(instance)
+        data = super().to_representation(instance)
+        print(data)
         return {
-            'id': representation['id'],
-            'lang': representation['district_ru']['language'],
-            'city_ru': representation['district_ru']['city_ru'],
-            'pharentDistrict_ru': representation['district_ru']['pharentDistrict_ru'],
-            'district_ru': representation['district_ru']['district_ru'],
-            'street_name_ru':representation['street_name_ru'],
+            'id': data['id'],
+            'lang': data['district_ru']['lang'],
+            'city_ru': data['district_ru']['city_ru'],
+            'pharentDistrict_ru': data['district_ru']['pharentDistrict_ru'],
+            'district_ru': data['district_ru']['district_ru'],
+            'street_name_ru':data['street_name_ru'],
         }
 
 '''
@@ -383,18 +384,18 @@ class Address_KA_Serializer(serializers.ModelSerializer):
         model = Address_KA
         fields = ['city_id','pharentDistrict_ka','district_id','street_name_ka_id','id', 'street_name_ka',"address_ka", "longitude", "latitude",'lang_id']
     def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        print(representation)
+        data = super().to_representation(instance)
+        print(data)
         return {
-            'id': representation['id'],
-            'lang': representation['street_name_ka']['lang'],
-            'city_ka': representation['street_name_ka']['city_ka'],
-            'pharentDistrict_ka': representation['street_name_ka']['pharentDistrict_ka'],
-            'district_ka': representation['street_name_ka']['district_ka'],
-            'street_name_ka':representation['street_name_ka']['street_name_ka'],
-            'address_ka':representation['address_ka'],
-            'longitude': representation['longitude'],
-            'latitude': representation['latitude'],
+            'id': data['id'],
+            'lang': data['street_name_ka']['lang'],
+            'city_ka': data['street_name_ka']['city_ka'],
+            'pharentDistrict_ka': data['street_name_ka']['pharentDistrict_ka'],
+            'district_ka': data['street_name_ka']['district_ka'],
+            'street_name_ka':data['street_name_ka']['street_name_ka'],
+            'address_ka':data['address_ka'],
+            'longitude': data['longitude'],
+            'latitude': data['latitude'],
         }
 
 class Address_EN_Serializer(serializers.ModelSerializer):
