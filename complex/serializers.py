@@ -310,7 +310,7 @@ class Street_Name_EN_Serializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         return {
             'id': representation['id'],
-            'lang': representation['district_en']['lang'],
+            'lang': representation['district_en']['language'],
             'city_en': representation['district_en']['city_en'],
             'pharentDistrict_en': representation['district_en']['pharentDistrict_en'],
             'district_en': representation['district_en']['district_en'],
@@ -329,16 +329,21 @@ class Street_Name_RU_Serializer(serializers.ModelSerializer):
         source = 'city_ru',
         write_only = True,
     )
-    district_ka = District_EN_Serializer(read_only=True)
+    district_id = serializers.PrimaryKeyRelatedField(
+        queryset = District_RU.objects.all(),
+        source = 'district_ru',
+        write_only = True,
+    )
+    district_ru = District_RU_Serializer(read_only=True)
     class Meta:
-        model = Street_Name_EN
-        fields = ['id',"city_id",'city_ru', 'pharentDistrict_ru', 'district_ru', 'street_name_ru', "lang_id"]
+        model = Street_Name_RU
+        fields = ['id',"city_id", 'pharentDistrict_ru', 'district_id','district_ru', 'street_name_ru', "lang_id"]
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         return {
             'id': representation['id'],
-            'lang': representation['district_ru']['lang'],
+            'lang': representation['district_ru']['language'],
             'city_ru': representation['district_ru']['city_ru'],
             'pharentDistrict_ru': representation['district_ru']['pharentDistrict_ru'],
             'district_ru': representation['district_ru']['district_ru'],

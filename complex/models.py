@@ -108,7 +108,7 @@ class Street_Name_KA(models.Model):
 class Street_Name_EN(models.Model):
     city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
     pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE)
-    district_en = models.ForeignKey(District_KA, on_delete=models.CASCADE)
+    district_en = models.ForeignKey(District_EN, on_delete=models.CASCADE)
     street_name_en = models.CharField(max_length=50)
     lang = models.ManyToManyField(Language)
 
@@ -117,8 +117,8 @@ class Street_Name_EN(models.Model):
     
 class Street_Name_RU(models.Model):
     city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
-    pharentDistrict_ru = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE)
-    district_ka = models.ForeignKey(District_KA, on_delete=models.CASCADE)
+    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE)
+    district_ru = models.ForeignKey(District_RU, on_delete=models.CASCADE)
     street_name_ru = models.CharField(max_length=50)
     lang = models.ManyToManyField(Language)
 
