@@ -38,10 +38,16 @@ def api_root(request, format=None):
         language.language: reverse(f'{language.language.lower()}-complex-list', request=request, format=format)
         for language in Language.objects.all()
     }
+    apartment_links = {
+        language.language: reverse(f'{language.language.lower()}-apartment-list', request=request, format=format)
+        for language in Language.objects.all()
+    }
     company_links['uni-data'] = reverse('uni-company-list', request=request, format=format)
     company_links['uni-images'] = reverse('uni-company-images-list', request=request, format=format)
     complex_links['uni-data'] = reverse('uni-complex-list', request=request, format=format)
     complex_links['uni-images'] = reverse('uni-complex-images-list', request=request, format=format)
+    apartment_links['uni-data'] = reverse('uni-apartment-list', request=request, format=format)
+    apartment_links['uni-images'] = reverse('uni-apartment-images-list', request=request, format=format)
 
     return Response({
         'language': reverse('language-list', request=request, format=format),
@@ -52,6 +58,7 @@ def api_root(request, format=None):
         'address': address_links,
         'company':company_links,
         'complex':complex_links,
+        'apartment': apartment_links,
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
@@ -187,4 +194,29 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
 class Complex_Images_Viewset(viewsets.ModelViewSet):
     queryset = Complex_Images.objects.all()
     serializer_class = Complex_Image_Serializers
+    pagination_class = CustomLimitOffsetPagination
+
+class Apartment_Names_Viewset(viewsets.ModelViewSet):
+    queryset = Appartment_Names.objects.all()
+    serializer_class = Appartment_Names_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Apartment_Images_Viewset(viewsets.ModelViewSet):
+    queryset = Appartment_Images.objects.all()
+    serializer_class = Appartment_Images_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Apartment_KA_Viewset(viewsets.ModelViewSet):
+    queryset = Appartment_KA.objects.all()
+    serializer_class = Appartment_KA_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Apartment_EN_Viewset(viewsets.ModelViewSet):
+    queryset = Appartment_EN.objects.all()
+    serializer_class = Appartment_EN_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Apartment_RU_Viewset(viewsets.ModelViewSet):
+    queryset = Appartment_RU.objects.all()
+    serializer_class = Appartment_RU_Serializer
     pagination_class = CustomLimitOffsetPagination

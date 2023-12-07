@@ -11,6 +11,7 @@ street_name_routers = DefaultRouter()
 address_routers = DefaultRouter()
 company_routers = DefaultRouter()
 complex_routers = DefaultRouter()
+apartment_routers = DefaultRouter()
 
 router.register(r'language',LanguageViewset, basename="language")
 city_ruters.register(r'ka', City_KA_Viewset, basename='ka-city')
@@ -45,6 +46,12 @@ complex_routers.register(r'ka', Complex_KA_Viewset, basename='ka-complex')
 complex_routers.register(r'en', Complex_EN_Viewset, basename='en-complex')
 complex_routers.register(r'ru', Complex_RU_Viewset, basename='ru-complex')
 
+apartment_routers.register(r'uni', Apartment_Names_Viewset, basename='uni-apartment')
+apartment_routers.register(r'images', Apartment_Images_Viewset, basename='uni-apartment-images')
+apartment_routers.register(r'ka', Apartment_KA_Viewset, basename='ka-apartment')
+apartment_routers.register(r'en', Apartment_EN_Viewset, basename='en-apartment')
+apartment_routers.register(r'ru', Apartment_RU_Viewset, basename='ru-apartment')
+
 
 urlpatterns = [
     path('', api_root),
@@ -56,4 +63,5 @@ urlpatterns = [
     path('address/' , include(address_routers.urls)),
     path('company/' , include(company_routers.urls)),
     path('complex/' , include(complex_routers.urls)),
+    path('apartment/' , include(apartment_routers.urls)),
 ]

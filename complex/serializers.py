@@ -59,7 +59,6 @@ class City_RU_Serializer(serializers.ModelSerializer):
         fields = ['id','city_ru','lang','lang_id']
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        print(data)
         return {'id': data['id'],
                 'city_ru': data['city_ru'],
                 'language': data['lang'][0]['language']}
@@ -341,7 +340,6 @@ class Street_Name_RU_Serializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        print(data)
         return {
             'id': data['id'],
             'lang': data['district_ru']['lang'],
@@ -385,7 +383,6 @@ class Address_KA_Serializer(serializers.ModelSerializer):
         fields = ['city_id','pharentDistrict_ka','district_id','street_name_ka_id','id', 'street_name_ka',"address_ka", "longitude", "latitude",'lang_id']
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        print(data)
         return {
             'id': data['id'],
             'lang': data['street_name_ka']['lang'],
@@ -425,18 +422,17 @@ class Address_EN_Serializer(serializers.ModelSerializer):
         model = Address_EN
         fields = ['city_id','pharentDistrict_en','district_id','street_name_en_id','id', 'street_name_en',"address_en", "longitude", "latitude",'lang_id']
     def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        print(representation)
+        data = super().to_representation(instance)
         return {
-            'id': representation['id'],
-            'lang': representation['street_name_en']['lang'],
-            'city_en': representation['street_name_en']['city_en'],
-            'pharentDistrict_en': representation['street_name_en']['pharentDistrict_en'],
-            'district_en': representation['street_name_en']['district_en'],
-            'street_name_en':representation['street_name_en']['street_name_en'],
-            'address_en':representation['address_en'],
-            'longitude': representation['longitude'],
-            'latitude': representation['latitude'],
+            'id': data['id'],
+            'lang': data['street_name_en']['lang'],
+            'city_en': data['street_name_en']['city_en'],
+            'pharentDistrict_en': data['street_name_en']['pharentDistrict_en'],
+            'district_en': data['street_name_en']['district_en'],
+            'street_name_en':data['street_name_en']['street_name_en'],
+            'address_en':data['address_en'],
+            'longitude': data['longitude'],
+            'latitude': data['latitude'],
         }
 
 class Address_RU_Serializer(serializers.ModelSerializer):
@@ -466,18 +462,18 @@ class Address_RU_Serializer(serializers.ModelSerializer):
         model = Address_RU
         fields = ['city_id','pharentDistrict_ru','district_id','street_name_ru_id','id', 'street_name_ru',"address_ru", "longitude", "latitude",'lang_id']
     def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        print(representation)
+        data = super().to_representation(instance)
+
         return {
-            'id': representation['id'],
-            'lang': representation['street_name_ru']['lang'],
-            'city_ru': representation['street_name_ru']['city_ru'],
-            'pharentDistrict_ru': representation['street_name_ru']['pharentDistrict_ru'],
-            'district_ru': representation['street_name_ru']['district_ru'],
-            'street_name_ru':representation['street_name_ru']['street_name_ru'],
-            'address_ru':representation['address_ru'],
-            'longitude': representation['longitude'],
-            'latitude': representation['latitude'],
+            'id': data['id'],
+            'lang': data['street_name_ru']['lang'],
+            'city_ru': data['street_name_ru']['city_ru'],
+            'pharentDistrict_ru': data['street_name_ru']['pharentDistrict_ru'],
+            'district_ru': data['street_name_ru']['district_ru'],
+            'street_name_ru':data['street_name_ru']['street_name_ru'],
+            'address_ru':data['address_ru'],
+            'longitude': data['longitude'],
+            'latitude': data['latitude'],
         }
     
 '''
@@ -514,6 +510,7 @@ class Company_Image_serializers(serializers.ModelSerializer):
             'email':data['internal_name']['email'],
             'companyweb':data['internal_name']['companyweb'],
             'facebook_page':data['internal_name']['facebook_page'],
+            'topCompany':data['internal_name']['topCompany'],
             'logocompany':data['logocompany'],
             'background_image':data['background_image'],
         }
@@ -525,13 +522,17 @@ class Company_KA_serializers(serializers.ModelSerializer):
         write_only = True,
     )
     internal_name = Company_Image_serializers(read_only=True)
+    # topCompany_id = serializers.PrimaryKeyRelatedField(
+    #     queryset = Company_Names.objects.all(),
+    #     write_only = True,
+    # )
     class Meta:
         model = Company_KA
-        fields = ['internal_name_id', "internal_name", 'name_ka', 'address_ka', 'aboutcompany_ka']
+        fields = ['id','internal_name_id', "internal_name", 'name_ka', 'address_ka', 'aboutcompany_ka']
     def to_representation(self, instance):
         data = super().to_representation(instance)
         return {
-            #'id':data['id'],
+            'id':data['id'],
             'record_id':data['internal_name']['id'],
             'internal_name':data['internal_name']['internal_name'],
             'Mobile':data['internal_name']['Mobile'],
@@ -541,6 +542,7 @@ class Company_KA_serializers(serializers.ModelSerializer):
             'facebook_page':data['internal_name']['facebook_page'],
             'logocompany':data['internal_name']['logocompany'],
             'background_image':data['internal_name']['background_image'],
+            'topCompany':data['internal_name']['topCompany'],
             'name_ka': data['name_ka'],
             'address_ka':data['address_ka'],
             'aboutcompany_ka':data['aboutcompany_ka'],
@@ -570,6 +572,7 @@ class Company_EN_serializers(serializers.ModelSerializer):
             'facebook_page':data['internal_name']['facebook_page'],
             'logocompany':data['internal_name']['logocompany'],
             'background_image':data['internal_name']['background_image'],
+            'topCompany':data['internal_name']['topCompany'],
             'name_en': data['name_en'],
             'address_en':data['address_en'],
             'aboutcompany_en':data['aboutcompany_en'],
@@ -598,6 +601,7 @@ class Company_RU_serializers(serializers.ModelSerializer):
             'facebook_page':data['internal_name']['facebook_page'],
             'logocompany':data['internal_name']['logocompany'],
             'background_image':data['internal_name']['background_image'],
+            'topCompany':data['internal_name']['topCompany'],
             'name_ru': data['name_ru'],
             'address_ru':data['address_ru'],
             'aboutcompany_ru':data['aboutcompany_ru'],
@@ -614,29 +618,168 @@ class Complex_Name_Serializers(serializers.ModelSerializer):
         fields = '__all__'
     
 class Complex_Image_Serializers(serializers.ModelSerializer):
-    class Meta:
-        model = Complex_Images
-        fields = ['complex','images']
 
-class Complex_Image_Serializers_For_Complexes(serializers.ModelSerializer):
     class Meta:
         model = Complex_Images
-        fields = ["images"]
-    def to_representation(self, instance):
-        return instance.images.url
-        
+        fields = ['internal_complex_name','images']
 
 class Complex_KA_Serializers(serializers.ModelSerializer):
+    image_urls = serializers.SerializerMethodField()
+    address_ka = Address_KA_Serializer(read_only = True)
+    address_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_KA.objects.all(),
+        source = "address_ka",
+        write_only = True,
+    )
+    company_ka = Company_KA_serializers(read_only = True)
+    company_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_KA.objects.all(),
+        source = "company_ka",
+        write_only = True,
+    )
+    complex_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Images.objects.all(),
+        source = 'complex_images',
+        write_only = True
+    )
+    internal_complex_name = Complex_Name_Serializers(read_only=True)
+    internal_complex_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Names.objects.all(),
+        source = 'internal_complex_name',
+        write_only = True
+    )
     class Meta:
         model = Complex_KA
-        fields = '__all__'
+        fields = [
+            'id',
+            'complex_name_ka',
+            'internal_complex_name',
+            'type_of_roof_ka',
+            'image_urls',
+            'company_ka',
+            'address_ka',
+            'complex_images_id',
+            'internal_complex_name_id',
+            'company_ka_id',
+            'address_ka_id',
+            ]
+    def get_image_urls(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
     
 class Complex_EN_Serializers(serializers.ModelSerializer):
+    image_urls = serializers.SerializerMethodField()
+    address_en = Address_EN_Serializer(read_only = True)
+    address_en_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_EN.objects.all(),
+        source = "address_en",
+        write_only = True,
+    )
+    company_en = Company_EN_serializers(read_only = True)
+    company_en_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_EN.objects.all(),
+        source = "company_en",
+        write_only = True,
+    )
+    complex_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Images.objects.all(),
+        source = 'complex_images',
+        write_only = True
+    )
+    internal_complex_name = Complex_Name_Serializers(read_only=True)
+    internal_complex_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Names.objects.all(),
+        source = 'internal_complex_name',
+        write_only = True
+    )
     class Meta:
         model = Complex_EN
-        fields = '__all__'
+        fields = [
+            'id',
+            'complex_name_en',
+            'internal_complex_name',
+            'type_of_roof_en',
+            'image_urls',
+            'company_en',
+            'address_en',
+            'complex_images_id',
+            'internal_complex_name_id',
+            'company_en_id',
+            'address_en_id',
+            ]
+    def get_image_urls(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
     
 class Complex_RU_Serializers(serializers.ModelSerializer):
+    image_urls = serializers.SerializerMethodField()
+    address_ru = Address_RU_Serializer(read_only = True)
+    address_ru_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_RU.objects.all(),
+        source = "address_ru",
+        write_only = True,
+    )
+    company_ru = Company_RU_serializers(read_only = True)
+    company_ru_id = serializers.PrimaryKeyRelatedField(
+        queryset = Company_RU.objects.all(),
+        source = "company_ru",
+        write_only = True,
+    )
+    complex_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Images.objects.all(),
+        source = 'complex_images',
+        write_only = True
+    )
+    internal_complex_name = Complex_Name_Serializers(read_only=True)
+    internal_complex_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Complex_Names.objects.all(),
+        source = 'internal_complex_name',
+        write_only = True
+    )
     class Meta:
         model = Complex_RU
+        fields = [
+            'id',
+            'complex_name_ru',
+            'internal_complex_name',
+            'type_of_roof_ru',
+            'image_urls',
+            'company_ru',
+            'address_ru',
+            'complex_images_id',
+            'internal_complex_name_id',
+            'company_ru_id',
+            'address_ru_id',
+            ]
+    def get_image_urls(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+'''
+-----------------------------------------------------------------------
+            APARTMENT SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class Appartment_Names_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appartment_Names
+        fields = '__all__'
+
+class Appartment_Images_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appartment_Images
+        fields = '__all__'
+
+class Appartment_KA_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appartment_KA
+        fields = '__all__'
+class Appartment_EN_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appartment_EN
+        fields = '__all__'
+class Appartment_RU_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appartment_RU
         fields = '__all__'
