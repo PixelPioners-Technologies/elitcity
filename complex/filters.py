@@ -63,3 +63,22 @@
 #     class Meta:
 #         model = Apartment
 #         fields = ['min_area', 'max_area', 'min_price', 'max_price', 'number_of_rooms', 'is_available','min_price_per_sqm', 'max_price_per_sqm']
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# --------------------------------------filtering for new structure ---------------------------------------------------
+
+from .models import Complex_EN
+import django_filters
+from .models import Complex_EN
+
+
+
+class Complex_EN_Filter(django_filters.FilterSet):
+    class Meta:
+        model = Complex_EN
+        fields = {
+            'address_en__city_en__city_en': ['exact', 'icontains'],
+            'address_en__pharentDistrict_en__pharentDistrict_en': ['exact', 'icontains'],
+            'address_en__district_en__district_en': ['exact', 'icontains'],
+        }

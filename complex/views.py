@@ -185,12 +185,18 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     queryset = Complex_KA.objects.all()
     serializer_class = Complex_KA_Serializers
     pagination_class = CustomLimitOffsetPagination
-    
+
+
+# -----------------------------------------------------------------------------
+from .filters import Complex_EN_Filter
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
     serializer_class = Complex_EN_Serializers
-    pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = Complex_EN_Filter
 
+
+    
 class Complex_RU_Viewset(viewsets.ModelViewSet):
     queryset = Complex_RU.objects.all()
     serializer_class = Complex_RU_Serializers

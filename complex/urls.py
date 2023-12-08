@@ -51,6 +51,7 @@ apartment_routers.register(r'images', Apartment_Images_Viewset, basename='uni-ap
 apartment_routers.register(r'ka', Apartment_KA_Viewset, basename='ka-apartment')
 apartment_routers.register(r'en', Apartment_EN_Viewset, basename='en-apartment')
 apartment_routers.register(r'ru', Apartment_RU_Viewset, basename='ru-apartment')
+
 map_routers.register(r'ka', Map_KA_Viewset, basename='ka-map')
 map_routers.register(r'en', Map_EN_Viewset, basename='en-map')
 map_routers.register(r'ru', Map_RU_Viewset, basename='ru-map')
@@ -69,3 +70,6 @@ urlpatterns = [
     path('apartment/' , include(apartment_routers.urls)),
     path('map/',include(map_routers.urls)),
 ]
+
+
+# 41.725939       44.747253
