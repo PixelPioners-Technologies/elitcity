@@ -777,6 +777,7 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Appartment_Names
         fields = [
+            'id',
             'complex',
             'complex_id',
             'internal_apartment_name',
@@ -801,10 +802,10 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
         write_only=True,
         
     )
-    address_ka = Address_KA_Serializer(read_only = True)
-    address_ka_id = serializers.PrimaryKeyRelatedField(
+    appartment_address_ka = Address_KA_Serializer(read_only = True)
+    appartment_address_ka_id = serializers.PrimaryKeyRelatedField(
         queryset = Address_KA.objects.all(),
-        source = 'address_ka',
+        source = 'appartment_address_ka',
         write_only=True
     )
     complex_ka = Complex_KA_Serializers(read_only=True)
@@ -829,18 +830,41 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
             'internal_apartment_name_id',
             'complex_ka',
             'complex_ka_id',
-            'address_ka',
-            'address_ka_id',
+            'appartment_address_ka',
+            'appartment_address_ka_id',
             'appartment_name_ka',
             'appartment_images_id',
             'test_field_ka'
             ]
+    # def to_representation(self, instance):
+    #     representation = super().to_representation(instance)
+    #     image_urls = self.get_image_urls(instance)
+    #     representation['appartment_images'] = image_urls
+    #     return representation
     def to_representation(self, instance):
-        representation = super().to_representation(instance)
+        data = super().to_representation(instance)
         image_urls = self.get_image_urls(instance)
-        representation['appartment_images'] = image_urls
-        return representation
-    
+        return {
+            "id": data['id'],
+            'complex_ka': data['complex_ka'],
+            'internal_apartment_name' : {
+                "id": data["internal_apartment_name"]['id'],
+                "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
+                "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
+                "area": data["internal_apartment_name"]['area'],
+                "price": data["internal_apartment_name"]['price'],
+                "floor_number": data["internal_apartment_name"]['floor_number'],
+                "is_available": data["internal_apartment_name"]['is_available'],
+                "visibiliti": data["internal_apartment_name"]['visibiliti'],
+            },
+            'appartment_address_ka': data["appartment_address_ka"],
+            'appartment_images': image_urls,
+            'test_field_ka': data['test_field_ka'],
+
+
+        }
+
+
     def get_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
@@ -932,3 +956,68 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
     def get_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+
+'''
+-----------------------------------------------------------------------
+            MAP SERIALIZERS
+-----------------------------------------------------------------------
+'''
+class District_KA_ForMap_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = District_KA
+        fields = ['district_ka']
+
+class PharentDistrict_KA_ForMap_Serializer(serializers.ModelSerializer):
+    district_ka = District_KA_ForMap_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = PharentDistrict_KA
+        fields = ['pharentDistrict_ka', 'district_ka']
+
+class City_KA_ForMap_Serializer(serializers.ModelSerializer):
+    pharentDistrict_ka = PharentDistrict_KA_ForMap_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = City_KA
+        fields = ['city_ka', 'pharentDistrict_ka']
+
+
+class District_EN_ForMap_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = District_EN
+        fields = ['district_en']
+
+class PharentDistrict_EN_ForMap_Serializer(serializers.ModelSerializer):
+    district_en = District_EN_ForMap_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = PharentDistrict_EN
+        fields = ['pharentDistrict_en', 'district_en']
+
+class City_EN_ForMap_Serializer(serializers.ModelSerializer):
+    pharentDistrict_en = PharentDistrict_EN_ForMap_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = City_EN
+        fields = ['city_en', 'pharentDistrict_en']
+
+
+
+class District_RU_ForMap_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = District_RU
+        fields = ['district_ru']
+
+class PharentDistrict_RU_ForMap_Serializer(serializers.ModelSerializer):
+    district_ru = District_RU_ForMap_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = PharentDistrict_RU
+        fields = ['pharentDistrict_ru', 'district_ru']
+
+class City_RU_ForMap_Serializer(serializers.ModelSerializer):
+    pharentDistrict_ru = PharentDistrict_RU_ForMap_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = City_RU
+        fields = ['city_ru', 'pharentDistrict_ru']

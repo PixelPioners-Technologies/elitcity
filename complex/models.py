@@ -37,7 +37,7 @@ class City_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class PharentDistrict_KA(models.Model):
-    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE)
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE, related_name='pharentDistrict_ka')
     pharentDistrict_ka = models.CharField(max_length=50, unique=True)
     lang = models.ManyToManyField(Language)
 
@@ -46,7 +46,7 @@ class PharentDistrict_KA(models.Model):
     
 
 class PharentDistrict_EN(models.Model):
-    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE,related_name='pharentDistrict_en')
     pharentDistrict_en = models.CharField(max_length=50, unique=True)
     lang = models.ManyToManyField(Language)
 
@@ -54,7 +54,7 @@ class PharentDistrict_EN(models.Model):
         return f"{self.city_en.city_en} - {self.pharentDistrict_en}"
     
 class PharentDistrict_RU(models.Model):
-    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE, related_name='pharentDistrict_ru')
     pharentDistrict_ru = models.CharField(max_length=50, unique=True)
     lang = models.ManyToManyField(Language)
 
@@ -66,8 +66,8 @@ class PharentDistrict_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class District_KA(models.Model):
-    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE)
-    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE)
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE, related_name='district_ka')
+    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE,related_name='district_ka')
     district_ka = models.CharField(max_length=50, unique=True)
     lang = models.ManyToManyField(Language)
 
@@ -75,8 +75,8 @@ class District_KA(models.Model):
         return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka}"
 
 class District_EN(models.Model):
-    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
-    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE)
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE,related_name='district_en')
+    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE,related_name='district_en')
     district_en = models.CharField(max_length=50, unique=True)
     lang = models.ManyToManyField(Language)
 
@@ -84,8 +84,8 @@ class District_EN(models.Model):
         return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en}"
     
 class District_RU(models.Model):
-    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
-    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE)
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE, related_name='district_ru')
+    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE, related_name='district_ru')
     district_ru = models.CharField(max_length=50, unique=True)
     lang = models.ManyToManyField(Language)
 
