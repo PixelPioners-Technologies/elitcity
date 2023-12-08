@@ -1,112 +1,338 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+from django.core.validators import MinValueValidator, MaxValueValidator
 
+class Language(models.Model):
+    language = models.CharField(max_length=2, unique=True)
 
+    def __str__(self):
+        return self.language
+'''
+-----------------------------------------------------------------------
+            CITY MODELS
+-----------------------------------------------------------------------
+'''     
+class City_KA(models.Model):
+    city_ka = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
 
-class Company(models.Model):
-    name = models.CharField(max_length=255)
-    address = models.TextField()
+    def __str__(self):
+        return self.city_ka
+    
+class City_EN(models.Model):
+    city_en = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return self.city_en
+
+class City_RU(models.Model):
+    city_ru = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return self.city_ru
+'''
+-----------------------------------------------------------------------
+            PHERENTDISTRICT MODELS
+-----------------------------------------------------------------------
+''' 
+class PharentDistrict_KA(models.Model):
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE, related_name='pharentDistrict_ka')
+    pharentDistrict_ka = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka}"
+    
+
+class PharentDistrict_EN(models.Model):
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE,related_name='pharentDistrict_en')
+    pharentDistrict_en = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en}"
+    
+class PharentDistrict_RU(models.Model):
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE, related_name='pharentDistrict_ru')
+    pharentDistrict_ru = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru}"
+'''
+-----------------------------------------------------------------------
+            DISTRICT MODELS
+-----------------------------------------------------------------------
+''' 
+class District_KA(models.Model):
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE, related_name='district_ka')
+    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE,related_name='district_ka')
+    district_ka = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka}"
+
+class District_EN(models.Model):
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE,related_name='district_en')
+    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE,related_name='district_en')
+    district_en = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en}"
+    
+class District_RU(models.Model):
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE, related_name='district_ru')
+    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE, related_name='district_ru')
+    district_ru = models.CharField(max_length=50, unique=True)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru.pharentDistrict_ru} - {self.district_ru}"
+'''
+-----------------------------------------------------------------------
+            STREET_NAME MODELS
+-----------------------------------------------------------------------
+''' 
+class Street_Name_KA(models.Model):
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE)
+    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE)
+    district_ka = models.ForeignKey(District_KA, on_delete=models.CASCADE)
+    street_name_ka = models.CharField(max_length=50)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka.district_ka} - {self.street_name_ka}" 
+
+class Street_Name_EN(models.Model):
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
+    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE)
+    district_en = models.ForeignKey(District_EN, on_delete=models.CASCADE)
+    street_name_en = models.CharField(max_length=50)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en.district_en} - {self.street_name_en}" 
+    
+class Street_Name_RU(models.Model):
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
+    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE)
+    district_ru = models.ForeignKey(District_RU, on_delete=models.CASCADE)
+    street_name_ru = models.CharField(max_length=50)
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru.pharentDistrict_ru} - {self.district_ru.district_ru} - {self.street_name_ru}" 
+'''
+-----------------------------------------------------------------------
+            ADDRESS MODELS
+-----------------------------------------------------------------------
+''' 
+class Address_KA(models.Model):
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE)
+    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE)
+    district_ka = models.ForeignKey(District_KA, on_delete=models.CASCADE)
+    street_name_ka = models.ForeignKey(Street_Name_KA, on_delete=models.CASCADE)
+    address_ka = models.CharField(max_length=30)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka.district_ka} - {self.street_name_ka.street_name_ka} - {self.address_ka}"
+
+class Address_EN(models.Model):
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
+    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE)
+    district_en = models.ForeignKey(District_EN, on_delete=models.CASCADE)
+    street_name_en = models.ForeignKey(Street_Name_EN, on_delete=models.CASCADE)
+    address_en = models.CharField(max_length=30)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en.district_en} - {self.street_name_en.street_name_en} - {self.address_en}"
+    
+class Address_RU(models.Model):
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
+    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE)
+    district_ru = models.ForeignKey(District_RU, on_delete=models.CASCADE)
+    street_name_ru = models.ForeignKey(Street_Name_RU, on_delete=models.CASCADE)
+    address_ru = models.CharField(max_length=30)
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+    lang = models.ManyToManyField(Language)
+
+    def __str__(self):
+        return f"{self.city_ru.city_ru} - {self.pharentDistrict_ru.pharentDistrict_ru} - {self.district_ru.district_ru} - {self.street_name_ru.street_name_ru} - {self.address_ru}"
+'''
+-----------------------------------------------------------------------
+            COMPANY MODELS
+-----------------------------------------------------------------------
+''' 
+class Company_Names(models.Model):
+    internal_name = models.CharField(max_length=255)
     Mobile = models.CharField(max_length=20)
     Mobile_Home = models.CharField(max_length=20)
     email = models.EmailField()
     companyweb = models.URLField(max_length=200, blank=True, null=True)
-    aboutcompany = models.TextField(blank=True, null=True)
-    logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True)
-    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True)
     facebook_page = models.URLField(blank=True, null=True)
+    topCompany = models.BooleanField(default=False)
+    visibility = models.BooleanField(default=True)
+    def __str__(self):
+        return self.internal_name
+    
+class Company_Images(models.Model):
+    internal_name = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
+    logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True, unique=True)
+    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True, unique=True)
+    def __str__(self):
+        return self.internal_name.internal_name
+
+class Company_KA(models.Model):
+    internal_name = models.ForeignKey(Company_Images, on_delete=models.CASCADE)
+    name_ka = models.CharField(max_length=255)
+    address_ka = models.TextField()
+    aboutcompany_ka = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
-    
-class City(models.Model):
-    city = models.CharField(max_length=50, unique=True)
+        return self.name_ka
+
+class Company_EN(models.Model):
+    internal_name = models.ForeignKey(Company_Images, on_delete=models.CASCADE)
+    name_en = models.CharField(max_length=255)
+    address_en = models.TextField()
+    aboutcompany_en = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.city
+        return self.name_en
     
-class PharentDistrict(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="pharent_districts")
-    pharentDistrict = models.CharField(max_length=50, unique=True)
+class Company_RU(models.Model):
+    internal_name = models.ForeignKey(Company_Images, on_delete=models.CASCADE)
+    name_ru = models.CharField(max_length=255)
+    address_ru = models.TextField()
+    aboutcompany_ru = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.pharentDistrict
-    
-class District(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="districts")
-    pharentDistrict = models.ForeignKey(PharentDistrict, on_delete=models.CASCADE, related_name="districts")
-    district = models.CharField(max_length=200, unique=True)
-    def __str__(self):
-        return self.district
-    
-class DirectAddress(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="direct_addresses")
-    pharentDistrict = models.ForeignKey(PharentDistrict, on_delete=models.CASCADE, related_name="direct_addresses")
-    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name="direct_addresses")
-    street = models.CharField(max_length=200, unique=True)
-    latitude = models.FloatField(default=0.0)
-    longitude = models.FloatField(default=0.0)
-
-    def __str__(self):
-        return self.street
-        
-class Complex(models.Model):
-    company = models.ForeignKey(Company, related_name='complexes', on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    address = models.ForeignKey(DirectAddress,on_delete=models.CASCADE, related_name="complex")
+        return self.name_ru
+'''
+-----------------------------------------------------------------------
+            COMPLEX MODELS
+-----------------------------------------------------------------------
+''' 
+class Complex_Names(models.Model):
+    internal_complex_name = models.CharField(max_length=255, unique=True)
     price_per_sq_meter = models.DecimalField(max_digits=10, decimal_places=2)
+    finish_year = models.IntegerField(blank=True,null=True)
+    finish_month = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)], blank=True,null=True)
     finished = models.BooleanField()
+    visibiliti = models.BooleanField(default=True)
+    vipComplex = models.BooleanField(default=False)
+    floor_number = models.IntegerField()
     space = models.DecimalField(max_digits=10, decimal_places=2)
     number_of_apartments = models.IntegerField()
     number_of_houses = models.IntegerField()
     number_of_floors = models.IntegerField()
+    complex_level = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2)
-    type_of_roof = models.CharField(max_length=100)
-    text1 = models.CharField(max_length=300, blank=True, null=True)
-    text2 = models.CharField(max_length=300, blank=True, null=True)
-    text3 = models.CharField(max_length=300, blank=True, null=True)
-    text4 = models.CharField(max_length=300, blank=True, null=True)
-    text5 = models.CharField(max_length=300, blank=True, null=True)
-    text6 = models.CharField(max_length=300, blank=True, null=True)
-    text7 = models.CharField(max_length=300, blank=True, null=True)
-    text8 = models.CharField(max_length=300, blank=True, null=True)
     
     def __str__(self):
-        return self.name
+        return self.internal_complex_name
+    
+class Complex_Images(models.Model):
+    internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='complex_images/', unique=True)
+    def __str__(self):
+        return self.internal_complex_name.internal_complex_name
+    
+class Complex_KA(models.Model):
+    internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
+    complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
+    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE)
+    address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
+    complex_name_ka = models.CharField(max_length=200, unique=True)
+    type_of_roof_ka = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.internal_complex_name.internal_complex_name
+    
+class Complex_EN(models.Model):
+    internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
+    complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
+    company_en = models.ForeignKey(Company_EN, on_delete=models.CASCADE)
+    address_en = models.ForeignKey(Address_EN, on_delete=models.CASCADE)
+    complex_name_en = models.CharField(max_length=200, unique=True)
+    type_of_roof_en = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.internal_complex_name.internal_complex_name
+    
+class Complex_RU(models.Model):
+    internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
+    complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
+    company_ru = models.ForeignKey(Company_RU, on_delete=models.CASCADE)
+    address_ru = models.ForeignKey(Address_RU, on_delete=models.CASCADE)
+    complex_name_ru = models.CharField(max_length=200, unique=True)
+    type_of_roof_ru = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.internal_complex_name.internal_complex_name
 
-class Apartment(models.Model):
-    complex = models.ForeignKey(Complex, related_name='apartments', on_delete=models.CASCADE)
+'''
+-----------------------------------------------------------------------
+            APPARTMENT MODELS
+-----------------------------------------------------------------------
+''' 
+class Appartment_Names(models.Model):
+    complex = models.ForeignKey(Complex_Names, on_delete=models.CASCADE, null=True, blank=True)
+    internal_apartment_name = models.CharField(max_length=50)
     number_of_rooms = models.IntegerField()
     area = models.DecimalField(max_digits=7, decimal_places=2)
     price = models.DecimalField(max_digits=12, decimal_places=2)
     floor_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
+    visibiliti = models.BooleanField(default=True)
+    
     
     def __str__(self):
-        return f"{self.number_of_rooms} room(s) - {self.area}m² - {self.complex.name}"
+        return f"{self.internal_apartment_name}"
 
-
-class ComplexImage(models.Model):
-    complex = models.ForeignKey(Complex, related_name='images', on_delete=models.CASCADE)
-    images = models.ImageField(upload_to='complex_images/')
-    def __str__(self):
-        return self.complex.name
-
-class ApartmentImage(models.Model):
-    apartment = models.ForeignKey(Apartment, related_name='apartment', on_delete=models.CASCADE)
+    
+class Appartment_Images(models.Model):
+    internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
     images = models.ImageField(upload_to='apartment_images/')
-    def __str__(self):
-        return f"Appartments of {self.apartment.complex.name}"
-
-class VIPComplex(models.Model):
-    complex = models.OneToOneField(Complex , on_delete=models.CASCADE , related_name='vip_details' )
 
     def __str__(self):
-        return self.complex.name
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
+class Appartment_KA(models.Model):
+    internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
+    complex_ka = models.ForeignKey(Complex_KA, on_delete=models.CASCADE, null=True)
+    appartment_name_ka = models.CharField(max_length=100,null=True)
+    appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
+    appartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
+    test_field_ka = models.CharField(max_length=50)
+    
+    
+class Appartment_EN(models.Model):
+    internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
+    complex_en = models.ForeignKey(Complex_EN, on_delete=models.CASCADE,null=True)
+    appartment_name_en = models.CharField(max_length=100,null=True)
+    appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
+    appartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE, null = True)
+    test_field_en = models.CharField(max_length=50)
     
 
-class TopCompany(models.Model):
-    company = models.OneToOneField(Company, on_delete=models.CASCADE, related_name='top_company' )
-
-    def __str__(self):
-        return self.company.name
+    
+class Appartment_RU(models.Model):
+    internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
+    complex_ru = models.ForeignKey(Complex_RU, on_delete=models.CASCADE,null=True)
+    appartment_name_ru = models.CharField(max_length=100,null=True)
+    appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
+    appartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
+    test_field_ru = models.CharField(max_length=50)
