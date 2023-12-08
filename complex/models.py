@@ -226,15 +226,17 @@ class Company_RU(models.Model):
 class Complex_Names(models.Model):
     internal_complex_name = models.CharField(max_length=255, unique=True)
     price_per_sq_meter = models.DecimalField(max_digits=10, decimal_places=2)
+    finish_year = models.IntegerField(blank=True,null=True)
+    finish_month = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)], blank=True,null=True)
     finished = models.BooleanField()
     visibiliti = models.BooleanField(default=True)
     vipComplex = models.BooleanField(default=False)
-    floor_number = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    floor_number = models.IntegerField()
     space = models.DecimalField(max_digits=10, decimal_places=2)
     number_of_apartments = models.IntegerField()
     number_of_houses = models.IntegerField()
     number_of_floors = models.IntegerField()
-    complex_level = models.IntegerField()
+    complex_level = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2)
     
@@ -286,7 +288,8 @@ class Complex_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class Appartment_Names(models.Model):
-    internal_apartment_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
+    complex = models.ForeignKey(Complex_Names, on_delete=models.CASCADE, null=True, blank=True)
+    internal_apartment_name = models.CharField(max_length=50)
     number_of_rooms = models.IntegerField()
     area = models.DecimalField(max_digits=7, decimal_places=2)
     price = models.DecimalField(max_digits=12, decimal_places=2)
@@ -296,26 +299,40 @@ class Appartment_Names(models.Model):
     
     
     def __str__(self):
-        return f"{self.number_of_rooms} room(s) - {self.area}m²"
+        return f"{self.internal_apartment_name}"
 
     
 class Appartment_Images(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
     images = models.ImageField(upload_to='apartment_images/')
 
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
 
 
 class Appartment_KA(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
+    complex_ka = models.ForeignKey(Complex_KA, on_delete=models.CASCADE, null=True)
+    appartment_name_ka = models.CharField(max_length=100,null=True)
+    appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
+    appartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
     test_field_ka = models.CharField(max_length=50)
     
     
 class Appartment_EN(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
+    complex_en = models.ForeignKey(Complex_EN, on_delete=models.CASCADE,null=True)
+    appartment_name_en = models.CharField(max_length=100,null=True)
+    appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
+    appartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE, null = True)
     test_field_en = models.CharField(max_length=50)
     
 
     
 class Appartment_RU(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
+    complex_ru = models.ForeignKey(Complex_RU, on_delete=models.CASCADE,null=True)
+    appartment_name_ru = models.CharField(max_length=100,null=True)
+    appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
+    appartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     test_field_ru = models.CharField(max_length=50)
