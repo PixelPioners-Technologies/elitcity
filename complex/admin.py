@@ -14,6 +14,16 @@ admin.site.register(City_EN)
 admin.site.register(Complex_KA)
 admin.site.register(Complex_EN)
 admin.site.register(Complex_RU)
+admin.site.register(Complex_Names)
+admin.site.register(Address_KA)
+admin.site.register(Address_EN)
+admin.site.register(Address_RU)
+admin.site.register(District_KA)
+admin.site.register(District_EN)
+admin.site.register(District_RU)
+
+
+
 
 
 
