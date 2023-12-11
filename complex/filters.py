@@ -70,8 +70,18 @@
 
 from .models import Complex_EN
 import django_filters
-from .models import Complex_EN
+from .models import Complex_EN , Complex_KA , Complex_RU
 
+
+
+class Complex_KA_Filter(django_filters.FilterSet):
+    class Meta:
+        model = Complex_KA
+        fields = {
+            'address_ka__city_ka__city_ka': ['exact', 'icontains'],
+            'address_ka__pharentDistrict_ka__pharentDistrict_ka': ['exact', 'icontains'],
+            'address_ka__district_ka__district_ka': ['exact', 'icontains'],
+        }
 
 
 class Complex_EN_Filter(django_filters.FilterSet):
@@ -81,4 +91,16 @@ class Complex_EN_Filter(django_filters.FilterSet):
             'address_en__city_en__city_en': ['exact', 'icontains'],
             'address_en__pharentDistrict_en__pharentDistrict_en': ['exact', 'icontains'],
             'address_en__district_en__district_en': ['exact', 'icontains'],
+        }
+
+
+
+
+class Complex_RU_Filter(django_filters.FilterSet):
+    class Meta:
+        model = Complex_RU
+        fields = {
+            'address_ru__city_ru__city_ru': ['exact', 'icontains'],
+            'address_ru__pharentDistrict_ru__pharentDistrict_ru': ['exact', 'icontains'],
+            'address_ru__district_ru__district_ru': ['exact', 'icontains'],
         }

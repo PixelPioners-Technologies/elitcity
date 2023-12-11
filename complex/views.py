@@ -181,14 +181,20 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     serializer_class = Complex_Name_Serializers
     pagination_class = CustomLimitOffsetPagination
 
+# -----------------------------------------------------------------------------
+from .filters import Complex_EN_Filter , Complex_KA_Filter , Complex_RU_Filter
+
+
+
 class Complex_KA_Viewset(viewsets.ModelViewSet):
     queryset = Complex_KA.objects.all()
     serializer_class = Complex_KA_Serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = Complex_KA_Filter
 
 
-# -----------------------------------------------------------------------------
-from .filters import Complex_EN_Filter
+
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
     serializer_class = Complex_EN_Serializers
@@ -201,11 +207,19 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     queryset = Complex_RU.objects.all()
     serializer_class = Complex_RU_Serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = Complex_RU_Filter
+
+
 
 class Complex_Images_Viewset(viewsets.ModelViewSet):
     queryset = Complex_Images.objects.all()
     serializer_class = Complex_Image_Serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = Complex_EN_Filter
+
+
 
 class Apartment_Names_Viewset(viewsets.ModelViewSet):
     queryset = Appartment_Names.objects.all()
