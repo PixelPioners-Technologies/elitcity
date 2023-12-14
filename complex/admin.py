@@ -21,6 +21,11 @@ admin.site.register(Address_RU)
 admin.site.register(District_KA)
 admin.site.register(District_EN)
 admin.site.register(District_RU)
+admin.site.register(PharentDistrict_EN)
+admin.site.register(PharentDistrict_KA)
+admin.site.register(PharentDistrict_RU)
+
+
 
 
 

@@ -68,39 +68,89 @@
 # ---------------------------------------------------------------------------------------------------------------------
 # --------------------------------------filtering for new structure ---------------------------------------------------
 
-from .models import Complex_EN
-import django_filters
-from .models import Complex_EN , Complex_KA , Complex_RU
+from django_filters import rest_framework as filters
+from django.db.models import Q
 
 
 
-class Complex_KA_Filter(django_filters.FilterSet):
-    class Meta:
-        model = Complex_KA
-        fields = {
-            'address_ka__city_ka__city_ka': ['exact', 'icontains'],
-            'address_ka__pharentDistrict_ka__pharentDistrict_ka': ['exact', 'icontains' , 'in'],
-            'address_ka__district_ka__district_ka': ['exact', 'icontains', 'in'],
-        }
+class Complex_KA_Filter(filters.FilterSet):
+    # Your existing filters setup
+
+    @property
+    def qs(self):
+        parent_name_in = self.request.GET.get('address_ka__pharentDistrict_ka__pharentDistrict_ka__in')
+        district_name_in = self.request.GET.get('address_ka__district_ka__district_ka__in')
+
+        parent_districts = parent_name_in.split(',') if parent_name_in else []
+        districts = district_name_in.split(',') if district_name_in else []
+
+        if not self.is_bound:
+            return self.queryset
+
+        # Base queryset using the existing filters
+        base_qs = super(Complex_KA_Filter, self).qs
+
+        # Create Q objects for additional OR logic
+        parent_district_q = Q(address_ka__pharentDistrict_ka__pharentDistrict_ka__in=parent_districts) if parent_districts else Q()
+        district_q = Q(address_ka__district_ka__district_ka__in=districts) if districts else Q()
+
+        # Apply combined Q objects using OR
+        qs = base_qs.filter(parent_district_q | district_q)
+
+        return qs.distinct()  # Ensure no duplicates are returned
 
 
-class Complex_EN_Filter(django_filters.FilterSet):
-    class Meta:
-        model = Complex_EN
-        fields = {
-            'address_en__city_en__city_en': ['exact', 'icontains'],
-            'address_en__pharentDistrict_en__pharentDistrict_en': ['exact', 'icontains', 'in'],
-            'address_en__district_en__district_en': ['exact', 'icontains', 'in'],
-        }
+class Complex_EN_Filter(filters.FilterSet):
+    # Your existing filters setup
+
+    @property
+    def qs(self):
+        parent_name_in = self.request.GET.get('address_en__pharentDistrict_en__pharentDistrict_en__in')
+        district_name_in = self.request.GET.get('address_en__district_en__district_en__in')
+
+        parent_districts = parent_name_in.split(',') if parent_name_in else []
+        districts = district_name_in.split(',') if district_name_in else []
+
+        if not self.is_bound:
+            return self.queryset
+
+        # Base queryset using the existing filters
+        base_qs = super(Complex_EN_Filter, self).qs
+
+        # Create Q objects for additional OR logic
+        parent_district_q = Q(address_en__pharentDistrict_en__pharentDistrict_en__in=parent_districts) if parent_districts else Q()
+        district_q = Q(address_en__district_en__district_en__in=districts) if districts else Q()
+
+        # Apply combined Q objects using OR
+        qs = base_qs.filter(parent_district_q | district_q)
+
+        return qs.distinct()  # Ensure no duplicates are returned
 
 
 
+class Complex_RU_Filter(filters.FilterSet):
+    # Your existing filters setup
 
-class Complex_RU_Filter(django_filters.FilterSet):
-    class Meta:
-        model = Complex_RU
-        fields = {
-            'address_ru__city_ru__city_ru': ['exact', 'icontains'],
-            'address_ru__pharentDistrict_ru__pharentDistrict_ru': ['exact', 'icontains', 'in'],
-            'address_ru__district_ru__district_ru': ['exact', 'icontains', 'in'],
-        }
+    @property
+    def qs(self):
+        parent_name_in = self.request.GET.get('address_ru__pharentDistrict_ru__pharentDistrict_ru__in')
+        district_name_in = self.request.GET.get('address_ru__district_ru__district_ru__in')
+
+        parent_districts = parent_name_in.split(',') if parent_name_in else []
+        districts = district_name_in.split(',') if district_name_in else []
+
+        if not self.is_bound:
+            return self.queryset
+
+        # Base queryset using the existing filters
+        base_qs = super(Complex_RU_Filter, self).qs
+
+        # Create Q objects for additional OR logic
+        parent_district_q = Q(address_ru__pharentDistrict_ru__pharentDistrict_ru__in=parent_districts) if parent_districts else Q()
+        district_q = Q(address_ru__district_ru__district_ru__in=districts) if districts else Q()
+
+        # Apply combined Q objects using OR
+        qs = base_qs.filter(parent_district_q | district_q)
+
+        return qs.distinct()  # Ensure no duplicates are returned
+

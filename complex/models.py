@@ -253,8 +253,8 @@ class Complex_Names(models.Model):
         return self.internal_complex_name
     
 class Complex_Images(models.Model):
-    internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
-    images = models.ImageField(upload_to='complex_images/', unique=True)
+    internal_complex_name = models.ForeignKey(Complex_Names,  on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='complex_images/',  unique=True)
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
     

@@ -216,8 +216,8 @@ class Complex_Images_Viewset(viewsets.ModelViewSet):
     queryset = Complex_Images.objects.all()
     serializer_class = Complex_Image_Serializers
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = Complex_EN_Filter
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_class = Complex_EN_Filter
 
 
 
