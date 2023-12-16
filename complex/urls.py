@@ -70,6 +70,3 @@ urlpatterns = [
     path('apartment/' , include(apartment_routers.urls)),
     path('map/',include(map_routers.urls)),
 ]
-
-
-# 41.725939       44.747253

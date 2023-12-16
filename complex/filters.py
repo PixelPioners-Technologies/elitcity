@@ -76,6 +76,8 @@ from .models import *
 class Complex_KA_Filter(filters.FilterSet):
     min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
     max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
+    max_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='lte' )
+    min_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='gte' )
 
     class Meta:
         model = Complex_KA
@@ -108,11 +110,19 @@ class Complex_KA_Filter(filters.FilterSet):
         min_price = self.request.GET.get('min_price_per_sq_meter')
         max_price = self.request.GET.get('max_price_per_sq_meter')
 
+        min_full_price = self.request.GET.get('min_full_price')
+        max_full_price = self.request.GET.get('max_full_price')
+
+
         # Apply price filters using AND logic
         if min_price:
-            qs = qs.filter(internal_complex_name__price_per_sq_meter__gte=min_price)
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__gte = min_price)
         if max_price:
-            qs = qs.filter(internal_complex_name__price_per_sq_meter__lte=max_price)
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__lte = max_price)
+        if min_full_price:
+            qs = qs.filter(internal_complex_name__full_price__gte = min_full_price)
+        if max_full_price:
+            qs = qs.filter(internal_complex_name__full_price__lte = max_full_price)
 
         return qs.distinct()  
 
@@ -120,6 +130,10 @@ class Complex_KA_Filter(filters.FilterSet):
 class Complex_EN_Filter(filters.FilterSet):
     min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
     max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
+
+    max_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='lte' )
+    min_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='gte' )
+
 
     class Meta:
         model = Complex_EN
@@ -151,11 +165,20 @@ class Complex_EN_Filter(filters.FilterSet):
         min_price = self.request.GET.get('min_price_per_sq_meter')
         max_price = self.request.GET.get('max_price_per_sq_meter')
 
+
+        min_full_price = self.request.GET.get('min_full_price')
+        max_full_price = self.request.GET.get('max_full_price')
+
+
         # Apply price filters using AND logic
         if min_price:
             qs = qs.filter(internal_complex_name__price_per_sq_meter__gte=min_price)
         if max_price:
             qs = qs.filter(internal_complex_name__price_per_sq_meter__lte=max_price)
+        if min_full_price:
+            qs = qs.filter(internal_complex_name__full_price__gte = min_full_price)
+        if max_full_price:
+            qs = qs.filter(internal_complex_name__full_price__lte = max_full_price)
 
         return qs.distinct()  
 
@@ -163,6 +186,10 @@ class Complex_EN_Filter(filters.FilterSet):
 class Complex_RU_Filter(filters.FilterSet):
     min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
     max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
+
+    max_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='lte' )
+    min_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='gte' )
+
 
 
     class Meta:
@@ -195,11 +222,21 @@ class Complex_RU_Filter(filters.FilterSet):
         min_price = self.request.GET.get('min_price_per_sq_meter')
         max_price = self.request.GET.get('max_price_per_sq_meter')
 
+
+        min_full_price = self.request.GET.get('min_full_price')
+        max_full_price = self.request.GET.get('max_full_price')
+
+
         # Apply price filters using AND logic
         if min_price:
             qs = qs.filter(internal_complex_name__price_per_sq_meter__gte=min_price)
         if max_price:
             qs = qs.filter(internal_complex_name__price_per_sq_meter__lte=max_price)
+        if min_full_price:
+            qs = qs.filter(internal_complex_name__full_price__gte = min_full_price)
+        if max_full_price:
+            qs = qs.filter(internal_complex_name__full_price__lte = max_full_price)
+
 
         return qs.distinct()  
 
