@@ -70,11 +70,19 @@
 
 from django_filters import rest_framework as filters
 from django.db.models import Q
-
+from .models import *
 
 
 class Complex_KA_Filter(filters.FilterSet):
-    # Your existing filters setup
+    min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
+    max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
+
+    class Meta:
+        model = Complex_KA
+        fields = {
+            'address_ka__city_ka__city_ka': ['exact', 'icontains'],
+        }
+
 
     @property
     def qs(self):
@@ -97,11 +105,27 @@ class Complex_KA_Filter(filters.FilterSet):
         # Apply combined Q objects using OR
         qs = base_qs.filter(parent_district_q | district_q)
 
-        return qs.distinct()  # Ensure no duplicates are returned
+        min_price = self.request.GET.get('min_price_per_sq_meter')
+        max_price = self.request.GET.get('max_price_per_sq_meter')
+
+        # Apply price filters using AND logic
+        if min_price:
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__gte=min_price)
+        if max_price:
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__lte=max_price)
+
+        return qs.distinct()  
 
 
 class Complex_EN_Filter(filters.FilterSet):
-    # Your existing filters setup
+    min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
+    max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
+
+    class Meta:
+        model = Complex_EN
+        fields = {
+            'address_en__city_en__city_en': ['exact', 'icontains'],
+        }
 
     @property
     def qs(self):
@@ -124,12 +148,28 @@ class Complex_EN_Filter(filters.FilterSet):
         # Apply combined Q objects using OR
         qs = base_qs.filter(parent_district_q | district_q)
 
-        return qs.distinct()  # Ensure no duplicates are returned
+        min_price = self.request.GET.get('min_price_per_sq_meter')
+        max_price = self.request.GET.get('max_price_per_sq_meter')
 
+        # Apply price filters using AND logic
+        if min_price:
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__gte=min_price)
+        if max_price:
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__lte=max_price)
+
+        return qs.distinct()  
 
 
 class Complex_RU_Filter(filters.FilterSet):
-    # Your existing filters setup
+    min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
+    max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
+
+
+    class Meta:
+        model = Complex_RU
+        fields = {
+            'address_ru__city_ru__city_ru': ['exact', 'icontains'],
+        }
 
     @property
     def qs(self):
@@ -152,5 +192,14 @@ class Complex_RU_Filter(filters.FilterSet):
         # Apply combined Q objects using OR
         qs = base_qs.filter(parent_district_q | district_q)
 
-        return qs.distinct()  # Ensure no duplicates are returned
+        min_price = self.request.GET.get('min_price_per_sq_meter')
+        max_price = self.request.GET.get('max_price_per_sq_meter')
+
+        # Apply price filters using AND logic
+        if min_price:
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__gte=min_price)
+        if max_price:
+            qs = qs.filter(internal_complex_name__price_per_sq_meter__lte=max_price)
+
+        return qs.distinct()  
 
