@@ -198,7 +198,7 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
     serializer_class = Complex_EN_Serializers
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = (DjangoFilterBackend,)
     filterset_class = Complex_EN_Filter
 
 
