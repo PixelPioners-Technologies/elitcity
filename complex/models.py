@@ -223,12 +223,22 @@ class Company_RU(models.Model):
             COMPLEX MODELS
 -----------------------------------------------------------------------
 ''' 
+
+
+class ComplexStatus(models.IntegerChoices):
+    PLANNED = 1, 'Planned'
+    UNDER_CONSTRUCTION = 2, 'Under Construction'
+    COMPLETED = 3, 'Completed'
+
+
+
 class Complex_Names(models.Model):
     internal_complex_name = models.CharField(max_length=255, unique=True)
+    full_price = models.DecimalField(max_digits = 8 , decimal_places=2 , null=True , blank=True)
     price_per_sq_meter = models.DecimalField(max_digits=10, decimal_places=2)
     finish_year = models.IntegerField(blank=True,null=True)
     finish_month = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)], blank=True,null=True)
-    finished = models.BooleanField()
+    status = models.IntegerField(choices=ComplexStatus.choices, default=ComplexStatus.UNDER_CONSTRUCTION)
     visibiliti = models.BooleanField(default=True)
     vipComplex = models.BooleanField(default=False)
     floor_number = models.IntegerField()
@@ -238,14 +248,14 @@ class Complex_Names(models.Model):
     number_of_floors = models.IntegerField()
     complex_level = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     phone_number = models.CharField(max_length=20)
-    plot_area = models.DecimalField(max_digits=10, decimal_places=2)
+    plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     
     def __str__(self):
         return self.internal_complex_name
     
 class Complex_Images(models.Model):
-    internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
-    images = models.ImageField(upload_to='complex_images/', unique=True)
+    internal_complex_name = models.ForeignKey(Complex_Names,  on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='complex_images/',  unique=True)
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
     
