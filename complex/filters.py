@@ -80,7 +80,7 @@ class Complex_KA_Filter(filters.FilterSet):
     max_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='lte' )
     min_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='gte' )
 
-    status = filters.ChoiceFilter(field_name='internal_complex_name__status', choices=ComplexStatus.choices)
+    status = filters.MultipleChoiceFilter(field_name='internal_complex_name__status', choices=ComplexStatus.choices)
 
     class Meta:
         model = Complex_KA
@@ -137,7 +137,7 @@ class Complex_EN_Filter(filters.FilterSet):
     max_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='lte' )
     min_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='gte' )
 
-    status = filters.ChoiceFilter(field_name='internal_complex_name__status', choices=ComplexStatus.choices)
+    status = filters.MultipleChoiceFilter(field_name='internal_complex_name__status', choices=ComplexStatus.choices)
 
     class Meta:
         model = Complex_EN
@@ -194,7 +194,7 @@ class Complex_RU_Filter(filters.FilterSet):
     max_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='lte' )
     min_full_price = filters.NumberFilter(field_name='internal_complex_name__full_price' , lookup_expr='gte' )
 
-    status = filters.ChoiceFilter(field_name='internal_complex_name__status', choices=ComplexStatus.choices)
+    status = filters.MultipleChoiceFilter(field_name='internal_complex_name__status', choices=ComplexStatus.choices)
 
 
     class Meta:
