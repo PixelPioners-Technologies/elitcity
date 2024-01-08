@@ -196,10 +196,11 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     def get_queryset(self):
         # Annotate the queryset with the 'price_per_sq_meter' field from the related 'Complex_Names' model.
         return self.queryset.annotate(
-            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter')
+            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
+            created_at=F('internal_complex_name__created_at')
         )
 
-    ordering_fields = ['price_per_sq_meter']
+    ordering_fields = ['price_per_sq_meter', 'created_at']
 
 
 class Complex_EN_Viewset(viewsets.ModelViewSet):
@@ -210,10 +211,11 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.annotate(
-            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter')
+            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
+            created_at=F('internal_complex_name__created_at')
         )
 
-    ordering_fields = ['price_per_sq_meter']
+    ordering_fields = ['price_per_sq_meter', 'created_at']
 
 
 class Complex_RU_Viewset(viewsets.ModelViewSet):
@@ -225,10 +227,12 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return self.queryset.annotate(
-        price_per_sq_meter=F('internal_complex_name__price_per_sq_meter')
+        price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
+        created_at=F('internal_complex_name__created_at')
+
     )
 
-    ordering_fields = ['price_per_sq_meter']
+    ordering_fields = ['price_per_sq_meter', 'created_at']
 
 
 
