@@ -183,8 +183,8 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
 
 # -----------------------------------------------------------------------------
 from .filters import Complex_EN_Filter , Complex_KA_Filter , Complex_RU_Filter
-
-
+from django.db.models import F
+from rest_framework.filters import OrderingFilter
 
 class Complex_KA_Viewset(viewsets.ModelViewSet):
     queryset = Complex_KA.objects.all()
@@ -198,11 +198,18 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
     serializer_class = Complex_EN_Serializers
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_EN_Filter
 
+    def get_queryset(self):
+        # Annotate the queryset with the 'price_per_sq_meter' field from the related 'Complex_Names' model.
+        return self.queryset.annotate(
+            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter')
+        )
 
-    
+    ordering_fields = ['price_per_sq_meter']
+
+
 class Complex_RU_Viewset(viewsets.ModelViewSet):
     queryset = Complex_RU.objects.all()
     serializer_class = Complex_RU_Serializers
