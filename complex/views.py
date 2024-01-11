@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -288,3 +289,54 @@ class Map_EN_Viewset(viewsets.ModelViewSet):
 class Map_RU_Viewset(viewsets.ModelViewSet):
     queryset = City_RU.objects.all()
     serializer_class = City_RU_ForMap_Serializer
+
+
+
+
+############################    This view for Word Find [Complex] ##########################
+'''
+                                  Word Find for Complex
+'''
+class Complex_Word_EN_ViewSet(viewsets.ModelViewSet):
+    queryset = Complex_EN.objects.all()
+    serializer_class = Complex_EN_Serializers
+    filter_backends = [SearchFilter]
+    search_fields = ['complex_name_en', 'address_en__address_en', 'address_en__city_en__city_en'] 
+
+class Complex_Word_KA_ViewSet(viewsets.ModelViewSet):
+    queryset = Complex_KA.objects.all()
+    serializer_class = Complex_KA_Serializers
+    filter_backends = [SearchFilter]
+    search_fields = ['complex_name_ka', 'address_ka__address_ka', 'address_ka__city_ka__city_ka'] 
+
+class Complex_Word_RU_ViewSet(viewsets.ModelViewSet):
+    queryset = Complex_RU.objects.all()
+    serializer_class = Complex_RU_Serializers
+    filter_backends = [SearchFilter]
+    search_fields = ['complex_name_ru', 'address_ru__address_ru', 'address_ru__city_ru__city_ru']
+
+
+
+
+########################### This view for Word Find [Company] ################################
+'''
+                                  Word Find for Company
+'''
+
+class Company_Word_EN_ViewSet(viewsets.ModelViewSet):
+    queryset = Company_EN.objects.all()
+    serializer_class = Company_EN_serializers
+    filter_backends = [SearchFilter]
+    search_fields = ['name_en', 'address_en'] 
+
+class Company_Word_KA_ViewSet(viewsets.ModelViewSet):
+    queryset = Company_KA.objects.all()
+    serializer_class = Company_KA_serializers
+    filter_backends = [SearchFilter]
+    search_fields = ['name_ka', 'address_ka'] 
+
+class Company_Word_RU_ViewSet(viewsets.ModelViewSet):
+    queryset = Company_RU.objects.all()
+    serializer_class = Company_RU_serializers
+    filter_backends = [SearchFilter]
+    search_fields = ['name_ru', 'address_ru']
