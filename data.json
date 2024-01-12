@@ -2094,6 +2094,19 @@
     }
 },
 {
+    "model": "complex.street_name_ka",
+    "pk": 5,
+    "fields": {
+        "city_ka": 1,
+        "pharentDistrict_ka": 2,
+        "district_ka": 4,
+        "street_name_ka": "ვაჟა ივერელის ქ",
+        "lang": [
+            1
+        ]
+    }
+},
+{
     "model": "complex.street_name_en",
     "pk": 1,
     "fields": {
@@ -2146,6 +2159,19 @@
     }
 },
 {
+    "model": "complex.street_name_en",
+    "pk": 5,
+    "fields": {
+        "city_en": 1,
+        "pharentDistrict_en": 2,
+        "district_en": 4,
+        "street_name_en": "vazha ivereli street",
+        "lang": [
+            2
+        ]
+    }
+},
+{
     "model": "complex.street_name_ru",
     "pk": 1,
     "fields": {
@@ -2192,6 +2218,19 @@
         "pharentDistrict_ru": 2,
         "district_ru": 4,
         "street_name_ru": "Кетеван Цамебули улица",
+        "lang": [
+            3
+        ]
+    }
+},
+{
+    "model": "complex.street_name_ru",
+    "pk": 5,
+    "fields": {
+        "city_ru": 1,
+        "pharentDistrict_ru": 2,
+        "district_ru": 4,
+        "street_name_ru": "Важа Иверели улица",
         "lang": [
             3
         ]
@@ -2262,6 +2301,22 @@
     }
 },
 {
+    "model": "complex.address_ka",
+    "pk": 5,
+    "fields": {
+        "city_ka": 1,
+        "pharentDistrict_ka": 2,
+        "district_ka": 4,
+        "street_name_ka": 5,
+        "address_ka": "ვაჟა ივერელის ქუჩა #15",
+        "longitude": 44.827439,
+        "latitude": 41.688205,
+        "lang": [
+            1
+        ]
+    }
+},
+{
     "model": "complex.address_en",
     "pk": 1,
     "fields": {
@@ -2326,6 +2381,22 @@
     }
 },
 {
+    "model": "complex.address_en",
+    "pk": 5,
+    "fields": {
+        "city_en": 1,
+        "pharentDistrict_en": 2,
+        "district_en": 4,
+        "street_name_en": 5,
+        "address_en": "vazha ivereli street #15",
+        "longitude": 44.827439,
+        "latitude": 41.688205,
+        "lang": [
+            2
+        ]
+    }
+},
+{
     "model": "complex.address_ru",
     "pk": 1,
     "fields": {
@@ -2384,6 +2455,22 @@
         "address_ru": "Кетеван Цамебули улица # 12",
         "longitude": 44.817279,
         "latitude": 41.691031,
+        "lang": [
+            3
+        ]
+    }
+},
+{
+    "model": "complex.address_ru",
+    "pk": 5,
+    "fields": {
+        "city_ru": 1,
+        "pharentDistrict_ru": 2,
+        "district_ru": 4,
+        "street_name_ru": 5,
+        "address_ru": "Важа Пшавела улица #15",
+        "longitude": 44.827439,
+        "latitude": 41.688205,
         "lang": [
             3
         ]
@@ -2539,6 +2626,30 @@
     }
 },
 {
+    "model": "complex.complex_names",
+    "pk": 5,
+    "fields": {
+        "created_at": "2024-01-09T11:12:43.455Z",
+        "internal_complex_name": "arqi samasi aragveli",
+        "full_price": "4000.00",
+        "price_per_sq_meter": "145.00",
+        "finish_year": 2028,
+        "finish_month": 11,
+        "status": 2,
+        "visibiliti": true,
+        "vipComplex": true,
+        "floor_number": 12,
+        "space": "4323.00",
+        "number_of_apartments": 34,
+        "number_of_houses": 1,
+        "number_of_floors": 12,
+        "complex_level": 2,
+        "phone_number": "1212121212",
+        "plot_area": "1200.00",
+        "rank": "B"
+    }
+},
+{
     "model": "complex.complex_images",
     "pk": 1,
     "fields": {
@@ -2568,6 +2679,38 @@
     "fields": {
         "internal_complex_name": 4,
         "images": "complex_images/bonia.jpg"
+    }
+},
+{
+    "model": "complex.complex_images",
+    "pk": 5,
+    "fields": {
+        "internal_complex_name": 5,
+        "images": "complex_images/Screenshot_from_2023-12-24_15-07-28.png"
+    }
+},
+{
+    "model": "complex.complex_images",
+    "pk": 6,
+    "fields": {
+        "internal_complex_name": 5,
+        "images": "complex_images/Screenshot_from_2023-12-23_23-19-54.png"
+    }
+},
+{
+    "model": "complex.complex_images",
+    "pk": 7,
+    "fields": {
+        "internal_complex_name": 5,
+        "images": "complex_images/Screenshot_from_2023-12-23_23-07-22.png"
+    }
+},
+{
+    "model": "complex.complex_images",
+    "pk": 8,
+    "fields": {
+        "internal_complex_name": 5,
+        "images": "complex_images/Screenshot_from_2023-12-24_15-15-38.png"
     }
 },
 {
@@ -2615,6 +2758,18 @@
         "company_ka": 1,
         "address_ka": 4,
         "complex_name_ka": "არქი ისანი",
+        "type_of_roof_ka": "კრამიტი"
+    }
+},
+{
+    "model": "complex.complex_ka",
+    "pk": 5,
+    "fields": {
+        "internal_complex_name": 5,
+        "complex_images": 5,
+        "company_ka": 1,
+        "address_ka": 5,
+        "complex_name_ka": "არქი სამასი არაგველი",
         "type_of_roof_ka": "კრამიტი"
     }
 },
@@ -2667,6 +2822,18 @@
     }
 },
 {
+    "model": "complex.complex_en",
+    "pk": 5,
+    "fields": {
+        "internal_complex_name": 5,
+        "complex_images": 5,
+        "company_en": 1,
+        "address_en": 5,
+        "complex_name_en": "arqi samasi aragveli",
+        "type_of_roof_en": "kramiti"
+    }
+},
+{
     "model": "complex.complex_ru",
     "pk": 1,
     "fields": {
@@ -2711,6 +2878,18 @@
         "company_ru": 1,
         "address_ru": 4,
         "complex_name_ru": "архи Исани",
+        "type_of_roof_ru": "крамити"
+    }
+},
+{
+    "model": "complex.complex_ru",
+    "pk": 5,
+    "fields": {
+        "internal_complex_name": 5,
+        "complex_images": 5,
+        "company_ru": 1,
+        "address_ru": 5,
+        "complex_name_ru": "архи Самаси Арагвели",
         "type_of_roof_ru": "крамити"
     }
 },
