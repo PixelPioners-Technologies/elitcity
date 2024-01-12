@@ -161,16 +161,22 @@ class Company_KA_Viewset(viewsets.ModelViewSet):
     queryset = Company_KA.objects.all()
     serializer_class = Company_KA_serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name_ka', 'address_ka'] 
     
 class Company_EN_Viewset(viewsets.ModelViewSet):
     queryset = Company_EN.objects.all()
     serializer_class = Company_EN_serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name_en', 'address_en'] 
 
 class Company_RU_Viewset(viewsets.ModelViewSet):
     queryset = Company_RU.objects.all()
     serializer_class = Company_RU_serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name_ru', 'address_ru']
 
 class Company_Images_Viewset(viewsets.ModelViewSet):
     queryset = Company_Images.objects.all()
@@ -183,62 +189,49 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 # -----------------------------------------------------------------------------
-from .filters import Complex_EN_Filter , Complex_KA_Filter , Complex_RU_Filter
+from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter, SearchFilter
 from django.db.models import F
-from rest_framework.filters import OrderingFilter
+from .filters import Complex_KA_Filter, Complex_EN_Filter, Complex_RU_Filter
 
-class Complex_KA_Viewset(viewsets.ModelViewSet):
-    queryset = Complex_KA.objects.all()
+class BaseComplexViewSet(viewsets.ModelViewSet):
+    # pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.queryset = self.model.objects.all()
+        self.serializer_class = self.serializer_class
+        self.filterset_class = self.filterset_class
+        self.search_fields = self.search_fields
+
+    def get_queryset(self):
+        return self.queryset.annotate(
+            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
+            created_at=F('internal_complex_name__created_at'),
+            rank=F('internal_complex_name__rank')
+        )
+
+    ordering_fields = ['price_per_sq_meter', 'created_at', 'rank']
+
+class Complex_KA_Viewset(BaseComplexViewSet):
+    model = Complex_KA
     serializer_class = Complex_KA_Serializers
-    pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_KA_Filter
+    search_fields = ['complex_name_ka', 'address_ka__address_ka', 'address_ka__city_ka__city_ka']
 
-    def get_queryset(self):
-        # Annotate the queryset with the 'price_per_sq_meter' field from the related 'Complex_Names' model.
-        return self.queryset.annotate(
-            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
-            created_at=F('internal_complex_name__created_at'),
-            rank=F('internal_complex_name__rank')
-
-        )
-
-    ordering_fields = ['price_per_sq_meter', 'created_at','rank']
-
-
-class Complex_EN_Viewset(viewsets.ModelViewSet):
-    queryset = Complex_EN.objects.all()
+class Complex_EN_Viewset(BaseComplexViewSet):
+    model = Complex_EN
     serializer_class = Complex_EN_Serializers
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_EN_Filter
+    search_fields = ['complex_name_en', 'address_en__address_en', 'address_en__city_en__city_en']
 
-    def get_queryset(self):
-        return self.queryset.annotate(
-            price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
-            created_at=F('internal_complex_name__created_at'),
-            rank=F('internal_complex_name__rank')
-        )
-
-    ordering_fields = ['price_per_sq_meter', 'created_at','rank']
-
-
-class Complex_RU_Viewset(viewsets.ModelViewSet):
-    queryset = Complex_RU.objects.all()
+class Complex_RU_Viewset(BaseComplexViewSet):
+    model = Complex_RU
     serializer_class = Complex_RU_Serializers
-    pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_RU_Filter
-
-    def get_queryset(self):
-        return self.queryset.annotate(
-        price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
-        created_at=F('internal_complex_name__created_at'),
-        rank=F('internal_complex_name__rank')
-
-
-    )
-
-    ordering_fields = ['price_per_sq_meter', 'created_at','rank']
+    search_fields = ['complex_name_ru', 'address_ru__address_ru', 'address_ru__city_ru__city_ru']
 
 
 
@@ -289,54 +282,3 @@ class Map_EN_Viewset(viewsets.ModelViewSet):
 class Map_RU_Viewset(viewsets.ModelViewSet):
     queryset = City_RU.objects.all()
     serializer_class = City_RU_ForMap_Serializer
-
-
-
-
-############################    This view for Word Find [Complex] ##########################
-'''
-                                  Word Find for Complex
-'''
-class Complex_Word_EN_ViewSet(viewsets.ModelViewSet):
-    queryset = Complex_EN.objects.all()
-    serializer_class = Complex_EN_Serializers
-    filter_backends = [SearchFilter]
-    search_fields = ['complex_name_en', 'address_en__address_en', 'address_en__city_en__city_en'] 
-
-class Complex_Word_KA_ViewSet(viewsets.ModelViewSet):
-    queryset = Complex_KA.objects.all()
-    serializer_class = Complex_KA_Serializers
-    filter_backends = [SearchFilter]
-    search_fields = ['complex_name_ka', 'address_ka__address_ka', 'address_ka__city_ka__city_ka'] 
-
-class Complex_Word_RU_ViewSet(viewsets.ModelViewSet):
-    queryset = Complex_RU.objects.all()
-    serializer_class = Complex_RU_Serializers
-    filter_backends = [SearchFilter]
-    search_fields = ['complex_name_ru', 'address_ru__address_ru', 'address_ru__city_ru__city_ru']
-
-
-
-
-########################### This view for Word Find [Company] ################################
-'''
-                                  Word Find for Company
-'''
-
-class Company_Word_EN_ViewSet(viewsets.ModelViewSet):
-    queryset = Company_EN.objects.all()
-    serializer_class = Company_EN_serializers
-    filter_backends = [SearchFilter]
-    search_fields = ['name_en', 'address_en'] 
-
-class Company_Word_KA_ViewSet(viewsets.ModelViewSet):
-    queryset = Company_KA.objects.all()
-    serializer_class = Company_KA_serializers
-    filter_backends = [SearchFilter]
-    search_fields = ['name_ka', 'address_ka'] 
-
-class Company_Word_RU_ViewSet(viewsets.ModelViewSet):
-    queryset = Company_RU.objects.all()
-    serializer_class = Company_RU_serializers
-    filter_backends = [SearchFilter]
-    search_fields = ['name_ru', 'address_ru']

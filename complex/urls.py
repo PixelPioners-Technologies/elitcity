@@ -13,8 +13,6 @@ company_routers = DefaultRouter()
 complex_routers = DefaultRouter()
 apartment_routers = DefaultRouter()
 map_routers = DefaultRouter()
-complex_word_router = DefaultRouter()
-company_word_router = DefaultRouter()
 
 router.register(r'language',LanguageViewset, basename="language")
 city_ruters.register(r'ka', City_KA_Viewset, basename='ka-city')
@@ -49,19 +47,6 @@ complex_routers.register(r'ka', Complex_KA_Viewset, basename='ka-complex')
 complex_routers.register(r'en', Complex_EN_Viewset, basename='en-complex')
 complex_routers.register(r'ru', Complex_RU_Viewset, basename='ru-complex')
 
-########################## URL For Find Complex Using Word  ############################
-complex_word_router.register(r'ka', Complex_Word_KA_ViewSet, basename='ka-complex_word')
-complex_word_router.register(r'en', Complex_Word_EN_ViewSet, basename='en-complex_word')
-complex_word_router.register(r'ru', Complex_Word_RU_ViewSet, basename='ru-complex_word')
-########################################################################################
-
-
-########################## URL For Find Company Using Word  ############################
-company_word_router.register(r'ka', Company_Word_KA_ViewSet, basename='ka-company_word')
-company_word_router.register(r'en', Company_Word_EN_ViewSet, basename='en-company_word')
-company_word_router.register(r'ru', Company_Word_RU_ViewSet, basename='ru-company_word')
-########################################################################################
-
 
 apartment_routers.register(r'uni', Apartment_Names_Viewset, basename='uni-apartment')
 apartment_routers.register(r'images', Apartment_Images_Viewset, basename='uni-apartment-images')
@@ -86,8 +71,4 @@ urlpatterns = [
     path('complex/' , include(complex_routers.urls)),
     path('apartment/' , include(apartment_routers.urls)),
     path('map/',include(map_routers.urls)),
-
-    ######## URL's for Word Find #############
-    path('complex_word/', include(complex_word_router.urls)),
-    path('company_word/', include(company_word_router.urls)),
 ]
