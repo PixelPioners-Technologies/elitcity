@@ -219,19 +219,19 @@ class Complex_KA_Viewset(BaseComplexViewSet):
     model = Complex_KA
     serializer_class = Complex_KA_Serializers
     filterset_class = Complex_KA_Filter
-    search_fields = ['complex_name_ka', 'address_ka__address_ka', 'address_ka__city_ka__city_ka']
+    search_fields = ['=complex_name_ka', 'address_ka__address_ka', 'address_ka__city_ka__city_ka']
 
 class Complex_EN_Viewset(BaseComplexViewSet):
     model = Complex_EN
     serializer_class = Complex_EN_Serializers
     filterset_class = Complex_EN_Filter
-    search_fields = ['complex_name_en', 'address_en__address_en', 'address_en__city_en__city_en']
+    search_fields = ['=complex_name_en', 'address_en__address_en', 'address_en__city_en__city_en']
 
 class Complex_RU_Viewset(BaseComplexViewSet):
     model = Complex_RU
     serializer_class = Complex_RU_Serializers
     filterset_class = Complex_RU_Filter
-    search_fields = ['complex_name_ru', 'address_ru__address_ru', 'address_ru__city_ru__city_ru']
+    search_fields = ['=complex_name_ru', 'address_ru__address_ru', 'address_ru__city_ru__city_ru']
 
 
 
