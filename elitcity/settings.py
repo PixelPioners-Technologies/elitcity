@@ -176,7 +176,7 @@ AWS_STORAGE_BUCKET_NAME = "elitecity"
 # Page-pagination using rest
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 5,
+    'PAGE_SIZE': 15,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
