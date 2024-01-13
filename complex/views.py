@@ -46,12 +46,18 @@ def api_root(request, format=None):
         language.language: reverse(f'{language.language.lower()}-map-list', request=request, format=format)
         for language in Language.objects.all()
     }
+    ground_links = {
+        language.language: reverse(f'{language.language.lower()}-ground-list', request=request, format=format)
+        for language in Language.objects.all()
+    }
     company_links['uni-data'] = reverse('uni-company-list', request=request, format=format)
     company_links['uni-images'] = reverse('uni-company-images-list', request=request, format=format)
     complex_links['uni-data'] = reverse('uni-complex-list', request=request, format=format)
     complex_links['uni-images'] = reverse('uni-complex-images-list', request=request, format=format)
     apartment_links['uni-data'] = reverse('uni-apartment-list', request=request, format=format)
     apartment_links['uni-images'] = reverse('uni-apartment-images-list', request=request, format=format)
+    ground_links['uni-data'] = reverse('uni-ground-list', request=request, format=format)
+    ground_links['uni-images'] = reverse('uni-ground-images-list', request=request, format=format)
 
     return Response({
         'language': reverse('language-list', request=request, format=format),
@@ -63,12 +69,33 @@ def api_root(request, format=None):
         'company':company_links,
         'complex':complex_links,
         'apartment': apartment_links,
+        'ground': ground_links,
         'maps': map_links,
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
     default_limit = 10
     max_limit = 100
+
+    def get_paginated_response(self, data):
+        return Response({
+            'count': self.count,
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+            'current_page': self.get_current_page(),
+            'total_pages': self.get_total_pages(),
+            'results': data,
+        })
+
+    def get_current_page(self):
+        if self.limit is None:
+            return None
+        return self.offset // self.limit + 1
+
+    def get_total_pages(self):
+        if self.limit is None:
+            return None
+        return (self.count + self.limit - 1) // self.limit
 
 
 class City_KA_Viewset(viewsets.ModelViewSet):
@@ -280,11 +307,40 @@ class Apartment_RU_Viewset(viewsets.ModelViewSet):
 class Map_KA_Viewset(viewsets.ModelViewSet):
     queryset = City_KA.objects.all()
     serializer_class = City_KA_ForMap_Serializer
+    pagination_class = None
 
 class Map_EN_Viewset(viewsets.ModelViewSet):
     queryset = City_EN.objects.all()
     serializer_class = City_EN_ForMap_Serializer
+    pagination_class = None
 
 class Map_RU_Viewset(viewsets.ModelViewSet):
     queryset = City_RU.objects.all()
     serializer_class = City_RU_ForMap_Serializer
+    pagination_class = None
+
+
+class Ground_Names_Viewset(viewsets.ModelViewSet):
+    queryset = Ground_Names.objects.all()
+    serializer_class = Ground_Names_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Ground_Images_Viewset(viewsets.ModelViewSet):
+    queryset = Ground_Images.objects.all()
+    serializer_class = Ground_Images_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Ground_KA_Viewset(viewsets.ModelViewSet):
+    queryset = Ground_KA.objects.all()
+    serializer_class = Ground_KA_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Ground_EN_Viewset(viewsets.ModelViewSet):
+    queryset = Ground_EN.objects.all()
+    serializer_class = Ground_EN_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Ground_RU_Viewset(viewsets.ModelViewSet):
+    queryset = Ground_RU.objects.all()
+    serializer_class = Ground_RU_Serializer
+    pagination_class = CustomLimitOffsetPagination
