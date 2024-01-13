@@ -836,11 +836,7 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
             'appartment_images_id',
             'test_field_ka'
             ]
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     image_urls = self.get_image_urls(instance)
-    #     representation['appartment_images'] = image_urls
-    #     return representation
+
     def to_representation(self, instance):
         data = super().to_representation(instance)
         image_urls = self.get_image_urls(instance)
@@ -1167,3 +1163,197 @@ class City_RU_ForMap_Serializer(serializers.ModelSerializer):
     class Meta:
         model = City_RU
         fields = ['city_ru', 'pharentDistrict_ru']
+    
+'''
+-----------------------------------------------------------------------
+            GROUND SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class Ground_Names_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ground_Names
+        fields = [
+            'id',
+            'internal_ground_name',
+            'area',
+            'price',
+            'is_available',
+            'visibiliti'
+            ]
+
+class Ground_Images_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ground_Images
+        fields = '__all__'
+
+class Ground_KA_Serializer(serializers.ModelSerializer):
+    internal_ground_name = Ground_Names_Serializer(read_only = True)
+    internal_ground_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Ground_Names.objects.all(),
+        source = 'internal_ground_name',
+        write_only=True,
+        required=False
+    )
+    ground_address_ka = Address_KA_Serializer(read_only = True)
+    ground_address_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_KA.objects.all(),
+        source = 'ground_address_ka',
+        write_only=True,
+        required=False
+        
+    )
+    ground_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Ground_Images.objects.all(),
+        source = 'ground_images',
+        write_only=True,
+        required=False 
+    )
+    class Meta:
+        model = Ground_KA
+        fields = [
+            'id',
+            'internal_ground_name',
+            'internal_ground_name_id',
+            'ground_address_ka',
+            'ground_address_ka_id',
+            'ground_name_ka',
+            'ground_images_id',
+            ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_ground_name' : {
+                "id": data["internal_ground_name"]['id'],
+                "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
+                "area": data["internal_ground_name"]['area'],
+                "price": data["internal_ground_name"]['price'],
+                "is_available": data["internal_ground_name"]['is_available'],
+                "visibiliti": data["internal_ground_name"]['visibiliti'],
+            },
+            'ground_address_ka': data["ground_address_ka"],
+            'ground_name_ka':data['ground_name_ka'],
+            'ground_images': image_urls,
+        }
+
+
+    def get_image_urls(self, instance):
+        images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+class Ground_EN_Serializer(serializers.ModelSerializer):
+    internal_ground_name = Ground_Names_Serializer(read_only = True)
+    internal_ground_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Ground_Names.objects.all(),
+        source = 'internal_ground_name',
+        write_only=True,
+        required=False
+        
+    )
+    ground_address_en = Address_EN_Serializer(read_only = True)
+    ground_address_en_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_EN.objects.all(),
+        source = 'ground_address_en',
+        write_only=True,
+        required=False
+    )
+    ground_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Ground_Images.objects.all(),
+        source = 'ground_images',
+        write_only=True,
+        required=False
+    )
+    class Meta:
+        model = Ground_EN
+        fields = [
+            'id',
+            'internal_ground_name',
+            'internal_ground_name_id',
+            'ground_address_en',
+            'ground_address_en_id',
+            'ground_name_en',
+            'ground_images_id',
+            ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_ground_name' : {
+                "id": data["internal_ground_name"]['id'],
+                "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
+                "area": data["internal_ground_name"]['area'],
+                "price": data["internal_ground_name"]['price'],
+                "is_available": data["internal_ground_name"]['is_available'],
+                "visibiliti": data["internal_ground_name"]['visibiliti'],
+            },
+            'ground_address_en': data["ground_address_en"],
+            'ground_name_en':data['ground_name_en'],
+            'ground_images': image_urls,
+        }
+
+
+    def get_image_urls(self, instance):
+        images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+class Ground_RU_Serializer(serializers.ModelSerializer):
+    internal_ground_name = Ground_Names_Serializer(read_only = True)
+    internal_ground_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Ground_Names.objects.all(),
+        source = 'internal_ground_name',
+        write_only=True,
+        required=False
+        
+    )
+    ground_address_ru = Address_RU_Serializer(read_only = True)
+    ground_address_ru_id = serializers.PrimaryKeyRelatedField(
+        queryset = Address_RU.objects.all(),
+        source = 'ground_address_ru',
+        write_only=True,
+        required=False
+    )
+    ground_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Ground_Images.objects.all(),
+        source = 'ground_images',
+        write_only=True,
+        required=False 
+    )
+    class Meta:
+        model = Ground_RU
+        fields = [
+            'id',
+            'internal_ground_name',
+            'internal_ground_name_id',
+            'ground_address_ru',
+            'ground_address_ru_id',
+            'ground_name_ru',
+            'ground_images_id',
+            ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_ground_name' : {
+                "id": data["internal_ground_name"]['id'],
+                "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
+                "area": data["internal_ground_name"]['area'],
+                "price": data["internal_ground_name"]['price'],
+                "is_available": data["internal_ground_name"]['is_available'],
+                "visibiliti": data["internal_ground_name"]['visibiliti'],
+            },
+            'ground_address_ru': data["ground_address_ru"],
+            'ground_name_ru':data['ground_name_ru'],
+            'ground_images': image_urls,
+        }
+
+
+    def get_image_urls(self, instance):
+        images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
