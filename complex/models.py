@@ -249,6 +249,17 @@ class Complex_Names(models.Model):
     number_of_floors = models.IntegerField()
     complex_level = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     phone_number = models.CharField(max_length=20)
+    # for information fields - integer da float fields aq davtove, str - ingebs qvemot davamateb
+    number_of_apartments = models.IntegerField()
+    number_of_buildings = models.IntegerField()
+    flooring = models.IntegerField()
+    parking_quantity = models.IntegerField()
+    rooms_quantity = models.IntegerField()
+    light_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    humidity_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    area_squareness = models.DecimalField(max_digits=10, decimal_places=2)
+    ceiling_height_meters = models.DecimalField(max_digits=5, decimal_places=2)
+
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
         ('A', 'Rank A'),
@@ -276,6 +287,14 @@ class Complex_KA(models.Model):
     address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
+    construction_type_ka = models.CharField(max_length=100)
+    submission_type_ka = models.CharField(max_length=100)
+    catering_facility_ka = models.CharField(max_length=100)
+    elevator_type_ka = models.CharField(max_length=100)
+    schlangbaum_ka = models.CharField(max_length=100)
+    concierge_service_ka = models.CharField(max_length=100)
+    yard_description_ka = models.CharField(max_length=200)
+    protection_type_ka = models.CharField(max_length=100)
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -287,6 +306,14 @@ class Complex_EN(models.Model):
     address_en = models.ForeignKey(Address_EN, on_delete=models.CASCADE)
     complex_name_en = models.CharField(max_length=200, unique=True)
     type_of_roof_en = models.CharField(max_length=100)
+    construction_type_en = models.CharField(max_length=100)
+    submission_type_en = models.CharField(max_length=100)
+    catering_facility_en = models.CharField(max_length=100)
+    elevator_type_en = models.CharField(max_length=100)
+    schlangbaum_en = models.CharField(max_length=100)
+    concierge_service_en = models.CharField(max_length=100)
+    yard_description_en = models.CharField(max_length=200)
+    protection_type_en = models.CharField(max_length=100)
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -298,6 +325,14 @@ class Complex_RU(models.Model):
     address_ru = models.ForeignKey(Address_RU, on_delete=models.CASCADE)
     complex_name_ru = models.CharField(max_length=200, unique=True)
     type_of_roof_ru = models.CharField(max_length=100)
+    construction_type_ru = models.CharField(max_length=100)
+    submission_type_ru = models.CharField(max_length=100)
+    catering_facility_ru = models.CharField(max_length=100)
+    elevator_type_ru = models.CharField(max_length=100)
+    schlangbaum_ru = models.CharField(max_length=100)
+    concierge_service_ru = models.CharField(max_length=100)
+    yard_description_ru = models.CharField(max_length=200)
+    protection_type_ru = models.CharField(max_length=100)
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
