@@ -29,6 +29,7 @@ admin.site.register(Complex_KA)
 admin.site.register(Complex_EN)
 admin.site.register(Complex_RU)
 
+admin.site.register(Appartment_Names)
 admin.site.register(Appartment_EN)
 admin.site.register(Appartment_KA)
 admin.site.register(Appartment_RU)

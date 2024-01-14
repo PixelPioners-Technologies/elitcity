@@ -783,7 +783,8 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
             'internal_apartment_name',
             'number_of_rooms', 
             'area',
-            'price',
+            'full_price',
+            'square_price',
             'floor_number',
             'is_available',
             'visibiliti'
@@ -852,7 +853,8 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
                 "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
                 "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
                 "area": data["internal_apartment_name"]['area'],
-                "price": data["internal_apartment_name"]['price'],
+                "full_price": data["internal_apartment_name"]['full_price'],
+                'square_price' : data['internal_apartment_name']['square_price'],
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
@@ -923,7 +925,8 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
                 "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
                 "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
                 "area": data["internal_apartment_name"]['area'],
-                "price": data["internal_apartment_name"]['price'],
+                "full_price": data["internal_apartment_name"]['full_price'],
+                'square_price' : data['internal_apartment_name']['square_price'],
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
@@ -931,8 +934,6 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
             'appartment_address_en': data["appartment_address_en"],
             'appartment_images': image_urls,
             'test_field_en': data['test_field_en'],
-
-
         }
 
 
@@ -994,7 +995,8 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
                 "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
                 "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
                 "area": data["internal_apartment_name"]['area'],
-                "price": data["internal_apartment_name"]['price'],
+                "full_price": data["internal_apartment_name"]['full_price'],
+                'square_price' : data['internal_apartment_name']['square_price'],
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],

@@ -182,7 +182,7 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 # -----------------------------------------------------------------------------
-from .filters import Complex_EN_Filter , Complex_KA_Filter , Complex_RU_Filter
+from .filters import Complex_EN_Filter , Complex_KA_Filter , Complex_RU_Filter , Apartment_EN_Filter , Apartment_KA_Filter , Apartment_RU_Filter
 from django.db.models import F
 from rest_framework.filters import OrderingFilter
 
@@ -266,16 +266,23 @@ class Apartment_KA_Viewset(viewsets.ModelViewSet):
     queryset = Appartment_KA.objects.all()
     serializer_class = Appartment_KA_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend ,]
+    filterset_class = Apartment_KA_Filter
 
 class Apartment_EN_Viewset(viewsets.ModelViewSet):
     queryset = Appartment_EN.objects.all()
     serializer_class = Appartment_EN_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend,]
+    filterset_class = Apartment_EN_Filter
 
 class Apartment_RU_Viewset(viewsets.ModelViewSet):
     queryset = Appartment_RU.objects.all()
     serializer_class = Appartment_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend ,]
+    filterset_class = Apartment_RU_Filter
+
 
 class Map_KA_Viewset(viewsets.ModelViewSet):
     queryset = City_KA.objects.all()

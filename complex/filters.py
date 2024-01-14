@@ -186,3 +186,123 @@ class Complex_RU_Filter(filters.FilterSet):
 
         return qs.distinct()  
 
+
+
+class Apartment_EN_Filter(filters.FilterSet):
+    min_area = filters.NumberFilter(field_name='internal_apartment_name__area' , lookup_expr='gte')
+    max_area = filters.NumberFilter(field_name='internal_apartment_name__area' , lookup_expr='lte')
+
+    min_full_price = filters.NumberFilter(field_name='internal_apartment_name__full_price', lookup_expr='gte')
+    max_full_price = filters.NumberFilter(field_name='internal_apartment_name__full_price', lookup_expr='lte')
+
+    min_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='gte')
+    max_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='lte')
+
+    status = filters.MultipleChoiceFilter(
+        field_name = 'internal_apartment_name__status',
+        choices = Appartment_Names.STATUS_CHOICES
+    )
+    
+    number_of_rooms = filters.MultipleChoiceFilter(
+        field_name='internal_apartment_name__number_of_rooms', 
+        choices=Appartment_Names.NUMBER_OF_ROOM_CHOICES
+    )
+
+    parent_district_choices = [(pd.id, pd.pharentDistrict_en) for pd in PharentDistrict_EN.objects.all()]
+    district_choices = [(d.id, d.district_en) for d in District_EN.objects.all()]
+
+    city = filters.CharFilter(field_name='appartment_address_en__city_en__city_en', lookup_expr='icontains')
+    parent_districts = filters.MultipleChoiceFilter(field_name='appartment_address_en__pharentDistrict_en__id', choices=parent_district_choices)
+    districts = filters.MultipleChoiceFilter(field_name='appartment_address_en__district_en__id', choices=district_choices)
+
+
+    class Meta:
+        model = Appartment_EN
+        # fields = ['min_area', 'max_area', 'min_full_price', 'max_full_price' , 'number_of_rooms' , 'min_square_price' ,'max_square_price' , "status" , 'city', 'parent_district', 'district']
+        fields = [
+            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'number_of_rooms', 'min_square_price', 'max_square_price', 
+            "status", 'city', 'parent_districts', 'districts'
+        ]
+
+
+
+
+
+class Apartment_KA_Filter(filters.FilterSet):
+    min_area = filters.NumberFilter(field_name='internal_apartment_name__area' , lookup_expr='gte')
+    max_area = filters.NumberFilter(field_name='internal_apartment_name__area' , lookup_expr='lte')
+
+    min_full_price = filters.NumberFilter(field_name='internal_apartment_name__full_price', lookup_expr='gte')
+    max_full_price = filters.NumberFilter(field_name='internal_apartment_name__full_price', lookup_expr='lte')
+
+    min_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='gte')
+    max_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='lte')
+
+    
+    status = filters.MultipleChoiceFilter(
+        field_name = 'internal_apartment_name__status',
+        choices = Appartment_Names.STATUS_CHOICES
+    )
+    
+
+    number_of_rooms = filters.MultipleChoiceFilter(
+        field_name='internal_apartment_name__number_of_rooms', 
+        choices=Appartment_Names.NUMBER_OF_ROOM_CHOICES
+    )
+
+    parent_district_choices = [(pd.id, pd.pharentDistrict_ka) for pd in PharentDistrict_KA.objects.all()]
+    district_choices = [(d.id, d.district_ka) for d in District_KA.objects.all()]
+
+    city = filters.CharFilter(field_name='appartment_address_ka__city_ka__city_ka', lookup_expr='icontains')
+    parent_districts = filters.MultipleChoiceFilter(field_name='appartment_address_ka__pharentDistrict_ka__id', choices=parent_district_choices)
+    districts = filters.MultipleChoiceFilter(field_name='appartment_address_ka__district_ka__id', choices=district_choices)
+
+
+    class Meta: 
+        model = Appartment_KA
+        fields = [
+            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'number_of_rooms', 'min_square_price', 'max_square_price', 
+            "status", 'city', 'parent_districts', 'districts'
+        ]
+
+
+class Apartment_RU_Filter(filters.FilterSet):
+    min_area = filters.NumberFilter(field_name='internal_apartment_name__area' , lookup_expr='gte')
+    max_area = filters.NumberFilter(field_name='internal_apartment_name__area' , lookup_expr='lte')
+
+    min_full_price = filters.NumberFilter(field_name='internal_apartment_name__full_price', lookup_expr='gte')
+    max_full_price = filters.NumberFilter(field_name='internal_apartment_name__full_price', lookup_expr='lte')
+
+    min_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='gte')
+    max_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='lte')
+
+    
+    status = filters.MultipleChoiceFilter(
+        field_name = 'internal_apartment_name__status',
+        choices = Appartment_Names.STATUS_CHOICES
+    )
+    
+
+    number_of_rooms = filters.MultipleChoiceFilter(
+        field_name='internal_apartment_name__number_of_rooms', 
+        choices=Appartment_Names.NUMBER_OF_ROOM_CHOICES
+    )
+
+    parent_district_choices = [(pd.id, pd.pharentDistrict_ru) for pd in PharentDistrict_RU.objects.all()]
+    district_choices = [(d.id, d.district_ru) for d in District_RU.objects.all()]
+
+    city = filters.CharFilter(field_name='appartment_address_ru__city_ru__city_ru', lookup_expr='icontains')
+    parent_districts = filters.MultipleChoiceFilter(field_name='appartment_address_ru__pharentDistrict_ru__id', choices=parent_district_choices)
+    districts = filters.MultipleChoiceFilter(field_name='appartment_address_ru__district_ru__id', choices=district_choices)
+
+
+    class Meta:
+        model = Appartment_RU
+        fields = [
+            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'number_of_rooms', 'min_square_price', 'max_square_price', 
+            "status", 'city', 'parent_districts', 'districts'
+        ]
+
