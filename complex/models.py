@@ -450,7 +450,7 @@ class Promotions_and_offers_Names(models.Model):
     internal_promotion_name = models.CharField(max_length=255)
     start_date = models.DateField()
     end_date = models.DateField()
-    company = models.ForeignKey(Company_Names, on_delete=models.CASCADE)  # Assuming Company_Names is your company model
+    company = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
     discount = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     gift = models.CharField(max_length=255, null=True, blank=True)
     installment = models.BooleanField(default=False)
