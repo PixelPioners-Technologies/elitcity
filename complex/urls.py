@@ -13,6 +13,8 @@ company_routers = DefaultRouter()
 complex_routers = DefaultRouter()
 apartment_routers = DefaultRouter()
 map_routers = DefaultRouter()
+ground_routers = DefaultRouter()
+promotions_routers = DefaultRouter()
 
 router.register(r'language',LanguageViewset, basename="language")
 city_ruters.register(r'ka', City_KA_Viewset, basename='ka-city')
@@ -58,6 +60,18 @@ map_routers.register(r'ka', Map_KA_Viewset, basename='ka-map')
 map_routers.register(r'en', Map_EN_Viewset, basename='en-map')
 map_routers.register(r'ru', Map_RU_Viewset, basename='ru-map')
 
+ground_routers.register(r'uni', Ground_Names_Viewset, basename='uni-ground')
+ground_routers.register(r'images', Ground_Images_Viewset, basename='uni-ground-images')
+ground_routers.register(r'ka', Ground_KA_Viewset, basename='ka-ground')
+ground_routers.register(r'en', Ground_EN_Viewset, basename='en-ground')
+ground_routers.register(r'ru', Ground_RU_Viewset, basename='ru-ground')
+
+promotions_routers.register(r'uni', PromotionsAndOffersNamesViewSet, basename='uni-promotions')
+promotions_routers.register(r'images', PromotionsAndOffersImageViewSet, basename='uni-promotions-images')
+promotions_routers.register(r'ka', PromotionsAndOffersKAViewSet, basename='ka-promotions')
+promotions_routers.register(r'en', PromotionsAndOffersENViewSet, basename='en-promotions')
+promotions_routers.register(r'ru', PromotionsAndOffersRUViewSet, basename='ru-promotions')
+
 
 urlpatterns = [
     path('', api_root),
@@ -70,5 +84,7 @@ urlpatterns = [
     path('company/' , include(company_routers.urls)),
     path('complex/' , include(complex_routers.urls)),
     path('apartment/' , include(apartment_routers.urls)),
+    path('ground/' , include(ground_routers.urls)),
     path('map/',include(map_routers.urls)),
+    path('promotions/', include(promotions_routers.urls)),
 ]
