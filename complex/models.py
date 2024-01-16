@@ -182,7 +182,6 @@ class Company_Names(models.Model):
     facebook_page = models.URLField(blank=True, null=True)
     topCompany = models.BooleanField(default=False)
     visibility = models.BooleanField(default=True)
-    vip_company = models.BooleanField(default=False)
     def __str__(self):
         return self.internal_name
     
@@ -382,8 +381,82 @@ class Appartment_RU(models.Model):
     appartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     test_field_ru = models.CharField(max_length=50)
 
+'''
+-----------------------------------------------------------------------
+            APPARTMENT MODELS
+-----------------------------------------------------------------------
+''' 
+
+class Private_Appartment_Names(models.Model):
+    created_at = models.DateTimeField(auto_now_add = True)
+    internal_private_apartment_name = models.CharField(max_length=50)
+    NUMBER_OF_ROOM_CHOICES = [
+        ('studio', 'Studio'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5+', '5+'),
+    ]
+    STATUS_CHOICES=[
+        ("1" , 'Newly renovated'),
+        ('2' , 'with old repairs'),
+        ('3', 'to be repaired'),
+    ]
+    number_of_rooms = models.CharField(
+        max_length=10,
+        choices = NUMBER_OF_ROOM_CHOICES,
+        default = "studio"
+    )
+    status = models.CharField(
+        max_length = 30,
+        choices = STATUS_CHOICES,
+        default = "3"
+    )
+    area = models.DecimalField(max_digits=7, decimal_places=2)
+    full_price = models.DecimalField(max_digits=12, decimal_places=2)
+    square_price = models.DecimalField(max_digits=10, decimal_places=2)
+    floor_number = models.IntegerField()
+    is_available = models.BooleanField(default=True)
+    visibiliti = models.BooleanField(default=True)
+
+        
+    def __str__(self):
+        return f"{self.internal_private_apartment_name}"
 
 
-# saremonto 
-# axal garemontebuli 
-# dzveli remontit
+    
+class Private_Appartment_images(models.Model):
+    internal_private_apartment_name = models.ForeignKey(Private_Appartment_Names,  on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='private_apartment_images/')
+
+    def __str__(self):
+        return f"{self.internal_private_apartment_name.internal_private_apartment_name}"
+
+
+class Private_Appartment_EN(models.Model):
+    internal_private_apartment_name = models.ForeignKey(Private_Appartment_Names ,on_delete=models.CASCADE)
+    private_apartment_images = models.ForeignKey(Private_Appartment_images, on_delete = models.CASCADE, null=True)
+    private_apartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE,null = True)
+    private_apartment_name_en = models.CharField(max_length=100,null=True)
+    test_private_field_en = models.CharField(max_length=100)
+
+
+
+class Private_Appartment_KA(models.Model):
+    internal_private_apartment_name = models.ForeignKey(Private_Appartment_Names ,on_delete=models.CASCADE)
+    private_apartment_images = models.ForeignKey(Private_Appartment_images, on_delete = models.CASCADE, null=True)
+    private_apartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
+    private_apartment_name_ka = models.CharField(max_length=100,null=True)
+    test_private_field_ka = models.CharField(max_length=100)
+
+
+
+class Private_Appartment_RU(models.Model):
+    internal_private_apartment_name = models.ForeignKey(Private_Appartment_Names ,on_delete=models.CASCADE)
+    private_apartment_images = models.ForeignKey(Private_Appartment_images, on_delete = models.CASCADE, null=True)
+    private_apartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
+    private_apartment_name_ru = models.CharField(max_length=100,null=True)
+    test_private_field_ru = models.CharField(max_length=100)
+    
+

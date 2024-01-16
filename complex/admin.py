@@ -34,6 +34,10 @@ admin.site.register(Appartment_EN)
 admin.site.register(Appartment_KA)
 admin.site.register(Appartment_RU)
 
+admin.site.register(Private_Appartment_Names)
+admin.site.register(Private_Appartment_EN)
+admin.site.register(Private_Appartment_KA)
+admin.site.register(Private_Appartment_RU)
 
 
 
