@@ -306,3 +306,4 @@ class Apartment_RU_Filter(filters.FilterSet):
             "status", 'city', 'parent_districts', 'districts'
         ]
 
+# 'parent_districts', 'districts'
