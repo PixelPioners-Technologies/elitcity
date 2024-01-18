@@ -778,6 +778,7 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
         model = Appartment_Names
         fields = [
             'id',
+            'created_at',
             'complex',
             'complex_id',
             'internal_apartment_name',

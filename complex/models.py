@@ -412,7 +412,6 @@ class Private_Appartment_Names(models.Model):
         max_length = 30,
         choices = STATUS_CHOICES,
         default = "3",
-        null=True
     )
     area = models.DecimalField(max_digits=7, decimal_places=2)
     full_price = models.DecimalField(max_digits=12, decimal_places=2)
@@ -460,20 +459,20 @@ class Private_Appartment_RU(models.Model):
     private_apartment_name_ru = models.CharField(max_length=100,null=True)
     test_private_field_ru = models.CharField(max_length=100)
     
-''''
-127.0.0.1:8000/complex/en/
-    ?address_en__city_en__city_en__icontains=&
-    address_en__pharentDistrict_en__pharentDistrict_en__in=&address_en__district_en__district_en__in=&
-    min_price_per_sq_meter=&
-    max_price_per_sq_meter=&
-    min_full_price=&
-    max_full_price=&
-    min_space=&
-    max_space=&
-    status=&
-    ordering=
+# ''''
+# 127.0.0.1:8000/complex/en/
+#     ?address_en__city_en__city_en__icontains=&
+#     address_en__pharentDistrict_en__pharentDistrict_en__in=&address_en__district_en__district_en__in=&
+#     min_price_per_sq_meter=&
+#     max_price_per_sq_meter=&
+#     min_full_price=&
+#     max_full_price=&
+#     min_space=&
+#     max_space=&
+#     status=&
+#     ordering=
 
-'''
+# '''
 
 
 

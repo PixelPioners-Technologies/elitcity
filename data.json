@@ -1,96 +1,5 @@
 [
 {
-    "model": "admin.logentry",
-    "pk": 1,
-    "fields": {
-        "action_time": "2024-01-08T17:09:08.940Z",
-        "user": 1,
-        "content_type": 21,
-        "object_id": "4",
-        "object_repr": "arqi isani",
-        "action_flag": 2,
-        "change_message": "[]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 2,
-    "fields": {
-        "action_time": "2024-01-08T17:09:16.740Z",
-        "user": 1,
-        "content_type": 21,
-        "object_id": "4",
-        "object_repr": "arqi isani",
-        "action_flag": 2,
-        "change_message": "[]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 3,
-    "fields": {
-        "action_time": "2024-01-08T17:09:26.136Z",
-        "user": 1,
-        "content_type": 21,
-        "object_id": "3",
-        "object_repr": "arqi lisi",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"Rank\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 4,
-    "fields": {
-        "action_time": "2024-01-08T17:09:36.899Z",
-        "user": 1,
-        "content_type": 21,
-        "object_id": "2",
-        "object_repr": "arqi vake",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"Rank\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 5,
-    "fields": {
-        "action_time": "2024-01-08T17:10:40.693Z",
-        "user": 1,
-        "content_type": 21,
-        "object_id": "1",
-        "object_repr": "arqi saburtalo",
-        "action_flag": 2,
-        "change_message": "[{\"changed\": {\"fields\": [\"Rank\"]}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 6,
-    "fields": {
-        "action_time": "2024-01-13T09:56:08.694Z",
-        "user": 1,
-        "content_type": 11,
-        "object_id": "2",
-        "object_repr": "saburtalos bina 2",
-        "action_flag": 3,
-        "change_message": ""
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 7,
-    "fields": {
-        "action_time": "2024-01-13T09:56:08.696Z",
-        "user": 1,
-        "content_type": 11,
-        "object_id": "1",
-        "object_repr": "saburtalos bina",
-        "action_flag": 3,
-        "change_message": ""
-    }
-},
-{
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -1423,11 +1332,191 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 149,
+    "fields": {
+        "name": "Can add private_ appartment_images",
+        "content_type": 38,
+        "codename": "add_private_appartment_images"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 150,
+    "fields": {
+        "name": "Can change private_ appartment_images",
+        "content_type": 38,
+        "codename": "change_private_appartment_images"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 151,
+    "fields": {
+        "name": "Can delete private_ appartment_images",
+        "content_type": 38,
+        "codename": "delete_private_appartment_images"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 152,
+    "fields": {
+        "name": "Can view private_ appartment_images",
+        "content_type": 38,
+        "codename": "view_private_appartment_images"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 153,
+    "fields": {
+        "name": "Can add private_ appartment_ names",
+        "content_type": 39,
+        "codename": "add_private_appartment_names"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 154,
+    "fields": {
+        "name": "Can change private_ appartment_ names",
+        "content_type": 39,
+        "codename": "change_private_appartment_names"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 155,
+    "fields": {
+        "name": "Can delete private_ appartment_ names",
+        "content_type": 39,
+        "codename": "delete_private_appartment_names"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 156,
+    "fields": {
+        "name": "Can view private_ appartment_ names",
+        "content_type": 39,
+        "codename": "view_private_appartment_names"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 157,
+    "fields": {
+        "name": "Can add private_ appartment_ru",
+        "content_type": 40,
+        "codename": "add_private_appartment_ru"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 158,
+    "fields": {
+        "name": "Can change private_ appartment_ru",
+        "content_type": 40,
+        "codename": "change_private_appartment_ru"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 159,
+    "fields": {
+        "name": "Can delete private_ appartment_ru",
+        "content_type": 40,
+        "codename": "delete_private_appartment_ru"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 160,
+    "fields": {
+        "name": "Can view private_ appartment_ru",
+        "content_type": 40,
+        "codename": "view_private_appartment_ru"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 161,
+    "fields": {
+        "name": "Can add private_ appartment_ka",
+        "content_type": 41,
+        "codename": "add_private_appartment_ka"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 162,
+    "fields": {
+        "name": "Can change private_ appartment_ka",
+        "content_type": 41,
+        "codename": "change_private_appartment_ka"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 163,
+    "fields": {
+        "name": "Can delete private_ appartment_ka",
+        "content_type": 41,
+        "codename": "delete_private_appartment_ka"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 164,
+    "fields": {
+        "name": "Can view private_ appartment_ka",
+        "content_type": 41,
+        "codename": "view_private_appartment_ka"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 165,
+    "fields": {
+        "name": "Can add private_ appartment_en",
+        "content_type": 42,
+        "codename": "add_private_appartment_en"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 166,
+    "fields": {
+        "name": "Can change private_ appartment_en",
+        "content_type": 42,
+        "codename": "change_private_appartment_en"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 167,
+    "fields": {
+        "name": "Can delete private_ appartment_en",
+        "content_type": 42,
+        "codename": "delete_private_appartment_en"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 168,
+    "fields": {
+        "name": "Can view private_ appartment_en",
+        "content_type": 42,
+        "codename": "view_private_appartment_en"
+    }
+},
+{
     "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$600000$O4nbmPZHWyQfflIz56gaGv$b1h/gdLCoqjojRnC68KUYmtwjuRWxbK6/Sk581zuF78=",
-        "last_login": "2024-01-13T09:55:16.292Z",
+        "password": "pbkdf2_sha256$600000$tJV2anVtNC5OB2U5JjSWm6$n4zD72VkPKnIoEd0UKIR3fUDhmJD91t4inrVYnf8pnA=",
+        "last_login": "2024-01-18T13:43:09.650Z",
         "is_superuser": true,
         "username": "guro",
         "first_name": "",
@@ -1435,7 +1524,7 @@
         "email": "",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2024-01-08T15:34:02.896Z",
+        "date_joined": "2024-01-18T13:43:04.240Z",
         "groups": [],
         "user_permissions": []
     }
@@ -1737,19 +1826,51 @@
     }
 },
 {
-    "model": "sessions.session",
-    "pk": "nupyqx5qmknuzg1wrkedoynwwmyzsmqx",
+    "model": "contenttypes.contenttype",
+    "pk": 38,
     "fields": {
-        "session_data": ".eJxVjDsOwjAQBe_iGln-yl5Kes5grb1rHECOFCcV4u4QKQW0b2beSyTc1pa2wUuaSJyFFqffLWN5cN8B3bHfZlnmvi5TlrsiDzrkdSZ-Xg7376DhaN_aZiqKAgVd0TrFgD4TVmBn2EIoXseoMWrg6gGNRWe5VgelmIzKRPH-AAOZOJI:1rOajU:LYmq_f_sc1CJIRw5_0dlaEq9c2wCI-skmOCD6L3IkFg",
-        "expire_date": "2024-01-27T09:55:16.296Z"
+        "app_label": "complex",
+        "model": "private_appartment_images"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 39,
+    "fields": {
+        "app_label": "complex",
+        "model": "private_appartment_names"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 40,
+    "fields": {
+        "app_label": "complex",
+        "model": "private_appartment_ru"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 41,
+    "fields": {
+        "app_label": "complex",
+        "model": "private_appartment_ka"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 42,
+    "fields": {
+        "app_label": "complex",
+        "model": "private_appartment_en"
     }
 },
 {
     "model": "sessions.session",
-    "pk": "r3vjkqjinxj70vyybmxwb6fuj3w4d3dy",
+    "pk": "d846ii5v0frqkwr8y4np9e3due9cyent",
     "fields": {
-        "session_data": ".eJxVjDsOwjAQBe_iGln-yl5Kes5grb1rHECOFCcV4u4QKQW0b2beSyTc1pa2wUuaSJyFFqffLWN5cN8B3bHfZlnmvi5TlrsiDzrkdSZ-Xg7376DhaN_aZiqKAgVd0TrFgD4TVmBn2EIoXseoMWrg6gGNRWe5VgelmIzKRPH-AAOZOJI:1rMrdg:Go-AMoMpIAp0GYkPw2NGSfV1nHSIffLL5IKLTTS4Pxg",
-        "expire_date": "2024-01-22T15:34:08.187Z"
+        "session_data": ".eJxVjDsOwjAQBe_iGllrgj9Q0nMGa-3dxQFkS3FSIe5OIqWA9s3Me6uIy1zi0nmKI6mLMurwuyXMT64boAfWe9O51Xkak94UvdOub434dd3dv4OCvax1yMA2AVkBcQSMcGYGyckAsfWGVh6Ekw8i2Vvk4XQEm11wCF7CoD5fFu447Q:1rQSfl:1RcyJXI1rvyD70yhuEMK5BemUmmgtnZzv6R8xuMqgA0",
+        "expire_date": "2024-02-01T13:43:09.652Z"
     }
 },
 {
@@ -2521,8 +2642,7 @@
         "companyweb": "https://example.com",
         "facebook_page": "https://example.com",
         "topCompany": false,
-        "visibility": true,
-        "vip_company": false
+        "visibility": true
     }
 },
 {
@@ -2930,37 +3050,74 @@
 },
 {
     "model": "complex.appartment_names",
-    "pk": 3,
+    "pk": 1,
     "fields": {
-        "created_at": "2024-01-13T11:29:03.808Z",
-        "complex": 1,
+        "created_at": "2024-01-18T13:41:20.631Z",
+        "complex": null,
         "internal_apartment_name": "saburtalos bina",
         "number_of_rooms": "2",
         "status": "3",
         "area": "110.00",
         "full_price": "4000.00",
         "square_price": "900.00",
-        "floor_number": 4,
-        "is_available": false,
-        "visibiliti": false
+        "floor_number": 12,
+        "is_available": true,
+        "visibiliti": true
+    }
+},
+{
+    "model": "complex.appartment_names",
+    "pk": 2,
+    "fields": {
+        "created_at": "2024-01-18T13:46:09.566Z",
+        "complex": null,
+        "internal_apartment_name": "vakis bina",
+        "number_of_rooms": "2",
+        "status": "3",
+        "area": "87.00",
+        "full_price": "4000.00",
+        "square_price": "900.00",
+        "floor_number": 3,
+        "is_available": true,
+        "visibiliti": true
     }
 },
 {
     "model": "complex.appartment_images",
-    "pk": 3,
+    "pk": 1,
     "fields": {
-        "internal_apartment_name": 3,
-        "images": "apartment_images/Screenshot_from_2023-12-25_19-17-33.png"
+        "internal_apartment_name": 1,
+        "images": "apartment_images/Screenshot_from_2024-01-09_16-30-43.png"
+    }
+},
+{
+    "model": "complex.appartment_images",
+    "pk": 2,
+    "fields": {
+        "internal_apartment_name": 2,
+        "images": "apartment_images/Screenshot_from_2023-12-25_15-38-44.png"
     }
 },
 {
     "model": "complex.appartment_ka",
     "pk": 2,
     "fields": {
-        "internal_apartment_name": 3,
+        "internal_apartment_name": 1,
         "complex_ka": null,
         "appartment_name_ka": "ბინა 23",
-        "appartment_images": 3,
+        "appartment_images": 1,
+        "appartment_address_ka": 2,
+        "test_field_ka": "ტესტ ფილდი"
+    }
+},
+{
+    "model": "complex.appartment_ka",
+    "pk": 3,
+    "fields": {
+        "internal_apartment_name": 2,
+        "complex_ka": null,
+        "appartment_name_ka": "ბინა 23",
+        "appartment_images": 1,
         "appartment_address_ka": 1,
         "test_field_ka": "ტესტ ფილდი"
     }
@@ -2969,10 +3126,22 @@
     "model": "complex.appartment_en",
     "pk": 1,
     "fields": {
-        "internal_apartment_name": 3,
+        "internal_apartment_name": 1,
         "complex_en": null,
         "appartment_name_en": "bina #12_en",
-        "appartment_images": 3,
+        "appartment_images": 1,
+        "appartment_address_en": 2,
+        "test_field_en": "test_en"
+    }
+},
+{
+    "model": "complex.appartment_en",
+    "pk": 2,
+    "fields": {
+        "internal_apartment_name": 2,
+        "complex_en": null,
+        "appartment_name_en": "bina #12_en",
+        "appartment_images": 2,
         "appartment_address_en": 1,
         "test_field_en": "test_en"
     }
@@ -2981,10 +3150,22 @@
     "model": "complex.appartment_ru",
     "pk": 1,
     "fields": {
-        "internal_apartment_name": 3,
+        "internal_apartment_name": 1,
         "complex_ru": null,
         "appartment_name_ru": "bina #12_ru",
-        "appartment_images": 3,
+        "appartment_images": 1,
+        "appartment_address_ru": 2,
+        "test_field_ru": "test_ru"
+    }
+},
+{
+    "model": "complex.appartment_ru",
+    "pk": 2,
+    "fields": {
+        "internal_apartment_name": 2,
+        "complex_ru": null,
+        "appartment_name_ru": "bina #12_ru",
+        "appartment_images": 2,
         "appartment_address_ru": 1,
         "test_field_ru": "test_ru"
     }

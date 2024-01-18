@@ -224,6 +224,6 @@ def generate_complexes(n):
             continue
 
 
-# genrate_locations(60)
-# generate_companies(8)
-generate_complexes(60)
+genrate_locations(20)
+generate_companies(10)
+generate_complexes(100)
