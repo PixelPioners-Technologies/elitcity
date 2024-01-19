@@ -1357,3 +1357,66 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
     def get_image_urls(self, instance):
         images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+
+
+'''
+-----------------------------------------------------------------------
+            BLOG SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class Blog_Names_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog_Names
+        fields = [
+            'id',
+            'title',
+            'description',
+            'picture_link',
+            'created_at'
+        ]
+
+class Blog_Images_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog_Images
+        fields = '__all__'
+
+class Blog_KA_Serializer(serializers.ModelSerializer):
+    internal_blog_name = Blog_Names_Serializer(read_only=True)
+    blog_images = Blog_Images_Serializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Blog_KA
+        fields = [
+            'id',
+            'internal_blog_name',
+            'blog_name_ka',
+            'blog_images'
+        ]
+
+class Blog_EN_Serializer(serializers.ModelSerializer):
+    internal_blog_name = Blog_Names_Serializer(read_only=True)
+    blog_images = Blog_Images_Serializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Blog_EN
+        fields = [
+            'id',
+            'internal_blog_name',
+            'blog_name_en',
+            'blog_images'
+        ]
+
+class Blog_RU_Serializer(serializers.ModelSerializer):
+    internal_blog_name = Blog_Names_Serializer(read_only=True)
+    blog_images = Blog_Images_Serializer(many=True, read_only=True)
+    
+    class Meta:
+        model = Blog_RU
+        fields = [
+            'id',
+            'internal_blog_name',
+            'blog_name_ru',
+            'blog_images'
+        ]

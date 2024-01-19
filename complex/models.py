@@ -403,3 +403,43 @@ class Ground_RU(models.Model):
     ground_name_ru = models.CharField(max_length=100,null=True)
     ground_images = models.ForeignKey(Ground_Images, on_delete = models.CASCADE, blank=True, null=True)
     ground_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE, blank=True, null=True)
+
+'''
+-----------------------------------------------------------------------
+            BLOG MODELS
+-----------------------------------------------------------------------
+''' 
+
+
+class Blog_Names(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    picture_link = models.URLField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+
+class Blog_Images(models.Model):
+    internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='blog_images/')
+
+    def __str__(self):
+        return f"{self.internal_blog_name.title}"
+
+class Blog_KA(models.Model):
+    internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
+    blog_name_ka = models.CharField(max_length=100, null=True)
+    blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
+
+class Blog_EN(models.Model):
+    internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
+    blog_name_en = models.CharField(max_length=100, null=True)
+    blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
+
+class Blog_RU(models.Model):
+    internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
+    blog_name_ru = models.CharField(max_length=100, null=True)
+    blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
+    
