@@ -233,7 +233,7 @@ class ComplexStatus(models.IntegerChoices):
 
 
 class Complex_Names(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     internal_complex_name = models.CharField(max_length=255, unique=True)
     full_price = models.DecimalField(max_digits = 8 , decimal_places=2 , null=True , blank=True)
     price_per_sq_meter = models.DecimalField(max_digits=10, decimal_places=2)
@@ -307,7 +307,7 @@ class Complex_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class Appartment_Names(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     complex = models.ForeignKey(Complex_Names, on_delete=models.CASCADE, null=True, blank=True)
     internal_apartment_name = models.CharField(max_length=50)
     NUMBER_OF_ROOM_CHOICES = [
@@ -387,7 +387,7 @@ class Appartment_RU(models.Model):
 ''' 
 
 class Private_Appartment_Names(models.Model):
-    created_at = models.DateTimeField(auto_now_add = True, blank=True)
+    created_at = models.DateTimeField(auto_now_add = True, blank=True, null=True)
     internal_private_apartment_name = models.CharField(max_length=50)
     NUMBER_OF_ROOM_CHOICES = [
         ('studio', 'Studio'),
@@ -517,7 +517,7 @@ class Blog_Names(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     picture_link = models.URLField(max_length=200)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return self.title
