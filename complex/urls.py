@@ -15,6 +15,7 @@ apartment_routers = DefaultRouter()
 private_apartment_routers = DefaultRouter()
 map_routers = DefaultRouter()
 ground_routers = DefaultRouter()
+blog_routers = DefaultRouter()
 
 
 router.register(r'language',LanguageViewset, basename="language")
@@ -74,6 +75,12 @@ ground_routers.register(r'en', Ground_EN_Viewset, basename='en-ground')
 ground_routers.register(r'ru', Ground_RU_Viewset, basename='ru-ground')
 
 
+blog_routers.register(r'uni', Blog_Names_Viewset, basename='uni-blog')
+blog_routers.register(r'images', Blog_Images_Viewset, basename='uni-ground-blog')
+blog_routers.register(r'ka', Blog_KA_Viewset, basename='ka-blog')
+blog_routers.register(r'en', Blog_EN_Viewset, basename='en-blog')
+blog_routers.register(r'ru', Blog_RU_Viewset, basename='ru-blog')
+
 urlpatterns = [
     path('', api_root),
     path('' , include(router.urls)),
@@ -88,4 +95,5 @@ urlpatterns = [
     path('privateapartments/' , include(private_apartment_routers.urls)),
     path('ground/' , include(ground_routers.urls)),
     path('map/',include(map_routers.urls)),
+    path('blog/', include(blog_routers.urls)),
 ]

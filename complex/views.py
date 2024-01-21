@@ -473,3 +473,28 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
     serializer_class = Ground_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
 
+class Blog_Names_Viewset(viewsets.ModelViewSet):
+    queryset = Blog_Names.objects.all()
+    serializer_class = Blog_Names_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Blog_Images_Viewset(viewsets.ModelViewSet):
+    queryset = Blog_Images.objects.all()
+    serializer_class = Blog_Images_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Blog_KA_Viewset(viewsets.ModelViewSet):
+    queryset = Blog_KA.objects.all()
+    serializer_class = Blog_KA_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Blog_EN_Viewset(viewsets.ModelViewSet):
+    queryset = Blog_EN.objects.all()
+    serializer_class = Blog_EN_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
+class Blog_RU_Viewset(viewsets.ModelViewSet):
+    queryset = Blog_RU.objects.all()
+    serializer_class = Blog_RU_Serializer
+    pagination_class = CustomLimitOffsetPagination
+
