@@ -131,10 +131,10 @@ class Street_Name_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class Address_KA(models.Model):
-    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE)
-    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE)
-    district_ka = models.ForeignKey(District_KA, on_delete=models.CASCADE)
-    street_name_ka = models.ForeignKey(Street_Name_KA, on_delete=models.CASCADE)
+    city_ka = models.ForeignKey(City_KA, on_delete=models.CASCADE, blank=True, null=True)
+    pharentDistrict_ka = models.ForeignKey(PharentDistrict_KA, on_delete=models.CASCADE, blank=True, null=True)
+    district_ka = models.ForeignKey(District_KA, on_delete=models.CASCADE, blank=True, null=True)
+    street_name_ka = models.ForeignKey(Street_Name_KA, on_delete=models.CASCADE, blank=True, null=True)
     address_ka = models.CharField(max_length=30)
     longitude = models.FloatField()
     latitude = models.FloatField()
@@ -144,10 +144,10 @@ class Address_KA(models.Model):
         return f"{self.city_ka.city_ka} - {self.pharentDistrict_ka.pharentDistrict_ka} - {self.district_ka.district_ka} - {self.street_name_ka.street_name_ka} - {self.address_ka}"
 
 class Address_EN(models.Model):
-    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE)
-    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE)
-    district_en = models.ForeignKey(District_EN, on_delete=models.CASCADE)
-    street_name_en = models.ForeignKey(Street_Name_EN, on_delete=models.CASCADE)
+    city_en = models.ForeignKey(City_EN, on_delete=models.CASCADE, blank=True, null=True)
+    pharentDistrict_en = models.ForeignKey(PharentDistrict_EN, on_delete=models.CASCADE, blank=True, null=True)
+    district_en = models.ForeignKey(District_EN, on_delete=models.CASCADE, blank=True, null=True)
+    street_name_en = models.ForeignKey(Street_Name_EN, on_delete=models.CASCADE, blank=True, null=True)
     address_en = models.CharField(max_length=30)
     longitude = models.FloatField()
     latitude = models.FloatField()
@@ -157,10 +157,10 @@ class Address_EN(models.Model):
         return f"{self.city_en.city_en} - {self.pharentDistrict_en.pharentDistrict_en} - {self.district_en.district_en} - {self.street_name_en.street_name_en} - {self.address_en}"
     
 class Address_RU(models.Model):
-    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE)
-    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE)
-    district_ru = models.ForeignKey(District_RU, on_delete=models.CASCADE)
-    street_name_ru = models.ForeignKey(Street_Name_RU, on_delete=models.CASCADE)
+    city_ru = models.ForeignKey(City_RU, on_delete=models.CASCADE, blank=True, null=True)
+    pharentDistrict_ru = models.ForeignKey(PharentDistrict_RU, on_delete=models.CASCADE, blank=True, null=True)
+    district_ru = models.ForeignKey(District_RU, on_delete=models.CASCADE, blank=True, null=True)
+    street_name_ru = models.ForeignKey(Street_Name_RU, on_delete=models.CASCADE, blank=True, null=True)
     address_ru = models.CharField(max_length=30)
     longitude = models.FloatField()
     latitude = models.FloatField()
@@ -271,7 +271,7 @@ class Complex_Images(models.Model):
 class Complex_KA(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
     complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
-    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE)
+    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, null=True, blank=True)
     address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
@@ -282,7 +282,7 @@ class Complex_KA(models.Model):
 class Complex_EN(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
     complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
-    company_en = models.ForeignKey(Company_EN, on_delete=models.CASCADE)
+    company_en = models.ForeignKey(Company_EN, on_delete=models.CASCADE, null=True, blank=True)
     address_en = models.ForeignKey(Address_EN, on_delete=models.CASCADE)
     complex_name_en = models.CharField(max_length=200, unique=True)
     type_of_roof_en = models.CharField(max_length=100)
@@ -293,7 +293,7 @@ class Complex_EN(models.Model):
 class Complex_RU(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
     complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
-    company_ru = models.ForeignKey(Company_RU, on_delete=models.CASCADE)
+    company_ru = models.ForeignKey(Company_RU, on_delete=models.CASCADE, null=True, blank=True)
     address_ru = models.ForeignKey(Address_RU, on_delete=models.CASCADE)
     complex_name_ru = models.CharField(max_length=200, unique=True)
     type_of_roof_ru = models.CharField(max_length=100)
@@ -458,26 +458,50 @@ class Private_Appartment_RU(models.Model):
     private_apartment_name_ru = models.CharField(max_length=100,null=True)
     test_private_field_ru = models.CharField(max_length=100)
     
-# ''''
-# 127.0.0.1:8000/complex/en/
-#     ?address_en__city_en__city_en__icontains=&
-#     address_en__pharentDistrict_en__pharentDistrict_en__in=&address_en__district_en__district_en__in=&
-#     min_price_per_sq_meter=&
-#     max_price_per_sq_meter=&
-#     min_full_price=&
-#     max_full_price=&
-#     min_space=&
-#     max_space=&
-#     status=&
-#     ordering=
 
-# '''
+'''
+-----------------------------------------------------------------------
+            GROUND MODELS
+-----------------------------------------------------------------------
+''' 
+class Ground_Names(models.Model):
+    internal_ground_name = models.CharField(max_length=50)
+    area = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(max_digits=12, decimal_places=2)
+    is_available = models.BooleanField(default=True)
+    visibiliti = models.BooleanField(default=True)
+    
+    
+    def __str__(self):
+        return f"{self.internal_ground_name}"
+
+    
+class Ground_Images(models.Model):
+    internal_ground_name = models.ForeignKey(Ground_Names,  on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='ground_images/')
+
+    def __str__(self):
+        return f"{self.internal_ground_name.internal_ground_name}"
 
 
+class Ground_KA(models.Model):
+    internal_ground_name = models.ForeignKey(Ground_Names,  on_delete=models.CASCADE)
+    ground_name_ka = models.CharField(max_length=100, null=True)
+    ground_images = models.ForeignKey(Ground_Images, on_delete = models.CASCADE, blank=True, null=True)
+    ground_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE, blank=True, null=True)
+    
+    
+class Ground_EN(models.Model):
+    internal_ground_name = models.ForeignKey(Ground_Names,  on_delete=models.CASCADE)
+    ground_name_en = models.CharField(max_length=100,null=True)
+    ground_images = models.ForeignKey(Ground_Images, on_delete = models.CASCADE, blank=True, null=True)
+    ground_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE, blank=True, null=True)
+    
 
-
-
-
-
-
+    
+class Ground_RU(models.Model):
+    internal_ground_name = models.ForeignKey(Ground_Names,  on_delete=models.CASCADE)
+    ground_name_ru = models.CharField(max_length=100,null=True)
+    ground_images = models.ForeignKey(Ground_Images, on_delete = models.CASCADE, blank=True, null=True)
+    ground_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE, blank=True, null=True)
 
