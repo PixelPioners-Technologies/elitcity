@@ -778,17 +778,22 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
         model = Appartment_Names
         fields = [
             'id',
+            'created_at',
             'complex',
             'complex_id',
             'internal_apartment_name',
             'number_of_rooms', 
             'area',
-            'price',
+            'full_price',
+            'square_price',
             'floor_number',
             'is_available',
             'visibiliti'
             ]
-
+# --------------------------------------------------------------------------
+        # fEW
+        # FWEFWEF
+        # WEFWEF
 class Appartment_Images_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Appartment_Images
@@ -848,7 +853,8 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
                 "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
                 "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
                 "area": data["internal_apartment_name"]['area'],
-                "price": data["internal_apartment_name"]['price'],
+                "full_price": data["internal_apartment_name"]['full_price'],
+                'square_price' : data['internal_apartment_name']['square_price'],
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
@@ -919,7 +925,8 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
                 "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
                 "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
                 "area": data["internal_apartment_name"]['area'],
-                "price": data["internal_apartment_name"]['price'],
+                "full_price": data["internal_apartment_name"]['full_price'],
+                'square_price' : data['internal_apartment_name']['square_price'],
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
@@ -927,8 +934,6 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
             'appartment_address_en': data["appartment_address_en"],
             'appartment_images': image_urls,
             'test_field_en': data['test_field_en'],
-
-
         }
 
 
@@ -990,7 +995,8 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
                 "internal_apartment_name": data["internal_apartment_name"]["internal_apartment_name"],
                 "number_of_rooms": data["internal_apartment_name"]['number_of_rooms'],
                 "area": data["internal_apartment_name"]['area'],
-                "price": data["internal_apartment_name"]['price'],
+                "full_price": data["internal_apartment_name"]['full_price'],
+                'square_price' : data['internal_apartment_name']['square_price'],
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
@@ -1007,97 +1013,6 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
     
-
-# --------------------------------------------------------------------------------------------------
-
-# class Appartment_EN_Serializer(serializers.ModelSerializer):
-#     internal_apartment_name = Appartment_Names_Serializer(read_only = True)
-#     internal_apartment_name_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Appartment_Names.objects.all(),
-#         source = 'internal_apartment_name',
-#         write_only=True
-#     )
-#     address_en = Address_EN_Serializer(read_only = True)
-#     address_en_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Address_EN.objects.all(),
-#         source = 'address_en',
-#         write_only=True
-#     )
-#     complex_en = Complex_EN_Serializers(read_only=True)
-#     complex_en_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Complex_EN.objects.all(),
-#         source = 'complex_en',
-#         write_only = True
-#     )
-#     appartment_images_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Appartment_Images.objects.all(),
-#         source = 'appartment_images',
-#         write_only=True
-#     )
-    
-#     class Meta:
-#         model = Appartment_EN
-#         fields = [
-#             'id',
-#             'internal_apartment_name',
-#             'internal_apartment_name_id',
-#             'complex_en',
-#             'complex_en_id',
-#             'address_en',
-#             'address_en_id',
-#             'appartment_name_en',
-#             'appartment_images_id',
-#             'test_field_en'
-#             ]
-#     def to_representation(self, instance):
-#         representation = super().to_representation(instance)
-#         image_urls = self.get_image_urls(instance)
-#         representation['appartment_images'] = image_urls
-#         return representation
-    
-#     def get_image_urls(self, instance):
-#         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-#         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
-    
-# class Appartment_RU_Serializer(serializers.ModelSerializer):
-#     internal_apartment_name = Appartment_Names_Serializer(read_only = True)
-#     internal_apartment_name_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Appartment_Names.objects.all(),
-#         source = 'internal_apartment_name',
-#         write_only=True
-#     )
-#     address_ru = Address_RU_Serializer(read_only = True)
-#     address_ru_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Address_RU.objects.all(),
-#         source = 'address_ru',
-#         write_only=True
-#     )
-#     appartment_images_id = serializers.PrimaryKeyRelatedField(
-#         queryset = Appartment_Images.objects.all(),
-#         source = 'appartment_images',
-#         write_only=True
-#     )
-#     class Meta:
-#         model = Appartment_RU
-#         fields = [
-#             'id',
-#             'internal_apartment_name',
-#             'internal_apartment_name_id',
-#             'address_ru',
-#             'address_ru_id',
-#             'appartment_name_ru',
-#             'appartment_images_id',
-#             'test_field_ru'
-#             ]
-#     def to_representation(self, instance):
-#         representation = super().to_representation(instance)
-#         image_urls = self.get_image_urls(instance)
-#         representation['appartment_images'] = image_urls
-#         return representation
-    
-#     def get_image_urls(self, instance):
-#         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-#         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
 '''
 -----------------------------------------------------------------------
@@ -1163,6 +1078,185 @@ class City_RU_ForMap_Serializer(serializers.ModelSerializer):
     class Meta:
         model = City_RU
         fields = ['city_ru', 'pharentDistrict_ru']
+
+
+'''
+-----------------------------------------------------------------------
+            PRIVATE APARTMENT SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class Private_Appartment_Images_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Private_Appartment_images
+        fields = "__all__"
+
+class Private_Appartment_Name_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Private_Appartment_Names
+        fields = [
+            "id",
+            "internal_private_apartment_name",
+            "number_of_rooms",
+            "status",
+            "area",
+            'full_price',
+            'square_price',
+            'floor_number',
+            'is_available',
+            'visibiliti'
+        ]
+
+
+class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
+    internal_private_apartment_name = Private_Appartment_Name_Serializer(read_only = True)
+    internal_private_apartment_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Private_Appartment_Names.objects.all(),
+        source = 'internal_private_apartment_name',
+         write_only=True,
+    ) 
+    private_apartment_address_en = Address_EN_Serializer(read_only=True)
+    private_apartment_address_en_id = serializers.PrimaryKeyRelatedField(
+        queryset =  Address_EN.objects.all(),
+        source = 'private_apartment_address_en',
+    )
+    private_apartment_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Private_Appartment_images.objects.all(),
+        source = 'private_apartment_images',
+        write_only=True,
+    )
+    class Meta:
+        model = Private_Appartment_EN
+        fields = [
+            'id',
+            'internal_private_apartment_name',
+            'internal_private_apartment_name_id',
+            'private_apartment_address_en',
+            'private_apartment_address_en_id',
+            'private_apartment_name_en',
+            'private_apartment_images_id',
+            'test_private_field_en',
+
+        ]
+class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
+    internal_private_apartment_name = Private_Appartment_Name_Serializer(read_only = True)
+    internal_private_apartment_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Private_Appartment_Names.objects.all(),
+        source = 'internal_private_apartment_name',
+         write_only=True,
+    ) 
+    private_apartment_address_ka = Address_KA_Serializer(read_only=True)
+    private_apartment_address_ka_id = serializers.PrimaryKeyRelatedField(
+        queryset =  Address_KA.objects.all(),
+        source = 'private_apartment_address_ka',
+    )
+    private_apartment_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Private_Appartment_images.objects.all(),
+        source = 'private_apartment_images',
+        write_only=True,
+    )
+    class Meta:
+        model = Private_Appartment_KA
+        fields = [
+            'id',
+            'internal_private_apartment_name',
+            'internal_private_apartment_name_id',
+            'private_apartment_address_ka',
+            'private_apartment_address_ka_id',
+            'private_apartment_name_ka',
+            'private_apartment_images_id',
+            'test_private_field_ka',
+
+        ]
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_private_apartment_name' : {
+               "id": data["internal_private_apartment_name"]['id'],
+                "internal_private_apartment_name": data["internal_private_apartment_name"]["internal_private_apartment_name"],
+                "number_of_rooms": data["internal_private_apartment_name"]['number_of_rooms'],
+                'status' : data["internal_private_apartment_name"]['status'] ,
+                "area": data["internal_private_apartment_name"]['area'],
+                "full_price": data["internal_private_apartment_name"]['full_price'],
+                'square_price' : data['internal_private_apartment_name']['square_price'],
+                "floor_number": data["internal_private_apartment_name"]['floor_number'],
+                "is_available": data["internal_private_apartment_name"]['is_available'],
+                "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+            },
+            'private_apartment_address_ka': data["private_apartment_address_ka"],
+            'private_apartment_images': image_urls,
+            'private_apartment_name_ka': data['private_apartment_name_ka'],
+            'test_private_field_ka': data['test_private_field_ka'],
+        }
+
+    def get_image_urls(self, instance):
+        images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+
+
+
+
+class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
+    internal_private_apartment_name = Private_Appartment_Name_Serializer(read_only = True)
+    internal_private_apartment_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Private_Appartment_Names.objects.all(),
+        source = 'internal_private_apartment_name',
+         write_only=True,
+    ) 
+    private_apartment_address_ru = Address_RU_Serializer(read_only=True)
+    private_apartment_address_ru_id = serializers.PrimaryKeyRelatedField(
+        queryset =  Address_RU.objects.all(),
+        source = 'private_apartment_address_ru',
+    )
+    private_apartment_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Private_Appartment_images.objects.all(),
+        source = 'private_apartment_images',
+        write_only=True,
+    )
+    class Meta:
+        model = Private_Appartment_RU
+        fields = [
+            'id',
+            'internal_private_apartment_name',
+            'internal_private_apartment_name_id',
+            'private_apartment_address_ru',
+            'private_apartment_address_ru_id',
+            'private_apartment_name_ru',
+            'private_apartment_images_id',
+            'test_private_field_ru',
+
+        ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_private_apartment_name' : {
+               "id": data["internal_private_apartment_name"]['id'],
+                "internal_private_apartment_name": data["internal_private_apartment_name"]["internal_private_apartment_name"],
+                "number_of_rooms": data["internal_private_apartment_name"]['number_of_rooms'],
+                'status' : data["internal_private_apartment_name"]['status'] ,
+                "area": data["internal_private_apartment_name"]['area'],
+                "full_price": data["internal_private_apartment_name"]['full_price'],
+                'square_price' : data['internal_private_apartment_name']['square_price'],
+                "floor_number": data["internal_private_apartment_name"]['floor_number'],
+                "is_available": data["internal_private_apartment_name"]['is_available'],
+                "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+            },
+            'private_apartment_address_ru': data["private_apartment_address_ru"],
+            'private_apartment_images': image_urls,
+            'private_apartment_name_ru': data['private_apartment_name_ru'],
+            'test_private_field_ru': data['test_private_field_ru'],
+        }
+
+    def get_image_urls(self, instance):
+        images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
     
 '''
 -----------------------------------------------------------------------
@@ -1220,28 +1314,31 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
             'ground_name_ka',
             'ground_images_id',
             ]
-
     def to_representation(self, instance):
         data = super().to_representation(instance)
         image_urls = self.get_image_urls(instance)
         return {
             "id": data['id'],
-            'internal_ground_name' : {
-                "id": data["internal_ground_name"]['id'],
-                "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
-                "area": data["internal_ground_name"]['area'],
-                "price": data["internal_ground_name"]['price'],
-                "is_available": data["internal_ground_name"]['is_available'],
-                "visibiliti": data["internal_ground_name"]['visibiliti'],
+            'internal_private_apartment_name' : {
+                "id": data["internal_private_apartment_name"]['id'],
+                "internal_private_apartment_name": data["internal_private_apartment_name"]["internal_private_apartment_name"],
+                "number_of_rooms": data["internal_private_apartment_name"]['number_of_rooms'],
+                'status' : data["internal_private_apartment_name"]['status'] ,
+                "area": data["internal_private_apartment_name"]['area'],
+                "full_price": data["internal_private_apartment_name"]['full_price'],
+                'square_price' : data['internal_private_apartment_name']['square_price'],
+                "floor_number": data["internal_private_apartment_name"]['floor_number'],
+                "is_available": data["internal_private_apartment_name"]['is_available'],
+                "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
             },
-            'ground_address_ka': data["ground_address_ka"],
-            'ground_name_ka':data['ground_name_ka'],
-            'ground_images': image_urls,
+            'private_apartment_address_en': data["private_apartment_address_en"],
+            'private_apartment_images': image_urls,
+            'private_apartment_name_en': data['private_apartment_name_en'],
+            'test_private_field_en': data['test_private_field_en'],
         }
 
-
     def get_image_urls(self, instance):
-        images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
+        images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
     
 class Ground_EN_Serializer(serializers.ModelSerializer):
@@ -1357,3 +1454,9 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
     def get_image_urls(self, instance):
         images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+
+
+
+
+
+
