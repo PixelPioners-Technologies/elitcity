@@ -12,9 +12,11 @@ address_routers = DefaultRouter()
 company_routers = DefaultRouter()
 complex_routers = DefaultRouter()
 apartment_routers = DefaultRouter()
+private_apartment_routers = DefaultRouter()
 map_routers = DefaultRouter()
 ground_routers = DefaultRouter()
 blog_routers = DefaultRouter()
+
 
 router.register(r'language',LanguageViewset, basename="language")
 city_ruters.register(r'ka', City_KA_Viewset, basename='ka-city')
@@ -55,6 +57,13 @@ apartment_routers.register(r'ka', Apartment_KA_Viewset, basename='ka-apartment')
 apartment_routers.register(r'en', Apartment_EN_Viewset, basename='en-apartment')
 apartment_routers.register(r'ru', Apartment_RU_Viewset, basename='ru-apartment')
 
+private_apartment_routers.register(r'uni' ,Private_Appartment_Names_Viewset , basename='uni-private-apartment'   )
+private_apartment_routers.register(r'images' , Private_Apartment_Images_Viewset , basename='uni-private-apartment-images')
+private_apartment_routers.register(r'ka', Private_Apartment_KA_Viewset, basename='ka-private-apartment')
+private_apartment_routers.register(r'en', Private_Apartment_EN_Viewset, basename='en-private-apartment')
+private_apartment_routers.register(r'ru', Private_Apartment_RU_Viewset, basename='ru-private-apartment')
+
+
 map_routers.register(r'ka', Map_KA_Viewset, basename='ka-map')
 map_routers.register(r'en', Map_EN_Viewset, basename='en-map')
 map_routers.register(r'ru', Map_RU_Viewset, basename='ru-map')
@@ -83,6 +92,7 @@ urlpatterns = [
     path('company/' , include(company_routers.urls)),
     path('complex/' , include(complex_routers.urls)),
     path('apartment/' , include(apartment_routers.urls)),
+    path('privateapartments/' , include(private_apartment_routers.urls)),
     path('ground/' , include(ground_routers.urls)),
     path('map/',include(map_routers.urls)),
     path('blog/', include(blog_routers.urls)),
