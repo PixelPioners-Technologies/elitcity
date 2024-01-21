@@ -247,7 +247,6 @@ class Complex_Names(models.Model):
     number_of_apartments = models.IntegerField()
     number_of_houses = models.IntegerField()
     number_of_floors = models.IntegerField()
-    complex_level = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     phone_number = models.CharField(max_length=20)
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
