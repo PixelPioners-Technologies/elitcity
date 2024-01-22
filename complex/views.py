@@ -446,6 +446,7 @@ class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['created_at', 'square_price','full_price']
 
+# -------------------------------------------ground viewsets  ----------------------------------------------
 
 
 class Ground_Names_Viewset(viewsets.ModelViewSet):
@@ -462,17 +463,55 @@ class Ground_KA_Viewset(viewsets.ModelViewSet):
     queryset = Ground_KA.objects.all()
     serializer_class = Ground_KA_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = Ground_KA_Filters
+    
+    def get_queryset(self):
+        return self.queryset.annotate(
+        created_at=F('internal_ground_name__created_at'),
+        square_price=F('internal_ground_name__square_price'),
+        full_price=F('internal_ground_name__full_price')
+    )
+
+    ordering_fields = ['created_at', 'square_price','full_price']
+
 
 class Ground_EN_Viewset(viewsets.ModelViewSet):
     queryset = Ground_EN.objects.all()
     serializer_class = Ground_EN_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = Ground_EN_Filters
+    
+    def get_queryset(self):
+        return self.queryset.annotate(
+        created_at=F('internal_ground_name__created_at'),
+        square_price=F('internal_ground_name__square_price'),
+        full_price=F('internal_ground_name__full_price')
+    )
+
+    ordering_fields = ['created_at', 'square_price','full_price']
+
 
 class Ground_RU_Viewset(viewsets.ModelViewSet):
     queryset = Ground_RU.objects.all()
     serializer_class = Ground_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = Ground_RU_Filters
+    
+    def get_queryset(self):
+        return self.queryset.annotate(
+        created_at=F('internal_ground_name__created_at'),
+        square_price=F('internal_ground_name__square_price'),
+        full_price=F('internal_ground_name__full_price')
+    )
 
+    ordering_fields = ['created_at', 'square_price','full_price']
+
+
+
+# -------------------------------------------blog viewsets ----------------------------------------------
 class Blog_Names_Viewset(viewsets.ModelViewSet):
     queryset = Blog_Names.objects.all()
     serializer_class = Blog_Names_Serializer

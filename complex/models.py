@@ -174,6 +174,7 @@ class Address_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class Company_Names(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     internal_name = models.CharField(max_length=255)
     Mobile = models.CharField(max_length=20)
     Mobile_Home = models.CharField(max_length=20)
@@ -385,7 +386,6 @@ class Appartment_RU(models.Model):
             APPARTMENT MODELS
 -----------------------------------------------------------------------
 ''' 
-
 class Private_Appartment_Names(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, blank=True, null=True)
     internal_private_apartment_name = models.CharField(max_length=50)
@@ -464,13 +464,62 @@ class Private_Appartment_RU(models.Model):
             GROUND MODELS
 -----------------------------------------------------------------------
 ''' 
+
+
+
+# fartis filtracia, 
+# fasi - kvadratulze da mtlianad 
+# statusi ---   sasofrlo-sameurneo , samosaxlo , komerciuli , 
+
+# ranki undat
+        
+
+# sortirebebi :
+
+# damatebis  tarigis mixedvit, mtliani fasis mixedvit , kvadratulis fasis mixedvit , 
+
+# сельскохозяйственное.
+# земля для поселения
+# коммерческий
+
+# agricultural.
+# land for settlement
+# commercial
+
+# сельскохозяйственное.
+# земля для поселения
+# коммерческий
+
+
+
 class Ground_Names(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     internal_ground_name = models.CharField(max_length=50)
     area = models.DecimalField(max_digits=12, decimal_places=2)
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    full_price = models.DecimalField(max_digits=12, decimal_places=2)
+    square_price = models.DecimalField(max_digits=12, decimal_places=2)
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
+    STATUS_CHOICES = [
+        ("1" , 'Agricultural'),
+        ('2' , 'Land for settlement'),
+        ('3', 'Commercial'),
+    ]
+    status = models.CharField(
+        max_length = 50,
+        choices = STATUS_CHOICES,
+        default = "3",
+    )
+    RANK_CHOICES = [
+        ('A', 'Rank A'),
+        ('B', 'Rank B'),
+        ('C', 'Rank C'),
+        ('D', 'Rank D'),
+        ('E', 'Rank E'),
+    ]
     
+    rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
+
     
     def __str__(self):
         return f"{self.internal_ground_name}"
