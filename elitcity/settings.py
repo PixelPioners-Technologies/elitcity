@@ -72,29 +72,29 @@ WSGI_APPLICATION = 'elitcity.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgresito',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres5432',
-        'HOST': 'database-2.cdrym9kklu4m.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'postgres',
+#         'NAME': 'postgresito',
 #         'USER': 'postgres',
-#         'PASSWORD': 'admin',
-#         'HOST': 'localhost',
+#         'PASSWORD': 'postgres5432',
+#         'HOST': 'database-2.cdrym9kklu4m.us-east-1.rds.amazonaws.com',
 #         'PORT': '5432',
 #     }
 # }
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 
 
@@ -196,3 +196,9 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 USE_I18N = True
 
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'complex.translation'
+
+
+# FOR GOOGLE MAP
+# ...
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0'

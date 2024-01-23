@@ -6,6 +6,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import *
 from .serializers import *
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.filters import SearchFilter
+from .utils import get_nearby_places
+from django.conf import settings
+
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -57,6 +61,10 @@ def api_root(request, format=None):
         language.language: reverse(f'{language.language.lower()}-ground-list', request=request, format=format)
         for language in Language.objects.all()
     }
+    promotions_links = {
+        language.language: reverse(f'{language.language.lower()}-promotions-list', request=request, format=format)
+        for language in Language.objects.all()
+    }
 
     company_links['uni-data'] = reverse('uni-company-list', request=request, format=format)
     company_links['uni-images'] = reverse('uni-company-images-list', request=request, format=format)
@@ -70,6 +78,9 @@ def api_root(request, format=None):
 
     ground_links['uni-data'] = reverse('uni-ground-list', request=request, format=format)
     ground_links['uni-images'] = reverse('uni-ground-images-list', request=request, format=format)
+
+    promotions_links['uni-data'] = reverse('uni-promotions-list', request=request, format=format)
+    promotions_links['uni-images'] = reverse('uni-promotions-images-list', request=request, format=format)
 
 
     return Response({
@@ -86,6 +97,7 @@ def api_root(request, format=None):
         'pivate-Apartment': private_apartment_links, 
 
         'ground': ground_links,
+        'promotions': promotions_links,
 
         'maps': map_links,
     })
@@ -204,16 +216,22 @@ class Company_KA_Viewset(viewsets.ModelViewSet):
     queryset = Company_KA.objects.all()
     serializer_class = Company_KA_serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name_ka', 'address_ka'] 
     
 class Company_EN_Viewset(viewsets.ModelViewSet):
     queryset = Company_EN.objects.all()
     serializer_class = Company_EN_serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name_en', 'address_en'] 
 
 class Company_RU_Viewset(viewsets.ModelViewSet):
     queryset = Company_RU.objects.all()
     serializer_class = Company_RU_serializers
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [SearchFilter]
+    search_fields = ['name_ru', 'address_ru'] 
 
 class Company_Images_Viewset(viewsets.ModelViewSet):
     queryset = Company_Images.objects.all()
@@ -237,6 +255,22 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_KA_Filter
 
+    nearby = models.JSONField(default=dict)
+
+    def save(self, *args, **kwargs):
+        # Fetch nearby places if latitude and longitude are available
+        if self.address.latitude and self.address.longitude:
+            places = get_nearby_places(
+                self.address.latitude,
+                self.address.longitude,
+                radius=250,  # 25 meters radius
+                keyword=["მეტრო", "აფთიაქი", "მარკეტი", "პარკი"],  # You can specify a keyword or leave it empty to get all places
+                api_key=settings.GOOGLE_MAPS_API_KEY
+            )
+            self.nearby = places  # Save the places in the nearby field
+        
+        super(Complex_KA, self).save(*args, **kwargs)
+
     def get_queryset(self):
         # Annotate the queryset with the 'price_per_sq_meter' field from the related 'Complex_Names' model.
         return self.queryset.annotate(
@@ -255,6 +289,22 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_EN_Filter
 
+    nearby = models.JSONField(default=dict)
+
+    def save(self, *args, **kwargs):
+        # Fetch nearby places if latitude and longitude are available
+        if self.address.latitude and self.address.longitude:
+            places = get_nearby_places(
+                self.address.latitude,
+                self.address.longitude,
+                radius=25,  # 25 meters radius
+                keyword=["მეტრო", "აფთიაქი", "მარკეტი", "პარკი"],  # You can specify a keyword or leave it empty to get all places
+                api_key=settings.GOOGLE_MAPS_API_KEY
+            )
+            self.nearby = places  # Save the places in the nearby field
+        
+        super(Complex_KA, self).save(*args, **kwargs)
+
     def get_queryset(self):
         return self.queryset.annotate(
             price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
@@ -271,6 +321,22 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_RU_Filter
+
+    nearby = models.JSONField(default=dict)
+
+    def save(self, *args, **kwargs):
+        # Fetch nearby places if latitude and longitude are available
+        if self.address.latitude and self.address.longitude:
+            places = get_nearby_places(
+                self.address.latitude,
+                self.address.longitude,
+                radius=25,  # 25 meters radius
+                keyword=["მეტრო", "აფთიაქი", "მარკეტი", "პარკი"],  # You can specify a keyword or leave it empty to get all places
+                api_key=settings.GOOGLE_MAPS_API_KEY
+            )
+            self.nearby = places  # Save the places in the nearby field
+        
+        super(Complex_KA, self).save(*args, **kwargs)
 
     def get_queryset(self):
         return self.queryset.annotate(
@@ -497,4 +563,49 @@ class Blog_RU_Viewset(viewsets.ModelViewSet):
     queryset = Blog_RU.objects.all()
     serializer_class = Blog_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
+
+
+'''
+----------------------------------------------------------------
+            PROMOTIONS VIEW
+----------------------------------------------------------------    
+'''
+
+from .models import (Promotions_and_offers_Names, Promotions_and_offers_KA, 
+                     Promotions_and_offers_EN, Promotions_and_offers_RU,
+                     Promotions_and_offers_Images)
+
+from .serializers import (PromotionsAndOffersNamesSerializer,
+                          PromotionsAndOffersKASerializer, 
+                          PromotionsAndOffersENSerializer, 
+                          PromotionsAndOffersRUSerializer,
+                          PromotionsAndOffersImagesSerializer)
+
+class PromotionsAndOffersNamesViewSet(viewsets.ModelViewSet):
+    queryset = Promotions_and_offers_Names.objects.all()
+    serializer_class = PromotionsAndOffersNamesSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['internal_promotion_name', 'company__name']
+
+class PromotionsAndOffersImageViewSet(viewsets.ModelViewSet):
+    queryset = Promotions_and_offers_Images.objects.all()
+    serializer_class = PromotionsAndOffersImagesSerializer
+
+class PromotionsAndOffersKAViewSet(viewsets.ModelViewSet):
+    queryset = Promotions_and_offers_KA.objects.all()
+    serializer_class = PromotionsAndOffersKASerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['promotion_name_ka']
+
+class PromotionsAndOffersENViewSet(viewsets.ModelViewSet):
+    queryset = Promotions_and_offers_EN.objects.all()
+    serializer_class = PromotionsAndOffersENSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['promotion_name_en']
+
+class PromotionsAndOffersRUViewSet(viewsets.ModelViewSet):
+    queryset = Promotions_and_offers_RU.objects.all()
+    serializer_class = PromotionsAndOffersRUSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['promotion_name_ru']
 

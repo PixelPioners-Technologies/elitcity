@@ -16,6 +16,7 @@ private_apartment_routers = DefaultRouter()
 map_routers = DefaultRouter()
 ground_routers = DefaultRouter()
 blog_routers = DefaultRouter()
+promotions_routers = DefaultRouter()
 
 
 router.register(r'language',LanguageViewset, basename="language")
@@ -81,6 +82,14 @@ blog_routers.register(r'ka', Blog_KA_Viewset, basename='ka-blog')
 blog_routers.register(r'en', Blog_EN_Viewset, basename='en-blog')
 blog_routers.register(r'ru', Blog_RU_Viewset, basename='ru-blog')
 
+
+promotions_routers.register(r'uni', PromotionsAndOffersNamesViewSet, basename='uni-promotions')
+promotions_routers.register(r'images', PromotionsAndOffersImageViewSet, basename='uni-promotions-images')
+promotions_routers.register(r'ka', PromotionsAndOffersKAViewSet, basename='ka-promotions')
+promotions_routers.register(r'en', PromotionsAndOffersENViewSet, basename='en-promotions')
+promotions_routers.register(r'ru', PromotionsAndOffersRUViewSet, basename='ru-promotions')
+
+
 urlpatterns = [
     path('', api_root),
     path('' , include(router.urls)),
@@ -96,4 +105,5 @@ urlpatterns = [
     path('ground/' , include(ground_routers.urls)),
     path('map/',include(map_routers.urls)),
     path('blog/', include(blog_routers.urls)),
+    path('promotions/', include(promotions_routers.urls)),
 ]
