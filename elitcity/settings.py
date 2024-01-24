@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'storages',
-
 ]
 
 MIDDLEWARE = [
@@ -197,8 +196,3 @@ USE_I18N = True
 
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'complex.translation'
 
-
-# FOR GOOGLE MAP
-# ...
-
-GOOGLE_MAPS_API_KEY = 'AIzaSyDxK-BSMfOM2fRtkTUMpRn5arTyUTR03r0'

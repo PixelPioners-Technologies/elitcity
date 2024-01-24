@@ -7,8 +7,6 @@ from .models import *
 from .serializers import *
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.filters import SearchFilter
-from .utils import get_nearby_places
-from django.conf import settings
 
 
 @api_view(['GET'])
@@ -255,21 +253,6 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_KA_Filter
 
-    nearby = models.JSONField(default=dict)
-
-    def save(self, *args, **kwargs):
-        # Fetch nearby places if latitude and longitude are available
-        if self.address.latitude and self.address.longitude:
-            places = get_nearby_places(
-                self.address.latitude,
-                self.address.longitude,
-                radius=250,  # 25 meters radius
-                keyword=["მეტრო", "აფთიაქი", "მარკეტი", "პარკი"],  # You can specify a keyword or leave it empty to get all places
-                api_key=settings.GOOGLE_MAPS_API_KEY
-            )
-            self.nearby = places  # Save the places in the nearby field
-        
-        super(Complex_KA, self).save(*args, **kwargs)
 
     def get_queryset(self):
         # Annotate the queryset with the 'price_per_sq_meter' field from the related 'Complex_Names' model.
@@ -291,20 +274,6 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
 
     nearby = models.JSONField(default=dict)
 
-    def save(self, *args, **kwargs):
-        # Fetch nearby places if latitude and longitude are available
-        if self.address.latitude and self.address.longitude:
-            places = get_nearby_places(
-                self.address.latitude,
-                self.address.longitude,
-                radius=25,  # 25 meters radius
-                keyword=["მეტრო", "აფთიაქი", "მარკეტი", "პარკი"],  # You can specify a keyword or leave it empty to get all places
-                api_key=settings.GOOGLE_MAPS_API_KEY
-            )
-            self.nearby = places  # Save the places in the nearby field
-        
-        super(Complex_KA, self).save(*args, **kwargs)
-
     def get_queryset(self):
         return self.queryset.annotate(
             price_per_sq_meter=F('internal_complex_name__price_per_sq_meter'),
@@ -321,22 +290,6 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_RU_Filter
-
-    nearby = models.JSONField(default=dict)
-
-    def save(self, *args, **kwargs):
-        # Fetch nearby places if latitude and longitude are available
-        if self.address.latitude and self.address.longitude:
-            places = get_nearby_places(
-                self.address.latitude,
-                self.address.longitude,
-                radius=25,  # 25 meters radius
-                keyword=["მეტრო", "აფთიაქი", "მარკეტი", "პარკი"],  # You can specify a keyword or leave it empty to get all places
-                api_key=settings.GOOGLE_MAPS_API_KEY
-            )
-            self.nearby = places  # Save the places in the nearby field
-        
-        super(Complex_KA, self).save(*args, **kwargs)
 
     def get_queryset(self):
         return self.queryset.annotate(

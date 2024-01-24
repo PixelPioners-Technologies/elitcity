@@ -260,15 +260,7 @@ class Complex_Names(models.Model):
     area_squareness = models.DecimalField(max_digits=10, decimal_places=2)
     ceiling_height_meters = models.DecimalField(max_digits=5, decimal_places=2)
 
-    # class NearbyObject(models.Model):
-    #     metro = models.BooleanField(default=True)
-    #     pharmacy = models.BooleanField(default=True)
-    #     supermarket = models.BooleanField(default=True)
-    #     square = models.BooleanField(default=True)
-
-    #     def __str__(self):
-    #         return f"Nearby Objects - Metro: {self.metro}, Pharmacy: {self.pharmacy}, Supermarket: {self.supermarket}, Square: {self.square}"
-
+   
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
         ('A', 'Rank A'),
@@ -305,10 +297,11 @@ class Complex_KA(models.Model):
     concierge_service_ka = models.BooleanField(default=True)
     yard_description_ka = models.BooleanField(default=True)
     protection_type_ka = models.CharField(max_length=100)
+    metro_ka = models.CharField(max_length=50)
+    Pharmacy_ka = models.CharField(max_length=50)
+    supermarket_ka = models.CharField(max_length=50)
+    Square_ka = models.CharField(max_length=50)
 
-    nearby = models.JSONField(default=dict)
-
-    # nearby_objects = models.ForeignKey(Complex_Names.NearbyObject, on_delete=models.CASCADE, related_name='complexes_ka')
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -329,10 +322,12 @@ class Complex_EN(models.Model):
     concierge_service_en = models.BooleanField(default=True)
     yard_description_en = models.BooleanField(default=True)
     protection_type_en = models.CharField(max_length=100)
+    metro_en = models.CharField(max_length=50)
+    Pharmacy_en = models.CharField(max_length=50)
+    supermarket_en = models.CharField(max_length=50)
+    Square_en = models.CharField(max_length=50)
 
-    nearby = models.JSONField(default=dict)
 
-    # nearby_objects = models.ForeignKey(Complex_Names.NearbyObject, on_delete=models.CASCADE, related_name='complexes_en')
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -353,11 +348,13 @@ class Complex_RU(models.Model):
     concierge_service_ru = models.BooleanField(default=True)
     yard_description_ru = models.BooleanField(default=True)
     protection_type_ru = models.CharField(max_length=100)
+    metro_ru = models.CharField(max_length=50)
+    Pharmacy_ru = models.CharField(max_length=50)
+    supermarket_ru = models.CharField(max_length=50)
+    Square_ru = models.CharField(max_length=50)
 
-    nearby = models.JSONField(default=dict)
 
-    # nearby_objects = models.ForeignKey(Complex_Names.NearbyObject, on_delete=models.CASCADE, related_name='complexes_ru')
-    
+
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
 
