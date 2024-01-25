@@ -1138,6 +1138,38 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
             'test_private_field_en',
 
         ]
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_private_apartment_name' : {
+               "id": data["internal_private_apartment_name"]['id'],
+                "internal_private_apartment_name": data["internal_private_apartment_name"]["internal_private_apartment_name"],
+                "number_of_rooms": data["internal_private_apartment_name"]['number_of_rooms'],
+                'status' : data["internal_private_apartment_name"]['status'] ,
+                "area": data["internal_private_apartment_name"]['area'],
+                "full_price": data["internal_private_apartment_name"]['full_price'],
+                'square_price' : data['internal_private_apartment_name']['square_price'],
+                "floor_number": data["internal_private_apartment_name"]['floor_number'],
+                "is_available": data["internal_private_apartment_name"]['is_available'],
+                "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+            },
+            'private_apartment_address_en': data["private_apartment_address_en"],
+            'private_apartment_images': image_urls,
+            'private_apartment_name_en': data['private_apartment_name_en'],
+            'test_private_field_en': data['test_private_field_en'],
+        }
+
+    def get_image_urls(self, instance):
+        images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+
+
+
+
+
 class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
     internal_private_apartment_name = Private_Appartment_Name_Serializer(read_only = True)
     internal_private_apartment_name_id = serializers.PrimaryKeyRelatedField(

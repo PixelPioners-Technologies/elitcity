@@ -272,7 +272,7 @@ class Complex_Images(models.Model):
 class Complex_KA(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
     complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
-    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, null=True, blank=True)
+    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, related_name='company_ka_complex_ka_set' , null=True, blank=True)
     address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
@@ -362,7 +362,10 @@ class Appartment_KA(models.Model):
     appartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
     test_field_ka = models.CharField(max_length=50)
     
-    
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
 class Appartment_EN(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
     complex_en = models.ForeignKey(Complex_EN, on_delete=models.CASCADE,null=True)
@@ -370,7 +373,11 @@ class Appartment_EN(models.Model):
     appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
     appartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE, null = True)
     test_field_en = models.CharField(max_length=50)
-    
+
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
 
     
 class Appartment_RU(models.Model):
@@ -380,6 +387,11 @@ class Appartment_RU(models.Model):
     appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
     appartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     test_field_ru = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
 
 '''
 -----------------------------------------------------------------------
@@ -440,6 +452,9 @@ class Private_Appartment_EN(models.Model):
     private_apartment_name_en = models.CharField(max_length=100,null=True)
     test_private_field_en = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.private_apartment_name_en} - {self.internal_private_apartment_name}"
+
 
 
 class Private_Appartment_KA(models.Model):
@@ -449,7 +464,8 @@ class Private_Appartment_KA(models.Model):
     private_apartment_name_ka = models.CharField(max_length=100,null=True)
     test_private_field_ka = models.CharField(max_length=100)
 
-
+    def __str__(self):
+        return f"{self.private_apartment_name_ka} - {self.internal_private_apartment_name}"
 
 class Private_Appartment_RU(models.Model):
     internal_private_apartment_name = models.ForeignKey(Private_Appartment_Names ,on_delete=models.CASCADE)
@@ -457,39 +473,16 @@ class Private_Appartment_RU(models.Model):
     private_apartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     private_apartment_name_ru = models.CharField(max_length=100,null=True)
     test_private_field_ru = models.CharField(max_length=100)
-    
+
+    def __str__(self):
+        return f"{self.private_apartment_name_ru} - {self.internal_private_apartment_name}"
+
 
 '''
 -----------------------------------------------------------------------
             GROUND MODELS
 -----------------------------------------------------------------------
 ''' 
-
-
-
-# fartis filtracia, 
-# fasi - kvadratulze da mtlianad 
-# statusi ---   sasofrlo-sameurneo , samosaxlo , komerciuli , 
-
-# ranki undat
-        
-
-# sortirebebi :
-
-# damatebis  tarigis mixedvit, mtliani fasis mixedvit , kvadratulis fasis mixedvit , 
-
-# сельскохозяйственное.
-# земля для поселения
-# коммерческий
-
-# agricultural.
-# land for settlement
-# commercial
-
-# сельскохозяйственное.
-# земля для поселения
-# коммерческий
-
 
 
 class Ground_Names(models.Model):

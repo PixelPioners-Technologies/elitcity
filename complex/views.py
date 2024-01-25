@@ -91,16 +91,18 @@ def api_root(request, format=None):
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 10
+    default_limit = 2
     max_limit = 100
 
     def get_paginated_response(self, data):
+        total_items = self.queryset.model.objects.count() 
         return Response({
             'count': self.count,
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
             'current_page': self.get_current_page(),
             'total_pages': self.get_total_pages(),
+            'total_items': total_items,
             'results': data,
         })
 
@@ -114,6 +116,9 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
             return None
         return (self.count + self.limit - 1) // self.limit
 
+    def paginate_queryset(self, queryset, request, view=None):
+            self.queryset = queryset  # Store the queryset to use in get_paginated_response
+            return super().paginate_queryset(queryset, request, view=view)
 
 class City_KA_Viewset(viewsets.ModelViewSet):
     queryset = City_KA.objects.all()
@@ -252,6 +257,7 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
     serializer_class = Complex_EN_Serializers
+    pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_EN_Filter
 
