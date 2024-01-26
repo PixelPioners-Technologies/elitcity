@@ -215,14 +215,6 @@ class Apartment_EN_Filter(filters.FilterSet):
         choices=Appartment_Names.NUMBER_OF_ROOM_CHOICES
     )
 
-    # parent_districts = filters.CharFilter(
-    #     field_name='appartment_address_en__pharentDistrict_en__pharentDistrict_en', 
-    #     lookup_expr='icontains'
-    # )
-    # districts = filters.CharFilter(
-    #     field_name='appartment_address_en__district_en__district_en', 
-    #     lookup_expr='icontains'
-    # )
     city = filters.CharFilter(field_name='appartment_address_en__city_en__city_en', lookup_expr='icontains')
 
 
@@ -260,22 +252,6 @@ class Apartment_EN_Filter(filters.FilterSet):
             'number_of_rooms', 'min_square_price', 'max_square_price', 
             "status", 'city', 'parent_districts', 'districts'
         ]
-
-
-# apartment/en/?min_area=&max_area=&
-        # min_full_price=&
-        # max_full_price=&
-        # min_square_price=&
-        # max_square_price=&
-        # city=&
-        # parent_districts=vake-saburtalo%2C+isani-samgori&districts=
-
-# apartment/en/?min_area=&max_area=&
-        # min_full_price=&
-        # max_full_price=&
-        # min_square_price=&
-        # max_square_price=&
-        # city=&parent_districts=&districts=vake+%2C+saburtalo
 
 
 class Apartment_KA_Filter(filters.FilterSet):
@@ -588,5 +564,191 @@ class Private_Appartment_RU_Filter(filters.FilterSet):
 
 
 
-# --------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------ground filters   --------------------------------------------------------------------------
+
+
+
+class Ground_KA_Filters(filters.FilterSet):
+    min_area = filters.NumberFilter(field_name='internal_ground_name__area' , lookup_expr='gte')
+    max_area = filters.NumberFilter(field_name='internal_ground_name__area' , lookup_expr='lte')
+
+    min_full_price = filters.NumberFilter(field_name='internal_ground_name__full_price', lookup_expr='gte')
+    max_full_price = filters.NumberFilter(field_name='internal_ground_name__full_price', lookup_expr='lte')
+
+    min_square_price= filters.NumberFilter(field_name="internal_ground_name__square_price", lookup_expr='gte')
+    max_square_price= filters.NumberFilter(field_name="internal_ground_name__square_price", lookup_expr='lte')
+
+    
+    status = filters.MultipleChoiceFilter(
+        field_name = 'internal_ground_name__status',
+        choices = Ground_Names.STATUS_CHOICES
+    )
+    
+
+    city = filters.CharFilter(field_name='ground_address_ka__city_ka__city_ka', lookup_expr='icontains')
+
+    parent_districts = CharInFilter(
+        field_name='ground_address_ka__pharentDistrict_ka__pharentDistrict_ka', 
+        lookup_expr='in', method='filter_parent_districts'
+    )
+    districts = CharInFilter(
+        field_name='ground_address_ka__district_ka__district_ka', 
+        lookup_expr='in', method='filter_districts'
+    )
+
+
+    def filter_parent_districts(self, queryset, name, values):
+        if not values:
+            return queryset
+        filter_query = Q()
+        for item in values:
+            filter_query |= Q(**{f"{name}__icontains": item})
+        return queryset.filter(filter_query)
+
+    def filter_districts(self, queryset, name, values):
+        if not values:
+            return queryset
+        filter_query = Q()
+        for item in values:
+            filter_query |= Q(**{f"{name}__icontains": item})
+        return queryset.filter(filter_query)
+
+    class Meta: 
+        model = Ground_KA
+        fields = [
+            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'min_square_price', 'max_square_price', 
+            "status", 'city', 'parent_districts', 'districts'
+        ]
+
+
+
+
+
+
+class Ground_EN_Filters(filters.FilterSet):
+    min_area = filters.NumberFilter(field_name='internal_ground_name__area' , lookup_expr='gte')
+    max_area = filters.NumberFilter(field_name='internal_ground_name__area' , lookup_expr='lte')
+
+    min_full_price = filters.NumberFilter(field_name='internal_ground_name__full_price', lookup_expr='gte')
+    max_full_price = filters.NumberFilter(field_name='internal_ground_name__full_price', lookup_expr='lte')
+
+    min_square_price= filters.NumberFilter(field_name="internal_ground_name__square_price", lookup_expr='gte')
+    max_square_price= filters.NumberFilter(field_name="internal_ground_name__square_price", lookup_expr='lte')
+
+    
+    status = filters.MultipleChoiceFilter(
+        field_name = 'internal_ground_name__status',
+        choices = Ground_Names.STATUS_CHOICES
+    )
+    
+
+    city = filters.CharFilter(field_name='ground_address_en__city_en__city_en', lookup_expr='icontains')
+
+    parent_districts = CharInFilter(
+        field_name='ground_address_en__pharentDistrict_en__pharentDistrict_en', 
+        lookup_expr='in', method='filter_parent_districts'
+    )
+    districts = CharInFilter(
+        field_name='ground_address_en__district_en__district_en', 
+        lookup_expr='in', method='filter_districts'
+    )
+
+
+    def filter_parent_districts(self, queryset, name, values):
+        if not values:
+            return queryset
+        filter_query = Q()
+        for item in values:
+            filter_query |= Q(**{f"{name}__icontains": item})
+        return queryset.filter(filter_query)
+
+    def filter_districts(self, queryset, name, values):
+        if not values:
+            return queryset
+        filter_query = Q()
+        for item in values:
+            filter_query |= Q(**{f"{name}__icontains": item})
+        return queryset.filter(filter_query)
+
+    class Meta: 
+        model = Ground_EN
+        fields = [
+            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'min_square_price', 'max_square_price', 
+            "status", 'city', 'parent_districts', 'districts'
+        ]
+
+
+
+
+class Ground_RU_Filters(filters.FilterSet):
+    min_area = filters.NumberFilter(field_name='internal_ground_name__area' , lookup_expr='gte')
+    max_area = filters.NumberFilter(field_name='internal_ground_name__area' , lookup_expr='lte')
+
+    min_full_price = filters.NumberFilter(field_name='internal_ground_name__full_price', lookup_expr='gte')
+    max_full_price = filters.NumberFilter(field_name='internal_ground_name__full_price', lookup_expr='lte')
+
+    min_square_price= filters.NumberFilter(field_name="internal_ground_name__square_price", lookup_expr='gte')
+    max_square_price= filters.NumberFilter(field_name="internal_ground_name__square_price", lookup_expr='lte')
+
+    
+    status = filters.MultipleChoiceFilter(
+        field_name = 'internal_ground_name__status',
+        choices = Ground_Names.STATUS_CHOICES
+    )
+    
+
+    city = filters.CharFilter(field_name='ground_address_ru__city_ru__city_ru', lookup_expr='icontains')
+
+    parent_districts = CharInFilter(
+        field_name='ground_address_ru__pharentDistrict_ru__pharentDistrict_ru', 
+        lookup_expr='in', method='filter_parent_districts'
+    )
+    districts = CharInFilter(
+        field_name='ground_address_ru__district_ru__district_ru', 
+        lookup_expr='in', method='filter_districts'
+    )
+
+
+    def filter_parent_districts(self, queryset, name, values):
+        if not values:
+            return queryset
+        filter_query = Q()
+        for item in values:
+            filter_query |= Q(**{f"{name}__icontains": item})
+        return queryset.filter(filter_query)
+
+    def filter_districts(self, queryset, name, values):
+        if not values:
+            return queryset
+        filter_query = Q()
+        for item in values:
+            filter_query |= Q(**{f"{name}__icontains": item})
+        return queryset.filter(filter_query)
+
+    class Meta: 
+        model = Ground_RU
+        fields = [
+            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'min_square_price', 'max_square_price', 
+            "status", 'city', 'parent_districts', 'districts'
+        ]
+
+
+
+
+
+# fartis filtracia, 
+# fasi - kvadratulze da mtlianad 
+# statusi ---   sasofrlo-sameurneo , samosaxlo , komerciuli , 
+
+# ranki undat
+        
+
+# sortirebebi :
+
+# damatebis  tarigis mixedvit, mtliani fasis mixedvit , kvadratulis fasis mixedvit , 
+
+
 

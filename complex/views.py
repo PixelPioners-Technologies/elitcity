@@ -91,16 +91,18 @@ def api_root(request, format=None):
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 10
+    default_limit = 12
     max_limit = 100
 
     def get_paginated_response(self, data):
+        total_items = self.queryset.model.objects.count() 
         return Response({
             'count': self.count,
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
             'current_page': self.get_current_page(),
             'total_pages': self.get_total_pages(),
+            'total_items': total_items,
             'results': data,
         })
 
@@ -114,6 +116,9 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
             return None
         return (self.count + self.limit - 1) // self.limit
 
+    def paginate_queryset(self, queryset, request, view=None):
+            self.queryset = queryset  # Store the queryset to use in get_paginated_response
+            return super().paginate_queryset(queryset, request, view=view)
 
 class City_KA_Viewset(viewsets.ModelViewSet):
     queryset = City_KA.objects.all()
@@ -252,6 +257,7 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
     serializer_class = Complex_EN_Serializers
+    pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = Complex_EN_Filter
 
@@ -446,6 +452,7 @@ class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['created_at', 'square_price','full_price']
 
+# -------------------------------------------ground viewsets  ----------------------------------------------
 
 
 class Ground_Names_Viewset(viewsets.ModelViewSet):
@@ -462,17 +469,55 @@ class Ground_KA_Viewset(viewsets.ModelViewSet):
     queryset = Ground_KA.objects.all()
     serializer_class = Ground_KA_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = Ground_KA_Filters
+    
+    def get_queryset(self):
+        return self.queryset.annotate(
+        created_at=F('internal_ground_name__created_at'),
+        square_price=F('internal_ground_name__square_price'),
+        full_price=F('internal_ground_name__full_price')
+    )
+
+    ordering_fields = ['created_at', 'square_price','full_price']
+
 
 class Ground_EN_Viewset(viewsets.ModelViewSet):
     queryset = Ground_EN.objects.all()
     serializer_class = Ground_EN_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = Ground_EN_Filters
+    
+    def get_queryset(self):
+        return self.queryset.annotate(
+        created_at=F('internal_ground_name__created_at'),
+        square_price=F('internal_ground_name__square_price'),
+        full_price=F('internal_ground_name__full_price')
+    )
+
+    ordering_fields = ['created_at', 'square_price','full_price']
+
 
 class Ground_RU_Viewset(viewsets.ModelViewSet):
     queryset = Ground_RU.objects.all()
     serializer_class = Ground_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = Ground_RU_Filters
+    
+    def get_queryset(self):
+        return self.queryset.annotate(
+        created_at=F('internal_ground_name__created_at'),
+        square_price=F('internal_ground_name__square_price'),
+        full_price=F('internal_ground_name__full_price')
+    )
 
+    ordering_fields = ['created_at', 'square_price','full_price']
+
+
+
+# -------------------------------------------blog viewsets ----------------------------------------------
 class Blog_Names_Viewset(viewsets.ModelViewSet):
     queryset = Blog_Names.objects.all()
     serializer_class = Blog_Names_Serializer
