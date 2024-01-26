@@ -91,7 +91,7 @@ def api_root(request, format=None):
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
-    default_limit = 2
+    default_limit = 12
     max_limit = 100
 
     def get_paginated_response(self, data):

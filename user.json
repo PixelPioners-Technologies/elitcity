@@ -156,6 +156,32 @@
     }
 },
 {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2024-01-24T14:15:46.522Z",
+        "user": 1,
+        "content_type": 40,
+        "object_id": "2",
+        "object_repr": "bina iverelze - kerdzo bina iverelze",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Internal private apartment name\", \"Private apartment images\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2024-01-25T12:02:24.239Z",
+        "user": 1,
+        "content_type": 21,
+        "object_id": "2",
+        "object_repr": "Арки",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name ru\"]}}]"
+    }
+},
+{
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -2819,6 +2845,17 @@
     }
 },
 {
+    "model": "complex.street_name_ka",
+    "pk": 7,
+    "fields": {
+        "city_ka": 1,
+        "pharentDistrict_ka": 1,
+        "district_ka": 2,
+        "street_name_ka": "გივი სვანიძეს ქუჩა",
+        "lang": []
+    }
+},
+{
     "model": "complex.street_name_en",
     "pk": 1,
     "fields": {
@@ -2885,6 +2922,17 @@
     }
 },
 {
+    "model": "complex.street_name_en",
+    "pk": 7,
+    "fields": {
+        "city_en": 1,
+        "pharentDistrict_en": 1,
+        "district_en": 4,
+        "street_name_en": "Givi Svanidze Street",
+        "lang": []
+    }
+},
+{
     "model": "complex.street_name_ru",
     "pk": 1,
     "fields": {
@@ -2947,6 +2995,17 @@
         "pharentDistrict_ru": 2,
         "district_ru": 4,
         "street_name_ru": "Важа Иверели улица",
+        "lang": []
+    }
+},
+{
+    "model": "complex.street_name_ru",
+    "pk": 7,
+    "fields": {
+        "city_ru": 1,
+        "pharentDistrict_ru": 1,
+        "district_ru": 2,
+        "street_name_ru": "Улица Гиви Сванидзе",
         "lang": []
     }
 },
@@ -3051,6 +3110,20 @@
     }
 },
 {
+    "model": "complex.address_ka",
+    "pk": 9,
+    "fields": {
+        "city_ka": 1,
+        "pharentDistrict_ka": 1,
+        "district_ka": 2,
+        "street_name_ka": 7,
+        "address_ka": "გივი სვანიძეს ქუჩა 15",
+        "longitude": 44.742689381729996,
+        "latitude": 41.71436843493502,
+        "lang": []
+    }
+},
+{
     "model": "complex.address_en",
     "pk": 1,
     "fields": {
@@ -3145,6 +3218,20 @@
         "address_en": "ketevan tsamebulis street #3",
         "longitude": 44.815192730961954,
         "latitude": 41.691580949059976,
+        "lang": []
+    }
+},
+{
+    "model": "complex.address_en",
+    "pk": 8,
+    "fields": {
+        "city_en": 1,
+        "pharentDistrict_en": 1,
+        "district_en": 4,
+        "street_name_en": 7,
+        "address_en": "Givi sxvanidze street 15",
+        "longitude": 44.742689381729996,
+        "latitude": 41.71436843493502,
         "lang": []
     }
 },
@@ -3247,6 +3334,20 @@
     }
 },
 {
+    "model": "complex.address_ru",
+    "pk": 8,
+    "fields": {
+        "city_ru": 1,
+        "pharentDistrict_ru": 1,
+        "district_ru": 2,
+        "street_name_ru": 7,
+        "address_ru": "Улица Гиви Сванидзе 15",
+        "longitude": 44.742689381729996,
+        "latitude": 41.71436843493502,
+        "lang": []
+    }
+},
+{
     "model": "complex.company_names",
     "pk": 1,
     "fields": {
@@ -3292,12 +3393,12 @@
 },
 {
     "model": "complex.company_ru",
-    "pk": 1,
+    "pk": 2,
     "fields": {
         "internal_name": 1,
-        "name_ru": "архи",
-        "address_ru": "adres ru",
-        "aboutcompany_ru": "about ru"
+        "name_ru": "Арки",
+        "address_ru": "address_ru",
+        "aboutcompany_ru": "about company ru"
     }
 },
 {
@@ -3467,11 +3568,11 @@
 },
 {
     "model": "complex.complex_ru",
-    "pk": 1,
+    "pk": 4,
     "fields": {
         "internal_complex_name": 1,
         "complex_images": 1,
-        "company_ru": 1,
+        "company_ru": 2,
         "address_ru": 1,
         "complex_name_ru": "архи Сабуртало",
         "type_of_roof_ru": "крамити"
@@ -3479,11 +3580,11 @@
 },
 {
     "model": "complex.complex_ru",
-    "pk": 2,
+    "pk": 5,
     "fields": {
         "internal_complex_name": 2,
         "complex_images": 2,
-        "company_ru": 1,
+        "company_ru": 2,
         "address_ru": 6,
         "complex_name_ru": "Арки Кетеван Вамебули",
         "type_of_roof_ru": "крамити"
@@ -3491,14 +3592,120 @@
 },
 {
     "model": "complex.complex_ru",
-    "pk": 3,
+    "pk": 6,
     "fields": {
         "internal_complex_name": 3,
         "complex_images": 3,
-        "company_ru": 1,
+        "company_ru": 2,
         "address_ru": 2,
         "complex_name_ru": "архи ваке",
         "type_of_roof_ru": "крамити"
+    }
+},
+{
+    "model": "complex.appartment_names",
+    "pk": 1,
+    "fields": {
+        "created_at": "2024-01-24T16:59:27.547Z",
+        "complex": 1,
+        "internal_apartment_name": "saburtalos bina kompleqsshi",
+        "number_of_rooms": "2",
+        "status": "3",
+        "area": "57.00",
+        "full_price": "1500.00",
+        "square_price": "500.00",
+        "floor_number": 12,
+        "is_available": true,
+        "visibiliti": true
+    }
+},
+{
+    "model": "complex.appartment_names",
+    "pk": 2,
+    "fields": {
+        "created_at": "2024-01-25T12:07:57.249Z",
+        "complex": 1,
+        "internal_apartment_name": "saburtalos bina 2",
+        "number_of_rooms": "3",
+        "status": "3",
+        "area": "1221.00",
+        "full_price": "2000.00",
+        "square_price": "500.00",
+        "floor_number": 12,
+        "is_available": true,
+        "visibiliti": true
+    }
+},
+{
+    "model": "complex.appartment_images",
+    "pk": 1,
+    "fields": {
+        "internal_apartment_name": 1,
+        "images": "apartment_images/Screenshot_from_2024-01-22_21-33-55.png"
+    }
+},
+{
+    "model": "complex.appartment_images",
+    "pk": 2,
+    "fields": {
+        "internal_apartment_name": 1,
+        "images": "apartment_images/Screenshot_from_2024-01-22_21-33-55.png"
+    }
+},
+{
+    "model": "complex.appartment_images",
+    "pk": 3,
+    "fields": {
+        "internal_apartment_name": 2,
+        "images": "apartment_images/Screenshot_from_2024-01-19_18-00-35.png"
+    }
+},
+{
+    "model": "complex.appartment_ka",
+    "pk": 1,
+    "fields": {
+        "internal_apartment_name": 1,
+        "complex_ka": 1,
+        "appartment_name_ka": "ბინა 23",
+        "appartment_images": 1,
+        "appartment_address_ka": 2,
+        "test_field_ka": "ტესტ ფილდი"
+    }
+},
+{
+    "model": "complex.appartment_en",
+    "pk": 1,
+    "fields": {
+        "internal_apartment_name": 1,
+        "complex_en": 1,
+        "appartment_name_en": "apartment 23",
+        "appartment_images": 1,
+        "appartment_address_en": 1,
+        "test_field_en": "test_en"
+    }
+},
+{
+    "model": "complex.appartment_ru",
+    "pk": 2,
+    "fields": {
+        "internal_apartment_name": 1,
+        "complex_ru": 4,
+        "appartment_name_ru": "bina #12_ru",
+        "appartment_images": 1,
+        "appartment_address_ru": 1,
+        "test_field_ru": "test_ru"
+    }
+},
+{
+    "model": "complex.appartment_ru",
+    "pk": 3,
+    "fields": {
+        "internal_apartment_name": 2,
+        "complex_ru": 4,
+        "appartment_name_ru": "bina #12_ru",
+        "appartment_images": 3,
+        "appartment_address_ru": 1,
+        "test_field_ru": "test_ru"
     }
 },
 {
@@ -3534,6 +3741,22 @@
     }
 },
 {
+    "model": "complex.private_appartment_names",
+    "pk": 3,
+    "fields": {
+        "created_at": "2024-01-24T16:04:06.473Z",
+        "internal_private_apartment_name": "isanis kerdzo bina",
+        "number_of_rooms": "2",
+        "status": "2",
+        "area": "110.00",
+        "full_price": "2000.00",
+        "square_price": "500.00",
+        "floor_number": 21,
+        "is_available": true,
+        "visibiliti": true
+    }
+},
+{
     "model": "complex.private_appartment_images",
     "pk": 1,
     "fields": {
@@ -3558,6 +3781,14 @@
     }
 },
 {
+    "model": "complex.private_appartment_images",
+    "pk": 4,
+    "fields": {
+        "internal_private_apartment_name": 3,
+        "images": "private_apartment_images/thhub.png"
+    }
+},
+{
     "model": "complex.private_appartment_en",
     "pk": 1,
     "fields": {
@@ -3572,10 +3803,21 @@
     "model": "complex.private_appartment_en",
     "pk": 2,
     "fields": {
-        "internal_private_apartment_name": 1,
-        "private_apartment_images": 2,
+        "internal_private_apartment_name": 2,
+        "private_apartment_images": 3,
         "private_apartment_address_en": 5,
         "private_apartment_name_en": "bina iverelze",
+        "test_private_field_en": "test field"
+    }
+},
+{
+    "model": "complex.private_appartment_en",
+    "pk": 3,
+    "fields": {
+        "internal_private_apartment_name": 3,
+        "private_apartment_images": 4,
+        "private_apartment_address_en": 7,
+        "private_apartment_name_en": "kerdzo bina isanshi",
         "test_private_field_en": "test field"
     }
 },
@@ -3602,6 +3844,17 @@
     }
 },
 {
+    "model": "complex.private_appartment_ka",
+    "pk": 3,
+    "fields": {
+        "internal_private_apartment_name": 3,
+        "private_apartment_images": 4,
+        "private_apartment_address_ka": 8,
+        "private_apartment_name_ka": "კერძო ბინა ისანში",
+        "test_private_field_ka": "ტესტ ველი"
+    }
+},
+{
     "model": "complex.private_appartment_ru",
     "pk": 1,
     "fields": {
@@ -3620,6 +3873,17 @@
         "private_apartment_images": 2,
         "private_apartment_address_ru": 5,
         "private_apartment_name_ru": "iverelis bina ru",
+        "test_private_field_ru": "test field ru"
+    }
+},
+{
+    "model": "complex.private_appartment_ru",
+    "pk": 3,
+    "fields": {
+        "internal_private_apartment_name": 3,
+        "private_apartment_images": 4,
+        "private_apartment_address_ru": 7,
+        "private_apartment_name_ru": "kerdzo bina isanshi ru",
         "test_private_field_ru": "test field ru"
     }
 },
@@ -3654,6 +3918,21 @@
     }
 },
 {
+    "model": "complex.ground_names",
+    "pk": 3,
+    "fields": {
+        "created_at": "2024-01-25T12:31:31.759Z",
+        "internal_ground_name": "miwa svanidzeze",
+        "area": "452.00",
+        "full_price": "2000.00",
+        "square_price": "900.00",
+        "is_available": true,
+        "visibiliti": true,
+        "status": "2",
+        "rank": "C"
+    }
+},
+{
     "model": "complex.ground_images",
     "pk": 1,
     "fields": {
@@ -3667,6 +3946,14 @@
     "fields": {
         "internal_ground_name": 2,
         "images": "ground_images/Screenshot_from_2024-01-20_21-51-45.png"
+    }
+},
+{
+    "model": "complex.ground_images",
+    "pk": 3,
+    "fields": {
+        "internal_ground_name": 3,
+        "images": "ground_images/Screenshot_from_2024-01-18_20-14-00.png"
     }
 },
 {
@@ -3690,6 +3977,16 @@
     }
 },
 {
+    "model": "complex.ground_ka",
+    "pk": 5,
+    "fields": {
+        "internal_ground_name": 3,
+        "ground_name_ka": "ნაკვეთი სვანიძეზე",
+        "ground_images": 3,
+        "ground_address_ka": 9
+    }
+},
+{
     "model": "complex.ground_en",
     "pk": 1,
     "fields": {
@@ -3710,6 +4007,16 @@
     }
 },
 {
+    "model": "complex.ground_en",
+    "pk": 3,
+    "fields": {
+        "internal_ground_name": 3,
+        "ground_name_en": "land on svanidze",
+        "ground_images": 3,
+        "ground_address_en": 8
+    }
+},
+{
     "model": "complex.ground_ru",
     "pk": 2,
     "fields": {
@@ -3727,6 +4034,16 @@
         "ground_name_ru": "miwa qetevan wamebulze ru",
         "ground_images": 2,
         "ground_address_ru": 7
+    }
+},
+{
+    "model": "complex.ground_ru",
+    "pk": 4,
+    "fields": {
+        "internal_ground_name": 3,
+        "ground_name_ru": "Земля на Сванидзе",
+        "ground_images": 3,
+        "ground_address_ru": 8
     }
 }
 ]
