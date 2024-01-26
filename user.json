@@ -4045,5 +4045,15 @@
         "ground_images": 3,
         "ground_address_ru": 8
     }
+},
+{
+    "model": "complex.ground_ru",
+    "pk": 5,
+    "fields": {
+        "internal_ground_name": 3,
+        "ground_name_ru": "Земля на Сванидзе",
+        "ground_images": 3,
+        "ground_address_ru": 8
+    }
 }
 ]
