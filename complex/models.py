@@ -174,6 +174,7 @@ class Address_RU(models.Model):
 -----------------------------------------------------------------------
 ''' 
 class Company_Names(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     internal_name = models.CharField(max_length=255)
     Mobile = models.CharField(max_length=20)
     Mobile_Home = models.CharField(max_length=20)
@@ -420,7 +421,10 @@ class Appartment_KA(models.Model):
     appartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
     test_field_ka = models.CharField(max_length=50)
     
-    
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
 class Appartment_EN(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
     complex_en = models.ForeignKey(Complex_EN, on_delete=models.CASCADE,null=True)
@@ -428,7 +432,11 @@ class Appartment_EN(models.Model):
     appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
     appartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE, null = True)
     test_field_en = models.CharField(max_length=50)
-    
+
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
 
     
 class Appartment_RU(models.Model):
@@ -439,12 +447,16 @@ class Appartment_RU(models.Model):
     appartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     test_field_ru = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f"{self.internal_apartment_name.internal_apartment_name}"
+
+
+
 '''
 -----------------------------------------------------------------------
             APPARTMENT MODELS
 -----------------------------------------------------------------------
 ''' 
-
 class Private_Appartment_Names(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, blank=True, null=True)
     internal_private_apartment_name = models.CharField(max_length=50)
@@ -499,6 +511,9 @@ class Private_Appartment_EN(models.Model):
     private_apartment_name_en = models.CharField(max_length=100,null=True)
     test_private_field_en = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.private_apartment_name_en} - {self.internal_private_apartment_name}"
+
 
 
 class Private_Appartment_KA(models.Model):
@@ -508,7 +523,8 @@ class Private_Appartment_KA(models.Model):
     private_apartment_name_ka = models.CharField(max_length=100,null=True)
     test_private_field_ka = models.CharField(max_length=100)
 
-
+    def __str__(self):
+        return f"{self.private_apartment_name_ka} - {self.internal_private_apartment_name}"
 
 class Private_Appartment_RU(models.Model):
     internal_private_apartment_name = models.ForeignKey(Private_Appartment_Names ,on_delete=models.CASCADE)
@@ -516,20 +532,46 @@ class Private_Appartment_RU(models.Model):
     private_apartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     private_apartment_name_ru = models.CharField(max_length=100,null=True)
     test_private_field_ru = models.CharField(max_length=100)
-    
+
+    def __str__(self):
+        return f"{self.private_apartment_name_ru} - {self.internal_private_apartment_name}"
+
 
 '''
 -----------------------------------------------------------------------
             GROUND MODELS
 -----------------------------------------------------------------------
 ''' 
+
+
 class Ground_Names(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     internal_ground_name = models.CharField(max_length=50)
     area = models.DecimalField(max_digits=12, decimal_places=2)
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    full_price = models.DecimalField(max_digits=12, decimal_places=2)
+    square_price = models.DecimalField(max_digits=12, decimal_places=2)
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
+    STATUS_CHOICES = [
+        ("1" , 'Agricultural'),
+        ('2' , 'Land for settlement'),
+        ('3', 'Commercial'),
+    ]
+    status = models.CharField(
+        max_length = 50,
+        choices = STATUS_CHOICES,
+        default = "3",
+    )
+    RANK_CHOICES = [
+        ('A', 'Rank A'),
+        ('B', 'Rank B'),
+        ('C', 'Rank C'),
+        ('D', 'Rank D'),
+        ('E', 'Rank E'),
+    ]
     
+    rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
+
     
     def __str__(self):
         return f"{self.internal_ground_name}"

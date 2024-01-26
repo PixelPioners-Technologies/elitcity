@@ -1138,6 +1138,38 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
             'test_private_field_en',
 
         ]
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_private_apartment_name' : {
+               "id": data["internal_private_apartment_name"]['id'],
+                "internal_private_apartment_name": data["internal_private_apartment_name"]["internal_private_apartment_name"],
+                "number_of_rooms": data["internal_private_apartment_name"]['number_of_rooms'],
+                'status' : data["internal_private_apartment_name"]['status'] ,
+                "area": data["internal_private_apartment_name"]['area'],
+                "full_price": data["internal_private_apartment_name"]['full_price'],
+                'square_price' : data['internal_private_apartment_name']['square_price'],
+                "floor_number": data["internal_private_apartment_name"]['floor_number'],
+                "is_available": data["internal_private_apartment_name"]['is_available'],
+                "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+            },
+            'private_apartment_address_en': data["private_apartment_address_en"],
+            'private_apartment_images': image_urls,
+            'private_apartment_name_en': data['private_apartment_name_en'],
+            'test_private_field_en': data['test_private_field_en'],
+        }
+
+    def get_image_urls(self, instance):
+        images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+
+
+
+
+
 class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
     internal_private_apartment_name = Private_Appartment_Name_Serializer(read_only = True)
     internal_private_apartment_name_id = serializers.PrimaryKeyRelatedField(
@@ -1271,7 +1303,10 @@ class Ground_Names_Serializer(serializers.ModelSerializer):
             'id',
             'internal_ground_name',
             'area',
-            'price',
+            'full_price',
+            'square_price',
+            'status',
+            'rank',
             'is_available',
             'visibiliti'
             ]
@@ -1319,28 +1354,27 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
         image_urls = self.get_image_urls(instance)
         return {
             "id": data['id'],
-            'internal_private_apartment_name' : {
-                "id": data["internal_private_apartment_name"]['id'],
-                "internal_private_apartment_name": data["internal_private_apartment_name"]["internal_private_apartment_name"],
-                "number_of_rooms": data["internal_private_apartment_name"]['number_of_rooms'],
-                'status' : data["internal_private_apartment_name"]['status'] ,
-                "area": data["internal_private_apartment_name"]['area'],
-                "full_price": data["internal_private_apartment_name"]['full_price'],
-                'square_price' : data['internal_private_apartment_name']['square_price'],
-                "floor_number": data["internal_private_apartment_name"]['floor_number'],
-                "is_available": data["internal_private_apartment_name"]['is_available'],
-                "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+            'internal_ground_name' : {
+                "id": data["internal_ground_name"]['id'],
+                "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
+                "area": data["internal_ground_name"]['area'],
+                "full_price": data["internal_ground_name"]['full_price'],
+                'square_price': data['internal_ground_name']['square_price'],
+                'status':data['internal_ground_name']['status'],
+                'rank':data['internal_ground_name']['rank'],
+                "is_available": data["internal_ground_name"]['is_available'],
+                "visibiliti": data["internal_ground_name"]['visibiliti'],
             },
-            'private_apartment_address_en': data["private_apartment_address_en"],
-            'private_apartment_images': image_urls,
-            'private_apartment_name_en': data['private_apartment_name_en'],
-            'test_private_field_en': data['test_private_field_en'],
+            'ground_address_ka': data["ground_address_ka"],
+            'ground_name_ka':data['ground_name_ka'],
+            'ground_images': image_urls,
         }
 
+
     def get_image_urls(self, instance):
-        images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
+        images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
         return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
-    
+      
 class Ground_EN_Serializer(serializers.ModelSerializer):
     internal_ground_name = Ground_Names_Serializer(read_only = True)
     internal_ground_name_id = serializers.PrimaryKeyRelatedField(
@@ -1384,7 +1418,10 @@ class Ground_EN_Serializer(serializers.ModelSerializer):
                 "id": data["internal_ground_name"]['id'],
                 "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
                 "area": data["internal_ground_name"]['area'],
-                "price": data["internal_ground_name"]['price'],
+                "full_price": data["internal_ground_name"]['full_price'],
+                'square_price': data['internal_ground_name']['square_price'],
+                'status':data['internal_ground_name']['status'],
+                'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
             },
@@ -1441,7 +1478,10 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
                 "id": data["internal_ground_name"]['id'],
                 "internal_ground_name": data["internal_ground_name"]["internal_ground_name"],
                 "area": data["internal_ground_name"]['area'],
-                "price": data["internal_ground_name"]['price'],
+                "full_price": data["internal_ground_name"]['full_price'],
+                'square_price': data['internal_ground_name']['square_price'],
+                'status':data['internal_ground_name']['status'],
+                'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
             },
