@@ -1559,3 +1559,40 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
             'blog_images'
         ]
 
+
+'''
+-----------------------------------------------------------------------
+            PROMOTIONS AND OFFETS SERIALIZERS
+-----------------------------------------------------------------------
+'''
+
+class PromotionsAndOffersNamesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promotions_and_offers_Names
+        fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility']
+
+class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Promotions_and_offers_Images
+        fields = ['internal_promotion_name', 'images']
+
+class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
+    promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+
+    class Meta:
+        model = Promotions_and_offers_KA
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka']
+
+class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
+    promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+
+    class Meta:
+        model = Promotions_and_offers_EN
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en']
+
+class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
+    promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+
+    class Meta:
+        model = Promotions_and_offers_RU
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru']

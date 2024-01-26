@@ -249,6 +249,18 @@ class Complex_Names(models.Model):
     number_of_houses = models.IntegerField()
     number_of_floors = models.IntegerField()
     phone_number = models.CharField(max_length=20)
+
+    # for information fields - integer da float fields aq davtove, Boolean - ebs qvemot davamateb
+    number_of_buildings = models.IntegerField()
+    flooring = models.IntegerField()
+    parking_quantity = models.IntegerField()
+    rooms_quantity = models.IntegerField()
+    light_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    humidity_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    area_squareness = models.DecimalField(max_digits=10, decimal_places=2)
+    ceiling_height_meters = models.DecimalField(max_digits=5, decimal_places=2)
+
+   
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
         ('A', 'Rank A'),
@@ -276,6 +288,21 @@ class Complex_KA(models.Model):
     address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
+
+    construction_type_ka = models.CharField(max_length=100)
+    submission_type_ka = models.CharField(max_length=100)
+    catering_facility_ka = models.BooleanField(default=True)
+    elevator_type_ka = models.BooleanField(default=True)
+    schlangbaum_ka = models.BooleanField(default=True)
+    concierge_service_ka = models.BooleanField(default=True)
+    yard_description_ka = models.BooleanField(default=True)
+    protection_type_ka = models.CharField(max_length=100)
+    metro_ka = models.CharField(max_length=50)
+    Pharmacy_ka = models.CharField(max_length=50)
+    supermarket_ka = models.CharField(max_length=50)
+    Square_ka = models.CharField(max_length=50)
+    Description_ka = models.TextField(max_length=500)
+
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -287,6 +314,22 @@ class Complex_EN(models.Model):
     address_en = models.ForeignKey(Address_EN, on_delete=models.CASCADE)
     complex_name_en = models.CharField(max_length=200, unique=True)
     type_of_roof_en = models.CharField(max_length=100)
+
+    construction_type_en = models.CharField(max_length=100)
+    submission_type_en = models.CharField(max_length=100)
+    catering_facility_en = models.BooleanField(default=True)
+    elevator_type_en = models.BooleanField(default=True)
+    schlangbaum_en = models.BooleanField(default=True)
+    concierge_service_en = models.BooleanField(default=True)
+    yard_description_en = models.BooleanField(default=True)
+    protection_type_en = models.CharField(max_length=100)
+    metro_en = models.CharField(max_length=50)
+    Pharmacy_en = models.CharField(max_length=50)
+    supermarket_en = models.CharField(max_length=50)
+    Square_en = models.CharField(max_length=50)
+    Description_en = models.TextField(max_length=500)
+
+
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -298,7 +341,23 @@ class Complex_RU(models.Model):
     address_ru = models.ForeignKey(Address_RU, on_delete=models.CASCADE)
     complex_name_ru = models.CharField(max_length=200, unique=True)
     type_of_roof_ru = models.CharField(max_length=100)
-    
+
+    construction_type_ru = models.CharField(max_length=100)
+    submission_type_ru = models.CharField(max_length=100)
+    catering_facility_ru = models.BooleanField(default=True)
+    elevator_type_ru = models.BooleanField(default=True)
+    schlangbaum_ru = models.BooleanField(default=True)
+    concierge_service_ru = models.BooleanField(default=True)
+    yard_description_ru = models.BooleanField(default=True)
+    protection_type_ru = models.CharField(max_length=100)
+    metro_ru = models.CharField(max_length=50)
+    Pharmacy_ru = models.CharField(max_length=50)
+    supermarket_ru = models.CharField(max_length=50)
+    Square_ru = models.CharField(max_length=50)
+    Description_ru = models.TextField(max_length=500)
+
+
+
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
 
@@ -588,3 +647,58 @@ class Blog_RU(models.Model):
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
     
 
+'''
+-----------------------------------------------------------------------
+            PROMOTIONS AND OFFERS
+-----------------------------------------------------------------------
+''' 
+
+class Promotions_and_offers_Names(models.Model):
+    internal_promotion_name = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    company = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
+    discount = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    gift = models.CharField(max_length=255, null=True, blank=True)
+    installment = models.BooleanField(default=False)
+    visibility = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.internal_promotion_name
+
+
+class Promotions_and_offers_Images(models.Model):
+    internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
+    images = models.ImageField(upload_to='promotions_images/')
+
+    def __str__(self):
+        return f"{self.internal_promotion_name.internal_promotion_name}"
+
+
+class Promotions_and_offers_KA(models.Model):
+    internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
+    promotion_name_ka = models.CharField(max_length=255, null=True)
+    promotion_images = models.ForeignKey(Promotions_and_offers_Images, on_delete=models.CASCADE, blank=True, null=True)
+    about_ka = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.promotion_name_ka
+
+class Promotions_and_offers_EN(models.Model):
+    internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
+    promotion_name_en = models.CharField(max_length=255, null=True)
+    promotion_images = models.ForeignKey(Promotions_and_offers_Images, on_delete=models.CASCADE, blank=True, null=True)
+    about_en = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.promotion_name_en
+
+
+class Promotions_and_offers_RU(models.Model):
+    internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
+    promotion_name_ru = models.CharField(max_length=255, null=True)
+    promotion_images = models.ForeignKey(Promotions_and_offers_Images, on_delete=models.CASCADE, blank=True, null=True)
+    about_ru = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.promotion_name_ru

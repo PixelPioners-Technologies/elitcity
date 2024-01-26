@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'storages',
-
 ]
 
 MIDDLEWARE = [
@@ -196,3 +195,4 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 USE_I18N = True
 
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'complex.translation'
+
