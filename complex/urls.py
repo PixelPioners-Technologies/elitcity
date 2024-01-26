@@ -85,9 +85,9 @@ blog_routers.register(r'ru', Blog_RU_Viewset, basename='ru-blog')
 
 promotions_routers.register(r'uni', PromotionsAndOffersNamesViewSet, basename='uni-promotions')
 promotions_routers.register(r'images', PromotionsAndOffersImageViewSet, basename='uni-promotions-images')
-promotions_routers.register(r'ka', PromotionsAndOffersKAViewSet, basename='ka-promotions')
-promotions_routers.register(r'en', PromotionsAndOffersENViewSet, basename='en-promotions')
-promotions_routers.register(r'ru', PromotionsAndOffersRUViewSet, basename='ru-promotions')
+promotions_routers.register(r'ka', PromotionsAndOffers_KA_ViewSet, basename='ka-promotions')
+promotions_routers.register(r'en', PromotionsAndOffers_EN_ViewSet, basename='en-promotions')
+promotions_routers.register(r'ru', PromotionsAndOffers_RU_ViewSet, basename='ru-promotions')
 
 
 urlpatterns = [

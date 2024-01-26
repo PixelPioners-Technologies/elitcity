@@ -301,6 +301,7 @@ class Complex_KA(models.Model):
     Pharmacy_ka = models.CharField(max_length=50)
     supermarket_ka = models.CharField(max_length=50)
     Square_ka = models.CharField(max_length=50)
+    Description_ka = models.TextField(max_length=500)
 
     
     def __str__(self):
@@ -326,6 +327,7 @@ class Complex_EN(models.Model):
     Pharmacy_en = models.CharField(max_length=50)
     supermarket_en = models.CharField(max_length=50)
     Square_en = models.CharField(max_length=50)
+    Description_en = models.TextField(max_length=500)
 
 
     
@@ -352,6 +354,7 @@ class Complex_RU(models.Model):
     Pharmacy_ru = models.CharField(max_length=50)
     supermarket_ru = models.CharField(max_length=50)
     Square_ru = models.CharField(max_length=50)
+    Description_ru = models.TextField(max_length=500)
 
 
 
