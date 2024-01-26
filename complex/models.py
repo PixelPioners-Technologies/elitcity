@@ -250,7 +250,6 @@ class Complex_Names(models.Model):
     phone_number = models.CharField(max_length=20)
 
     # for information fields - integer da float fields aq davtove, Boolean - ebs qvemot davamateb
-    number_of_apartments = models.IntegerField()
     number_of_buildings = models.IntegerField()
     flooring = models.IntegerField()
     parking_quantity = models.IntegerField()
