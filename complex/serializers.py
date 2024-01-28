@@ -666,6 +666,14 @@ class Complex_KA_Serializers(serializers.ModelSerializer):
             'internal_complex_name_id',
             'company_ka_id',
             'address_ka_id',
+            'construction_type_ka',
+            'submission_type_ka',
+            'protection_type_ka',
+            'metro_ka',
+            'Pharmacy_ka',
+            'supermarket_ka',
+            'Square_ka',
+            'Description_ka',
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
@@ -710,6 +718,14 @@ class Complex_EN_Serializers(serializers.ModelSerializer):
             'internal_complex_name_id',
             'company_en_id',
             'address_en_id',
+            'construction_type_en',
+            'submission_type_en',
+            'protection_type_en',
+            'metro_en',
+            'Pharmacy_en',
+            'supermarket_en',
+            'Square_en',
+            'Description_en',
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
@@ -754,6 +770,14 @@ class Complex_RU_Serializers(serializers.ModelSerializer):
             'internal_complex_name_id',
             'company_ru_id',
             'address_ru_id',
+            'construction_type_ru',
+            'submission_type_ru',
+            'protection_type_ru',
+            'metro_ru',
+            'Pharmacy_ru',
+            'supermarket_ru',
+            'Square_ru',
+            'Description_ru',
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
