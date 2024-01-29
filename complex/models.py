@@ -246,19 +246,23 @@ class Complex_Names(models.Model):
     floor_number = models.IntegerField()
     space = models.DecimalField(max_digits=10, decimal_places=2)
     number_of_apartments = models.IntegerField()
-    number_of_houses = models.IntegerField()
     number_of_floors = models.IntegerField()
     phone_number = models.CharField(max_length=20)
 
     # for information fields - integer da float fields aq davtove, Boolean - ebs qvemot davamateb
-    number_of_buildings = models.IntegerField()
-    flooring = models.IntegerField()
-    parking_quantity = models.IntegerField()
-    rooms_quantity = models.IntegerField()
-    light_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
-    humidity_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
-    area_squareness = models.DecimalField(max_digits=10, decimal_places=2)
-    ceiling_height_meters = models.DecimalField(max_digits=5, decimal_places=2)
+    number_of_buildings = models.IntegerField( blank=True,null=True)
+    flooring = models.IntegerField(blank=True,null=True)
+    parking_quantity = models.IntegerField( blank=True,null=True)
+    rooms_quantity = models.IntegerField(blank=True,null=True)
+    light_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True,null=True)
+    humidity_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True,null=True)
+    area_squareness = models.DecimalField(max_digits=10, decimal_places=2, blank=True,null=True)
+    ceiling_height_meters = models.DecimalField(max_digits=5, decimal_places=2, blank=True,null=True)
+    catering_facility = models.BooleanField(default=True)
+    elevator_type = models.BooleanField(default=True)
+    schlangbaum = models.BooleanField(default=True)
+    concierge_service = models.BooleanField(default=True)
+    yard_description = models.BooleanField(default=True)
 
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
@@ -277,7 +281,7 @@ class Complex_Names(models.Model):
     
 class Complex_Images(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names,  on_delete=models.CASCADE)
-    images = models.ImageField(upload_to='complex_images/',  unique=True)
+    images = models.ImageField(upload_to='complex_images/')
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
     
@@ -289,19 +293,14 @@ class Complex_KA(models.Model):
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
 
-    construction_type_ka = models.CharField(max_length=100)
-    submission_type_ka = models.CharField(max_length=100)
-    catering_facility_ka = models.BooleanField(default=True)
-    elevator_type_ka = models.BooleanField(default=True)
-    schlangbaum_ka = models.BooleanField(default=True)
-    concierge_service_ka = models.BooleanField(default=True)
-    yard_description_ka = models.BooleanField(default=True)
-    protection_type_ka = models.CharField(max_length=100)
-    metro_ka = models.CharField(max_length=50)
-    Pharmacy_ka = models.CharField(max_length=50)
-    supermarket_ka = models.CharField(max_length=50)
-    Square_ka = models.CharField(max_length=50)
-    Description_ka = models.TextField(max_length=500)
+    construction_type_ka = models.CharField(max_length=100,null=True, blank=True)
+    submission_type_ka = models.CharField(max_length=100,null=True, blank=True)
+    protection_type_ka = models.CharField(max_length=100,null=True, blank=True)
+    metro_ka = models.CharField(max_length=50 ,null=True, blank=True)
+    Pharmacy_ka = models.CharField(max_length=50,null=True, blank=True)
+    supermarket_ka = models.CharField(max_length=50,null=True, blank=True)
+    Square_ka = models.CharField(max_length=50,null=True, blank=True)
+    Description_ka = models.TextField(max_length=500,null=True, blank=True)
 
     
     def __str__(self):
@@ -315,19 +314,14 @@ class Complex_EN(models.Model):
     complex_name_en = models.CharField(max_length=200, unique=True)
     type_of_roof_en = models.CharField(max_length=100)
 
-    construction_type_en = models.CharField(max_length=100)
-    submission_type_en = models.CharField(max_length=100)
-    catering_facility_en = models.BooleanField(default=True)
-    elevator_type_en = models.BooleanField(default=True)
-    schlangbaum_en = models.BooleanField(default=True)
-    concierge_service_en = models.BooleanField(default=True)
-    yard_description_en = models.BooleanField(default=True)
-    protection_type_en = models.CharField(max_length=100)
-    metro_en = models.CharField(max_length=50)
-    Pharmacy_en = models.CharField(max_length=50)
-    supermarket_en = models.CharField(max_length=50)
-    Square_en = models.CharField(max_length=50)
-    Description_en = models.TextField(max_length=500)
+    construction_type_en = models.CharField(max_length=100,null=True, blank=True)
+    submission_type_en = models.CharField(max_length=100,null=True, blank=True)
+    protection_type_en = models.CharField(max_length=100,null=True, blank=True)
+    metro_en = models.CharField(max_length=50,null=True, blank=True)
+    Pharmacy_en = models.CharField(max_length=50,null=True, blank=True)
+    supermarket_en = models.CharField(max_length=50,null=True, blank=True)
+    Square_en = models.CharField(max_length=50,null=True, blank=True)
+    Description_en = models.TextField(max_length=500,null=True, blank=True)
 
 
     
@@ -342,19 +336,14 @@ class Complex_RU(models.Model):
     complex_name_ru = models.CharField(max_length=200, unique=True)
     type_of_roof_ru = models.CharField(max_length=100)
 
-    construction_type_ru = models.CharField(max_length=100)
-    submission_type_ru = models.CharField(max_length=100)
-    catering_facility_ru = models.BooleanField(default=True)
-    elevator_type_ru = models.BooleanField(default=True)
-    schlangbaum_ru = models.BooleanField(default=True)
-    concierge_service_ru = models.BooleanField(default=True)
-    yard_description_ru = models.BooleanField(default=True)
-    protection_type_ru = models.CharField(max_length=100)
-    metro_ru = models.CharField(max_length=50)
-    Pharmacy_ru = models.CharField(max_length=50)
-    supermarket_ru = models.CharField(max_length=50)
-    Square_ru = models.CharField(max_length=50)
-    Description_ru = models.TextField(max_length=500)
+    construction_type_ru = models.CharField(max_length=100,null=True, blank=True)
+    submission_type_ru = models.CharField(max_length=100,null=True, blank=True)
+    protection_type_ru = models.CharField(max_length=100,null=True, blank=True)
+    metro_ru = models.CharField(max_length=50,null=True, blank=True)
+    Pharmacy_ru = models.CharField(max_length=50,null=True, blank=True)
+    supermarket_ru = models.CharField(max_length=50,null=True, blank=True)
+    Square_ru = models.CharField(max_length=50,null=True, blank=True)
+    Description_ru = models.TextField(max_length=500,null=True, blank=True)
 
 
 

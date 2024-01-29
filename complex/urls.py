@@ -77,7 +77,7 @@ ground_routers.register(r'ru', Ground_RU_Viewset, basename='ru-ground')
 
 
 blog_routers.register(r'uni', Blog_Names_Viewset, basename='uni-blog')
-blog_routers.register(r'images', Blog_Images_Viewset, basename='uni-ground-blog')
+blog_routers.register(r'images', Blog_Images_Viewset, basename='uni-blog-images')
 blog_routers.register(r'ka', Blog_KA_Viewset, basename='ka-blog')
 blog_routers.register(r'en', Blog_EN_Viewset, basename='en-blog')
 blog_routers.register(r'ru', Blog_RU_Viewset, basename='ru-blog')
