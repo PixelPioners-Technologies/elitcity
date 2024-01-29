@@ -11,6 +11,7 @@ django.setup()
 from complex.models import *
 
 
+
 fake = Faker()
 
 
@@ -54,7 +55,8 @@ def genrate_locations(n):
             city_ru = City_RU.objects.create(city_ru=fake.city())
             add_languages(city_ru)
         except django.db.utils.IntegrityError:
-                continue    
+                continue 
+
         
     for _ in range(n):
         try:
@@ -328,7 +330,7 @@ def generate_private_apartments(n):
 
 
 
-# genrate_locations(5)
-# generate_companies(1)
-# generate_complexes(50)
-# generate_private_apartments(40) 
+genrate_locations(5)
+generate_companies(1)
+generate_complexes(50)
+generate_private_apartments(40) 
