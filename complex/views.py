@@ -534,10 +534,11 @@ class Ground_KA_Viewset(viewsets.ModelViewSet):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
         square_price=F('internal_ground_name__square_price'),
-        full_price=F('internal_ground_name__full_price')
+        full_price=F('internal_ground_name__full_price'),
+        rank = F('internal_ground_name__rank'),
     )
 
-    ordering_fields = ['created_at', 'square_price','full_price']
+    ordering_fields = ['created_at', 'square_price','full_price', 'rank']
 
 
 class Ground_EN_Viewset(viewsets.ModelViewSet):
@@ -551,10 +552,11 @@ class Ground_EN_Viewset(viewsets.ModelViewSet):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
         square_price=F('internal_ground_name__square_price'),
-        full_price=F('internal_ground_name__full_price')
+        full_price=F('internal_ground_name__full_price'),
+        rank = F('internal_ground_name__rank'),
     )
 
-    ordering_fields = ['created_at', 'square_price','full_price']
+    ordering_fields = ['created_at', 'square_price','full_price', 'rank']
 
 
 class Ground_RU_Viewset(viewsets.ModelViewSet):
@@ -568,10 +570,11 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
         square_price=F('internal_ground_name__square_price'),
-        full_price=F('internal_ground_name__full_price')
+        full_price=F('internal_ground_name__full_price'),
+        rank = F('internal_ground_name__rank'),
     )
 
-    ordering_fields = ['created_at', 'square_price','full_price']
+    ordering_fields = ['created_at', 'square_price','full_price', 'rank']
 
 
 

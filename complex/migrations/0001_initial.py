@@ -190,11 +190,6 @@ class Migration(migrations.Migration):
                 ('area_squareness', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('ceiling_height_meters', models.DecimalField(decimal_places=2, max_digits=5)),
 
-                ('number_of_apartments', models.IntegerField()),
-                ('number_of_houses', models.IntegerField()),
-                ('number_of_floors', models.IntegerField()),
-                ('phone_number', models.CharField(max_length=20)),
-
                 ('plot_area', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('rank', models.CharField(choices=[('A', 'Rank A'), ('B', 'Rank B'), ('C', 'Rank C'), ('D', 'Rank D'), ('E', 'Rank E')], default='E', max_length=1)),
             ],
