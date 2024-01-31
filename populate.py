@@ -325,12 +325,215 @@ def generate_private_apartments(n):
             print(f"Integrity error: {e}")
             continue
 
-# Example usage: generate_private_apartments(10)
+def generate_apartments(n):
+    for _ in range(n):
+        try:
+            internal_name = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
+            number_of_rooms = random.choice(['studio', '1', '2', '3', '4', '5+'])
+            status = random.choice(['1', '2', '3'])
+            area = random.uniform(30, 300)
+            full_price = random.uniform(50000, 1000000)
+            square_price = full_price / area
+            floor_number = random.randint(1, 50)
+            is_available = random.choice([True, False])
+            visibiliti = random.choice([True, False])
+
+            # Optional boolean fields
+            metro = random.choice([True, False])
+            pharmacy = random.choice([True, False])
+            supermarket = random.choice([True, False])
+            square = random.choice([True, False])
+
+            apartment = Appartment_Names.objects.create(
+                internal_apartment_name=internal_name,
+                number_of_rooms=number_of_rooms,
+                status=status,
+                area=area,
+                full_price=full_price,
+                square_price=square_price,
+                floor_number=floor_number,
+                is_available=is_available,
+                visibiliti=visibiliti,
+                metro=metro,
+                Pharmacy=pharmacy,
+                supermarket=supermarket,
+                square=square
+            )
+
+            selected_image_path = random.choice(get_image_list())
+            selected_image_name = os.path.basename(selected_image_path)
+
+            # Create corresponding apartment images
+            with open(selected_image_path, 'rb') as img_file:
+                apartment_images = Appartment_Images.objects.create(
+                    internal_apartment_name=apartment,
+                    images=File(img_file, name=selected_image_name)
+                )
+
+            # Randomly select addresses and complexes from those already created
+            address_en = Address_EN.objects.order_by('?').first()
+            address_ka = Address_KA.objects.order_by('?').first()
+            address_ru = Address_RU.objects.order_by('?').first()
+            complex_ka = Complex_KA.objects.order_by('?').first()
+            complex_en = Complex_EN.objects.order_by('?').first()
+            complex_ru = Complex_RU.objects.order_by('?').first()
+
+            if not (address_en and address_ka and address_ru):
+                continue
+
+            # Create localized apartment instances
+            Appartment_EN.objects.create(
+                internal_apartment_name=apartment,
+                complex_en=complex_en,
+                appartment_name_en=f"{fake.company_suffix()}_{internal_name}",
+                appartment_images=apartment_images,
+                appartment_address_en=address_en,
+                test_field_en=fake.word()
+            )
+
+            Appartment_KA.objects.create(
+                internal_apartment_name=apartment,
+                complex_ka=complex_ka,
+                appartment_name_ka=f"{fake.company_suffix()}_{internal_name}",
+                appartment_images=apartment_images,
+                appartment_address_ka=address_ka,
+                test_field_ka=fake.word()
+            )
+
+            Appartment_RU.objects.create(
+                internal_apartment_name=apartment,
+                complex_ru=complex_ru,
+                appartment_name_ru=f"{fake.company_suffix()}_{internal_name}",
+                appartment_images=apartment_images,
+                appartment_address_ru=address_ru,
+                test_field_ru=fake.word()
+            )
+        except django.db.utils.IntegrityError as e:
+            print(f"Integrity error: {e}")
+            continue
+
+
+
+def get_ground_image_list():
+    # Get the full path to the random_images folder
+    images_path = os.path.join(os.path.dirname(__file__), 'random_ground_images')
+    # Use glob to get all the image files
+    image_files = glob.glob(os.path.join(images_path, '*.[jJ][pP][gG]'))
+    
+    return image_files
+
+# This will give you a list of paths to the images
+ground_image_list = get_ground_image_list()
+ground_selected_image_path = random.choice(ground_image_list)
+ground_selected_image_name = os.path.basename(ground_selected_image_path)
 
 
 
 
-genrate_locations(5)
-generate_companies(1)
-generate_complexes(50)
-generate_private_apartments(40) 
+
+def generate_grounds(n):
+    for _ in range(n):
+        try:
+            internal_name = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
+            area = random.uniform(500, 10000)
+            full_price = random.uniform(100000, 2000000)
+            square_price = full_price / area
+            is_available = random.choice([True, False])
+            visibiliti = random.choice([True, False])
+            status = random.choice(["1", "2", "3"])
+            rank = random.choice(['A', 'B', 'C', 'D', 'E'])
+
+            ground = Ground_Names.objects.create(
+                internal_ground_name=internal_name,
+                area=area,
+                full_price=full_price,
+                square_price=square_price,
+                is_available=is_available,
+                visibiliti=visibiliti,
+                status=status,
+                rank=rank
+            )
+
+            ground_selected_image_path = random.choice(get_ground_image_list())
+            ground_selected_image_name = os.path.basename(ground_selected_image_path)
+
+            # Create corresponding ground images
+            with open(ground_selected_image_path, 'rb') as img_file:
+                ground_images = Ground_Images.objects.create(
+                    internal_ground_name=ground,
+                    images=File(img_file, name=ground_selected_image_name)
+                )
+
+            # Randomly select addresses from those already created
+            address_en = Address_EN.objects.order_by('?').first()
+            address_ka = Address_KA.objects.order_by('?').first()
+            address_ru = Address_RU.objects.order_by('?').first()
+
+            if not (address_en and address_ka and address_ru):
+                continue
+
+            # Create localized ground instances
+            Ground_EN.objects.create(
+                internal_ground_name=ground,
+                ground_name_en=f"{fake.company_suffix()}_{internal_name}",
+                ground_images=ground_images,
+                ground_address_en=address_en
+            )
+
+            Ground_KA.objects.create(
+                internal_ground_name=ground,
+                ground_name_ka=f"{fake.company_suffix()}_{internal_name}",
+                ground_images=ground_images,
+                ground_address_ka=address_ka
+            )
+
+            Ground_RU.objects.create(
+                internal_ground_name=ground,
+                ground_name_ru=f"{fake.company_suffix()}_{internal_name}",
+                ground_images=ground_images,
+                ground_address_ru=address_ru
+            )
+        except django.db.utils.IntegrityError as e:
+            print(f"Integrity error: {e}")
+            continue
+
+
+def generate_all_data():
+    try:
+        print("Generating Locations...")
+        genrate_locations(5)
+        print("Locations generated.")
+
+        print("Generating Companies...")
+        generate_companies(1)
+        print("Companies generated.")
+
+        print("Generating Complexes...")
+        generate_complexes(50)
+        print("Complexes generated.")
+
+        print("Generating Private Apartments...")
+        generate_private_apartments(40)
+        print("Private Apartments generated.")
+
+        print("Generating Apartments...")
+        generate_apartments(60)
+        print("Apartments generated.")
+
+        print("Generating Grounds...")
+        generate_grounds(60)
+        print("Grounds generated.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+generate_all_data()
+
+
+# genrate_locations(5)
+# generate_companies(1)
+# generate_complexes(50)
+# generate_private_apartments(40) 
+# generate_apartments(60)
+# generate_grounds(60)
+        
+

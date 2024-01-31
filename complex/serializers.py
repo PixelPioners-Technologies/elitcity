@@ -812,7 +812,11 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
             'square_price',
             'floor_number',
             'is_available',
-            'visibiliti'
+            'visibiliti',
+            'metro',
+            'Pharmacy',
+            'supermarket',
+            'square',
             ]
 # --------------------------------------------------------------------------
         # fEW

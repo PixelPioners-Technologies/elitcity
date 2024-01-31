@@ -388,7 +388,12 @@ class Appartment_Names(models.Model):
     floor_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
-    
+
+    metro = models.BooleanField(default=True , blank=True , null = True)
+    Pharmacy = models.BooleanField(default=True , blank=True , null = True)
+    supermarket = models.BooleanField(default=True , blank=True , null = True)
+    square = models.BooleanField(default=True , blank=True , null = True)
+
     
     def __str__(self):
         return f"{self.internal_apartment_name}"
