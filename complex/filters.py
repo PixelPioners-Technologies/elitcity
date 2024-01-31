@@ -4,7 +4,6 @@ from django_filters import rest_framework as filters
 from django.db.models import Q
 from .models import *
 
-
 class Complex_KA_Filter(filters.FilterSet):
     min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
     max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')
@@ -736,19 +735,33 @@ class Ground_RU_Filters(filters.FilterSet):
         ]
 
 
+# ---------------------------------------- promotion filters  --------------------------------------------
+    
 
+class PromotionFilters_EN(filters.FilterSet):
+    discount = filters.BooleanFilter(field_name='internal_promotion_name__discount')
+    gift = filters.BooleanFilter(field_name="internal_promotion_name__gift")
+    installment =  filters.BooleanFilter(field_name="internal_promotion_name__installment")
 
+    class Meta:
+        model = Promotions_and_offers_EN
+        fields = ['discount', 'gift', 'installment']
 
-# fartis filtracia, 
-# fasi - kvadratulze da mtlianad 
-# statusi ---   sasofrlo-sameurneo , samosaxlo , komerciuli , 
+class PromotionFilters_KA(filters.FilterSet):
+    discount = filters.BooleanFilter(field_name='internal_promotion_name__discount')
+    gift = filters.BooleanFilter(field_name="internal_promotion_name__gift")
+    installment =  filters.BooleanFilter(field_name="internal_promotion_name__installment")
 
-# ranki undat
-        
+    class Meta:
+        model = Promotions_and_offers_KA
+        fields = ['discount', 'gift', 'installment']
 
-# sortirebebi :
+class PromotionFilters_RU(filters.FilterSet):
+    discount = filters.BooleanFilter(field_name='internal_promotion_name__discount')
+    gift = filters.BooleanFilter(field_name="internal_promotion_name__gift")
+    installment =  filters.BooleanFilter(field_name="internal_promotion_name__installment")
 
-# damatebis  tarigis mixedvit, mtliani fasis mixedvit , kvadratulis fasis mixedvit , 
-
-
+    class Meta:
+        model = Promotions_and_offers_RU
+        fields = ['discount', 'gift', 'installment']
 

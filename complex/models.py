@@ -652,10 +652,11 @@ class Promotions_and_offers_Names(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     company = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
-    discount = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    gift = models.CharField(max_length=255, null=True, blank=True)
+    discount = models.BooleanField(default=True)
+    gift = models.BooleanField(default=True)
     installment = models.BooleanField(default=False)
     visibility = models.BooleanField(default=True)
+
 
     def __str__(self):
         return self.internal_promotion_name

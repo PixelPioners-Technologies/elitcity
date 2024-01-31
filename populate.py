@@ -43,7 +43,7 @@ def add_languages(instance):
         instance.lang.add(lang)
 
 def genrate_locations(n):
-    for _ in range(n):  # Adjust the number of iterations as needed
+    for _ in range(2):  # Adjust the number of iterations as needed
         # Create cities
         try:
             city_ka = City_KA.objects.create(city_ka=fake.city())
@@ -58,7 +58,7 @@ def genrate_locations(n):
                 continue 
 
         
-    for _ in range(n):
+    for _ in range(4):
         try:
             # Create pharent districts
             city_ka = City_KA.objects.order_by('?').first()
@@ -501,7 +501,7 @@ def generate_grounds(n):
 def generate_all_data():
     try:
         print("Generating Locations...")
-        genrate_locations(5)
+        genrate_locations(15)
         print("Locations generated.")
 
         print("Generating Companies...")

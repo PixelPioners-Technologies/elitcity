@@ -643,7 +643,8 @@ class PromotionsAndOffersImageViewSet(viewsets.ModelViewSet):
 class PromotionsAndOffers_KA_ViewSet(viewsets.ModelViewSet):
     queryset = Promotions_and_offers_KA.objects.all()
     serializer_class = PromotionsAndOffersKASerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter,DjangoFilterBackend]
+    filterset_class = PromotionFilters_KA
     search_fields = [
         'promotion_name_ka', 
         'about_ka',
@@ -654,7 +655,8 @@ class PromotionsAndOffers_KA_ViewSet(viewsets.ModelViewSet):
 class PromotionsAndOffers_EN_ViewSet(viewsets.ModelViewSet):
     queryset = Promotions_and_offers_EN.objects.all()
     serializer_class = PromotionsAndOffersENSerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter,DjangoFilterBackend]
+    filterset_class = PromotionFilters_EN
     search_fields = [
         'promotion_name_en', 
         'about_en',
@@ -665,7 +667,8 @@ class PromotionsAndOffers_EN_ViewSet(viewsets.ModelViewSet):
 class PromotionsAndOffers_RU_ViewSet(viewsets.ModelViewSet):
     queryset = Promotions_and_offers_RU.objects.all()
     serializer_class = PromotionsAndOffersRUSerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter,DjangoFilterBackend]
+    filterset_class = PromotionFilters_RU
     search_fields = [
         'promotion_name_ru', 
         'about_ru',
