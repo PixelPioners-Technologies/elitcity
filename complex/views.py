@@ -68,6 +68,10 @@ def api_root(request, format=None):
         language.language: reverse(f'{language.language.lower()}-blog-list', request=request, format=format)
         for language in Language.objects.all()
     }
+    complexandappartments_links = {
+        language.language: reverse(f'{language.language.lower()}-complexandappartments-list', request=request, format=format)
+        for language in Language.objects.all()
+    }
 
     company_links['uni-data'] = reverse('uni-company-list', request=request, format=format)
     company_links['uni-images'] = reverse('uni-company-images-list', request=request, format=format)
@@ -89,6 +93,7 @@ def api_root(request, format=None):
     blog_links['uni-images'] = reverse('uni-blog-images-list' , request=request, format=format)
 
 
+
     return Response({
         'language': reverse('language-list', request=request, format=format),
         'city': city_links,
@@ -107,6 +112,7 @@ def api_root(request, format=None):
 
         'maps': map_links,
         "blogs" : blog_links,
+        "complexandappartments":complexandappartments_links,
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
@@ -673,3 +679,14 @@ class PromotionsAndOffers_RU_ViewSet(viewsets.ModelViewSet):
         'internal_promotion_name__company__company_name',
     ]
 
+class Complex_With_Appartment_KA_ViewSet(viewsets.ModelViewSet):
+    queryset = Complex_KA.objects.all()
+    serializer_class = Complex_with_appartments_P2_KA_Serializer
+
+class Complex_With_Appartment_EN_ViewSet(viewsets.ModelViewSet):
+    queryset = Complex_EN.objects.all()
+    serializer_class = Complex_with_appartments_P2_EN_Serializer
+
+class Complex_With_Appartment_RU_ViewSet(viewsets.ModelViewSet):
+    queryset = Complex_RU.objects.all()
+    serializer_class = Complex_with_appartments_P2_RU_Serializer

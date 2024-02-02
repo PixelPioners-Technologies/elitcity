@@ -357,7 +357,7 @@ class Complex_RU(models.Model):
 ''' 
 class Appartment_Names(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    complex = models.ForeignKey(Complex_Names, on_delete=models.CASCADE, null=True, blank=True)
+    complex = models.ForeignKey(Complex_Names, on_delete=models.CASCADE, null=True, blank=True, related_name='appartment_names')
     internal_apartment_name = models.CharField(max_length=50)
     NUMBER_OF_ROOM_CHOICES = [
         ('studio', 'Studio'),
@@ -384,7 +384,7 @@ class Appartment_Names(models.Model):
     )
     area = models.DecimalField(max_digits=7, decimal_places=2)
     full_price = models.DecimalField(max_digits=12, decimal_places=2)
-    square_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    square_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True )
     floor_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
@@ -404,7 +404,7 @@ class Appartment_Images(models.Model):
 
 class Appartment_KA(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
-    complex_ka = models.ForeignKey(Complex_KA, on_delete=models.CASCADE, null=True)
+    complex_ka = models.ForeignKey(Complex_KA, on_delete=models.CASCADE, null=True, related_name='appartment_name_ka')
     appartment_name_ka = models.CharField(max_length=100,null=True)
     appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
     appartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
@@ -416,7 +416,7 @@ class Appartment_KA(models.Model):
 
 class Appartment_EN(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
-    complex_en = models.ForeignKey(Complex_EN, on_delete=models.CASCADE,null=True)
+    complex_en = models.ForeignKey(Complex_EN, on_delete=models.CASCADE,null=True, related_name='appartment_name_en')
     appartment_name_en = models.CharField(max_length=100,null=True)
     appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
     appartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE, null = True)
@@ -430,7 +430,7 @@ class Appartment_EN(models.Model):
     
 class Appartment_RU(models.Model):
     internal_apartment_name = models.ForeignKey(Appartment_Names,  on_delete=models.CASCADE)
-    complex_ru = models.ForeignKey(Complex_RU, on_delete=models.CASCADE,null=True)
+    complex_ru = models.ForeignKey(Complex_RU, on_delete=models.CASCADE,null=True, related_name='appartment_name_ru')
     appartment_name_ru = models.CharField(max_length=100,null=True)
     appartment_images = models.ForeignKey(Appartment_Images, on_delete = models.CASCADE, null=True)
     appartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
