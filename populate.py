@@ -380,12 +380,16 @@ def generate_apartments(n):
 
             if not (address_en and address_ka and address_ru):
                 continue
+            
+            appartment_name_en = fake.company_suffix()[:25]
+            appartment_name_ka = fake.company_suffix()[:25]
+            appartment_name_ru = fake.company_suffix()[:25]
 
             # Create localized apartment instances
             Appartment_EN.objects.create(
                 internal_apartment_name=apartment,
                 complex_en=complex_en,
-                appartment_name_en=f"{fake.company_suffix()}_{internal_name}",
+                appartment_name_en=appartment_name_en,
                 appartment_images=apartment_images,
                 appartment_address_en=address_en,
                 test_field_en=fake.word()
@@ -394,7 +398,7 @@ def generate_apartments(n):
             Appartment_KA.objects.create(
                 internal_apartment_name=apartment,
                 complex_ka=complex_ka,
-                appartment_name_ka=f"{fake.company_suffix()}_{internal_name}",
+                appartment_name_ka=appartment_name_ka,
                 appartment_images=apartment_images,
                 appartment_address_ka=address_ka,
                 test_field_ka=fake.word()
@@ -403,7 +407,7 @@ def generate_apartments(n):
             Appartment_RU.objects.create(
                 internal_apartment_name=apartment,
                 complex_ru=complex_ru,
-                appartment_name_ru=f"{fake.company_suffix()}_{internal_name}",
+                appartment_name_ru=appartment_name_ru,
                 appartment_images=apartment_images,
                 appartment_address_ru=address_ru,
                 test_field_ru=fake.word()
@@ -530,12 +534,4 @@ def generate_all_data():
 
 generate_all_data()
 
-
-# genrate_locations(5)
-# generate_companies(1)
-# generate_complexes(50)
-# generate_private_apartments(40) 
-# generate_apartments(60)
-# generate_grounds(60)
-        
 

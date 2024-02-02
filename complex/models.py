@@ -477,6 +477,16 @@ class Private_Appartment_Names(models.Model):
         choices = STATUS_CHOICES,
         default = "3",
     )
+    RANK_CHOICES = [
+        ('A', 'Rank A'),
+        ('B', 'Rank B'),
+        ('C', 'Rank C'),
+        ('D', 'Rank D'),
+        ('E', 'Rank E'),
+    ]
+
+    rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
+
     area = models.DecimalField(max_digits=7, decimal_places=2)
     full_price = models.DecimalField(max_digits=12, decimal_places=2)
     square_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)

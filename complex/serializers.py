@@ -1132,7 +1132,8 @@ class Private_Appartment_Name_Serializer(serializers.ModelSerializer):
             'square_price',
             'floor_number',
             'is_available',
-            'visibiliti'
+            'visibiliti',
+            'rank'
         ]
 
 
@@ -1182,6 +1183,7 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_private_apartment_name"]['floor_number'],
                 "is_available": data["internal_private_apartment_name"]['is_available'],
                 "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+                'rank':data['internal_private_apartment_name']['rank']
             },
             'private_apartment_address_en': data["private_apartment_address_en"],
             'private_apartment_images': image_urls,
@@ -1244,6 +1246,7 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_private_apartment_name"]['floor_number'],
                 "is_available": data["internal_private_apartment_name"]['is_available'],
                 "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+                'rank':data['internal_private_apartment_name']['rank'],
             },
             'private_apartment_address_ka': data["private_apartment_address_ka"],
             'private_apartment_images': image_urls,
@@ -1306,6 +1309,7 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_private_apartment_name"]['floor_number'],
                 "is_available": data["internal_private_apartment_name"]['is_available'],
                 "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
+                'rank':data['internal_private_apartment_name']['rank']
             },
             'private_apartment_address_ru': data["private_apartment_address_ru"],
             'private_apartment_images': image_urls,
