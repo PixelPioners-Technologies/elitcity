@@ -114,7 +114,7 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
     max_limit = 100
 
     def get_paginated_response(self, data):
-        total_items = self.queryset.model.objects.count() 
+        total_items = self.queryset.count()
         return Response({
             'count': self.count,
             'next': self.get_next_link(),
@@ -470,7 +470,13 @@ class Private_Apartment_EN_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Private_Appartment_EN_Filter
-    search_fields = ['ground_name_en', 'internal_ground_name__internal_ground_name']
+    search_fields = [   
+                    'private_apartment_name_en',
+                    'internal_private_apartment_name__internal_private_apartment_name',
+                    'private_apartment_address_en__city_en__city_en',
+                    'private_apartment_address_en__pharentDistrict_en__pharentDistrict_en',
+                    'private_apartment_address_en__district_en__district_en'
+                    ]
     
     def get_queryset(self):
         return self.queryset.annotate(
@@ -488,8 +494,13 @@ class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Private_Appartment_KA_Filter
-    search_fields = ['ground_name_ka', 'internal_ground_name__internal_ground_name']
-
+    search_fields = [   
+                    'private_apartment_name_ka',
+                    'internal_private_apartment_name__internal_private_apartment_name',
+                    'private_apartment_address_ka__city_ka__city_ka',
+                    'private_apartment_address_ka__pharentDistrict_ka__pharentDistrict_ka',
+                    'private_apartment_address_ka__district_ka__district_ka'
+                    ]
 
     def get_queryset(self):
         return self.queryset.annotate(
@@ -508,8 +519,15 @@ class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend,OrderingFilter, SearchFilter]
     filterset_class = Private_Appartment_RU_Filter
-    search_fields = ['ground_name_ru', 'internal_ground_name__internal_ground_name']
+    search_fields = [   
+                    'private_apartment_name_ru',
+                    'internal_private_apartment_name__internal_private_apartment_name',
+                    'private_apartment_address_ru__city_ru__city_ru',
+                    'private_apartment_address_ru__pharentDistrict_ru__pharentDistrict_ru',
+                    'private_apartment_address_ru__district_ru__district_ru'
+                    ]
 
+    
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_private_apartment_name__created_at'),

@@ -43,7 +43,7 @@ def add_languages(instance):
         instance.lang.add(lang)
 
 def genrate_locations(n):
-    for _ in range(2):  # Adjust the number of iterations as needed
+    for _ in range(1):  # Adjust the number of iterations as needed
         # Create cities
         try:
             city_ka = City_KA.objects.create(city_ka=fake.city())
@@ -58,7 +58,7 @@ def genrate_locations(n):
                 continue 
 
         
-    for _ in range(4):
+    for _ in range(3):
         try:
             # Create pharent districts
             city_ka = City_KA.objects.order_by('?').first()
@@ -501,7 +501,7 @@ def generate_grounds(n):
 def generate_all_data():
     try:
         print("Generating Locations...")
-        genrate_locations(15)
+        genrate_locations(35)
         print("Locations generated.")
 
         print("Generating Companies...")
@@ -513,7 +513,7 @@ def generate_all_data():
         print("Complexes generated.")
 
         print("Generating Private Apartments...")
-        generate_private_apartments(40)
+        generate_private_apartments(50)
         print("Private Apartments generated.")
 
         print("Generating Apartments...")
@@ -523,6 +523,8 @@ def generate_all_data():
         print("Generating Grounds...")
         generate_grounds(60)
         print("Grounds generated.")
+
+        
     except Exception as e:
         print(f"An error occurred: {e}")
 

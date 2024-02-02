@@ -204,6 +204,9 @@ class Apartment_EN_Filter(filters.FilterSet):
     min_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='gte')
     max_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='lte')
 
+    min_floor_number = filters.NumberFilter(field_name='internal_apartment_name__floor_number',lookup_expr='gte')
+    max_floor_number = filters.NumberFilter(field_name='internal_apartment_name__floor_number',lookup_expr='lte')
+
     status = filters.MultipleChoiceFilter(
         field_name = 'internal_apartment_name__status',
         choices = Appartment_Names.STATUS_CHOICES
@@ -247,9 +250,9 @@ class Apartment_EN_Filter(filters.FilterSet):
     class Meta:
         model = Appartment_EN
         fields = [
-            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'min_area', 'max_area','min_floor_number','max_floor_number', 'min_full_price', 'max_full_price', 
             'number_of_rooms', 'min_square_price', 'max_square_price', 
-            "status", 'city', 'parent_districts', 'districts'
+            "status", 'city', 'parent_districts', 'districts', 
         ]
 
 
@@ -262,6 +265,9 @@ class Apartment_KA_Filter(filters.FilterSet):
 
     min_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='gte')
     max_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='lte')
+
+    min_floor_number = filters.NumberFilter(field_name='internal_apartment_name__floor_number',lookup_expr='gte')
+    max_floor_number = filters.NumberFilter(field_name='internal_apartment_name__floor_number',lookup_expr='lte')
 
     
     status = filters.MultipleChoiceFilter(
@@ -308,7 +314,7 @@ class Apartment_KA_Filter(filters.FilterSet):
     class Meta: 
         model = Appartment_KA
         fields = [
-            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'min_area', 'max_area','min_floor_number','max_floor_number', 'min_full_price', 'max_full_price', 
             'number_of_rooms', 'min_square_price', 'max_square_price', 
             "status", 'city', 'parent_districts', 'districts'
         ]
@@ -323,6 +329,9 @@ class Apartment_RU_Filter(filters.FilterSet):
 
     min_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='gte')
     max_square_price= filters.NumberFilter(field_name="internal_apartment_name__square_price", lookup_expr='lte')
+
+    min_floor_number = filters.NumberFilter(field_name='internal_apartment_name__floor_number',lookup_expr='gte')
+    max_floor_number = filters.NumberFilter(field_name='internal_apartment_name__floor_number',lookup_expr='lte')
 
     
     status = filters.MultipleChoiceFilter(
@@ -370,7 +379,7 @@ class Apartment_RU_Filter(filters.FilterSet):
     class Meta:
         model = Appartment_RU
         fields = [
-            'min_area', 'max_area', 'min_full_price', 'max_full_price', 
+            'min_area', 'max_area','min_floor_number','max_floor_number', 'min_full_price', 'max_full_price', 
             'number_of_rooms', 'min_square_price', 'max_square_price', 
             "status", 'city', 'parent_districts', 'districts'
         ]

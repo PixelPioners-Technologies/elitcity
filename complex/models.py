@@ -448,7 +448,7 @@ class Appartment_RU(models.Model):
 
 '''
 -----------------------------------------------------------------------
-            APPARTMENT MODELS
+           PRIVATE  APPARTMENT MODELS
 -----------------------------------------------------------------------
 ''' 
 class Private_Appartment_Names(models.Model):
