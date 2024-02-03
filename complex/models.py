@@ -188,8 +188,8 @@ class Company_Names(models.Model):
     
 class Company_Images(models.Model):
     internal_name = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
-    logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True, unique=True)
-    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True, unique=True)
+    logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True, )#unique=True
+    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True) #unique=True
     def __str__(self):
         return self.internal_name.internal_name
 
@@ -388,7 +388,12 @@ class Appartment_Names(models.Model):
     floor_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
-    
+
+    metro = models.BooleanField(default=True , blank=True , null = True)
+    Pharmacy = models.BooleanField(default=True , blank=True , null = True)
+    supermarket = models.BooleanField(default=True , blank=True , null = True)
+    square = models.BooleanField(default=True , blank=True , null = True)
+
     
     def __str__(self):
         return f"{self.internal_apartment_name}"
@@ -443,7 +448,7 @@ class Appartment_RU(models.Model):
 
 '''
 -----------------------------------------------------------------------
-            APPARTMENT MODELS
+           PRIVATE  APPARTMENT MODELS
 -----------------------------------------------------------------------
 ''' 
 class Private_Appartment_Names(models.Model):
@@ -472,6 +477,16 @@ class Private_Appartment_Names(models.Model):
         choices = STATUS_CHOICES,
         default = "3",
     )
+    RANK_CHOICES = [
+        ('A', 'Rank A'),
+        ('B', 'Rank B'),
+        ('C', 'Rank C'),
+        ('D', 'Rank D'),
+        ('E', 'Rank E'),
+    ]
+
+    rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
+
     area = models.DecimalField(max_digits=7, decimal_places=2)
     full_price = models.DecimalField(max_digits=12, decimal_places=2)
     square_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -647,10 +662,11 @@ class Promotions_and_offers_Names(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     company = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
-    discount = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    gift = models.CharField(max_length=255, null=True, blank=True)
+    discount = models.BooleanField(default=True)
+    gift = models.BooleanField(default=True)
     installment = models.BooleanField(default=False)
     visibility = models.BooleanField(default=True)
+
 
     def __str__(self):
         return self.internal_promotion_name

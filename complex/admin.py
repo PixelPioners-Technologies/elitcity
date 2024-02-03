@@ -45,14 +45,9 @@ admin.site.register(Company_EN)
 admin.site.register(Company_KA)
 admin.site.register(Company_RU)
 
+admin.site.register(Ground_Names)
+admin.site.register(Ground_Images)
+admin.site.register(Ground_EN)
+admin.site.register(Ground_KA)
+admin.site.register(Ground_RU)
 
-
-
-
-
-
-
-
-
-#  "longitude": 41.725962,
-#     "latitude": 44.74724
