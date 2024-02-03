@@ -114,8 +114,22 @@ def genrate_locations(n):
 
 
 
+
+
+def get_company_image_list():
+    images_path = os.path.join(os.path.dirname(__file__), 'random_company_logo')
+    # Adjust the glob pattern to search for both .jpg and .png files
+    image_files = glob.glob(os.path.join(images_path, '*.[jJ][pP][gG]')) + glob.glob(os.path.join(images_path, '*.[pP][nN][gG]'))
+    return image_files
+
+def get_background_image_list():
+    images_path = os.path.join(os.path.dirname(__file__), 'random_background_company')
+    image_files = glob.glob(os.path.join(images_path, '*.[jJ][pP][gG]'))
+    return image_files
+
+
 def create_fake_company():
-    # Create a company name entry
+    # Create a company name entry 
     company_name = Company_Names.objects.create(
         internal_name=fake.company(),
         Mobile=fake.phone_number()[:20],
@@ -123,16 +137,25 @@ def create_fake_company():
         email=fake.email(),
         companyweb=fake.url(),
         facebook_page=fake.url(),
-        topCompany=random.choice([True, False]),
-        visibility=random.choice([True, False])
+        topCompany=random.choice([False , True]),
+        visibility=random.choice([True])
     )
 
-    # Create a company images entry
-    company_images = Company_Images.objects.create(
-        internal_name=company_name,
-        logocompany=fake.image_url(),
-        background_image=fake.image_url()
-    )
+    # Select a logo image from your predefined images directory for companies
+    company_logo_image_path = random.choice(get_company_image_list())
+    company_logo_image_name = os.path.basename(company_logo_image_path)
+
+    # Get the full path to the random_background_images folder and select a background image
+    background_image_path = random.choice(get_background_image_list())
+    background_image_name = os.path.basename(background_image_path)
+
+    # Create corresponding company images
+    with open(company_logo_image_path, 'rb') as logo_file, open(background_image_path, 'rb') as background_file:
+        company_images = Company_Images.objects.create(
+            internal_name=company_name,
+            logocompany=File(logo_file, name=company_logo_image_name),
+            background_image=File(background_file, name=background_image_name)
+        )
 
     # Create localized company entries
     Company_KA.objects.create(
@@ -155,6 +178,7 @@ def create_fake_company():
         address_ru=fake.address(),
         aboutcompany_ru=fake.text()
     )
+
 
 def generate_companies(n):
     for _ in range(n):
@@ -505,15 +529,15 @@ def generate_grounds(n):
 def generate_all_data():
     try:
         print("Generating Locations...")
-        genrate_locations(35)
+        genrate_locations(15)
         print("Locations generated.")
 
         print("Generating Companies...")
-        generate_companies(1)
+        generate_companies(10)
         print("Companies generated.")
 
         print("Generating Complexes...")
-        generate_complexes(50)
+        generate_complexes(10)
         print("Complexes generated.")
 
         print("Generating Private Apartments...")

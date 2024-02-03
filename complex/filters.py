@@ -774,3 +774,4 @@ class PromotionFilters_RU(filters.FilterSet):
         model = Promotions_and_offers_RU
         fields = ['discount', 'gift', 'installment']
 
+

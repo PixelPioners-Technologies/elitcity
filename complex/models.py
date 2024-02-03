@@ -188,8 +188,8 @@ class Company_Names(models.Model):
     
 class Company_Images(models.Model):
     internal_name = models.ForeignKey(Company_Names, on_delete=models.CASCADE)
-    logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True, unique=True)
-    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True, unique=True)
+    logocompany = models.ImageField(upload_to='company_logos/', blank=True, null=True, )#unique=True
+    background_image = models.ImageField(upload_to='company_background_images/', blank=True, null=True) #unique=True
     def __str__(self):
         return self.internal_name.internal_name
 

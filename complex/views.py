@@ -7,6 +7,9 @@ from .models import *
 from .serializers import *
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.filters import SearchFilter
+from .filters import *
+from django.db.models import F
+from rest_framework.filters import OrderingFilter
 
 
 @api_view(['GET'])
@@ -256,9 +259,6 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 # -----------------------------------------------------------------------------
-from .filters import *
-from django.db.models import F
-from rest_framework.filters import OrderingFilter
 
 class Complex_KA_Viewset(viewsets.ModelViewSet):
     queryset = Complex_KA.objects.all()
