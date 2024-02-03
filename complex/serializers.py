@@ -1628,3 +1628,64 @@ class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
     class Meta:
         model = Promotions_and_offers_RU
         fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru']
+
+
+'''
+-----------------------------------------------------------------------
+            Complex_With_Appartments
+-----------------------------------------------------------------------
+''' 
+class NewAppartment_names_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appartment_Names
+        fields = '__all__'
+
+class NewAppartment_KA_Serializer(serializers.ModelSerializer):
+    appartment_images = Appartment_Images_Serializer(read_only = True)
+    appartment_address_ka = Address_KA_Serializer(read_only=True)
+    class Meta:
+        model = Appartment_KA
+        fields = '__all__'
+
+
+class NewAppartment_EN_Serializer(serializers.ModelSerializer):
+    appartment_images = Appartment_Images_Serializer(read_only = True)
+    appartment_address_en = Address_EN_Serializer(read_only=True)
+    class Meta:
+        model = Appartment_EN
+        fields = '__all__'
+
+class NewAppartment_RU_Serializer(serializers.ModelSerializer):
+    appartment_images = Appartment_Images_Serializer(read_only = True)
+    appartment_address_ru = Address_RU_Serializer(read_only=True)
+    class Meta:
+        model = Appartment_RU
+        fields = '__all__'
+
+
+class Complex_with_appartments_P2_KA_Serializer(serializers.ModelSerializer):
+    appartment_name_ka = NewAppartment_KA_Serializer(many=True, read_only=True)
+    internal_complex_name = Complex_Name_Serializers(read_only=True)
+    complex_images = Complex_Image_Serializers(read_only=True)
+    company_ka = Company_KA_serializers(read_only=True)
+    class Meta:
+        model = Complex_KA
+        fields = '__all__'
+
+class Complex_with_appartments_P2_EN_Serializer(serializers.ModelSerializer):
+    appartment_name_en = NewAppartment_EN_Serializer(many=True, read_only=True)
+    internal_complex_name = Complex_Name_Serializers(read_only=True)
+    complex_images = Complex_Image_Serializers(read_only=True)
+    company_en = Company_EN_serializers(read_only=True)
+    class Meta:
+        model = Complex_EN
+        fields = '__all__'
+
+class Complex_with_appartments_P2_RU_Serializer(serializers.ModelSerializer):
+    appartment_name_ru = NewAppartment_RU_Serializer(many=True, read_only=True)
+    internal_complex_name = Complex_Name_Serializers(read_only=True)
+    complex_images = Complex_Image_Serializers(read_only=True)
+    company_ru = Company_RU_serializers(read_only=True)
+    class Meta:
+        model = Complex_RU
+        fields = '__all__'
