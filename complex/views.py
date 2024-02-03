@@ -7,6 +7,9 @@ from .models import *
 from .serializers import *
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.filters import SearchFilter
+from .filters import *
+from django.db.models import F
+from rest_framework.filters import OrderingFilter
 
 
 @api_view(['GET'])
@@ -120,7 +123,7 @@ class CustomLimitOffsetPagination(LimitOffsetPagination):
     max_limit = 100
 
     def get_paginated_response(self, data):
-        total_items = self.queryset.model.objects.count() 
+        total_items = self.queryset.count()
         return Response({
             'count': self.count,
             'next': self.get_next_link(),
@@ -262,9 +265,6 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 # -----------------------------------------------------------------------------
-from .filters import *
-from django.db.models import F
-from rest_framework.filters import OrderingFilter
 
 class Complex_KA_Viewset(viewsets.ModelViewSet):
     queryset = Complex_KA.objects.all()
@@ -476,7 +476,13 @@ class Private_Apartment_EN_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Private_Appartment_EN_Filter
-    search_fields = ['ground_name_en', 'internal_ground_name__internal_ground_name']
+    search_fields = [   
+                    'private_apartment_name_en',
+                    'internal_private_apartment_name__internal_private_apartment_name',
+                    'private_apartment_address_en__city_en__city_en',
+                    'private_apartment_address_en__pharentDistrict_en__pharentDistrict_en',
+                    'private_apartment_address_en__district_en__district_en'
+                    ]
     
     def get_queryset(self):
         return self.queryset.annotate(
@@ -494,8 +500,13 @@ class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Private_Appartment_KA_Filter
-    search_fields = ['ground_name_ka', 'internal_ground_name__internal_ground_name']
-
+    search_fields = [   
+                    'private_apartment_name_ka',
+                    'internal_private_apartment_name__internal_private_apartment_name',
+                    'private_apartment_address_ka__city_ka__city_ka',
+                    'private_apartment_address_ka__pharentDistrict_ka__pharentDistrict_ka',
+                    'private_apartment_address_ka__district_ka__district_ka'
+                    ]
 
     def get_queryset(self):
         return self.queryset.annotate(
@@ -514,8 +525,15 @@ class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
     filter_backends = [DjangoFilterBackend,OrderingFilter, SearchFilter]
     filterset_class = Private_Appartment_RU_Filter
-    search_fields = ['ground_name_ru', 'internal_ground_name__internal_ground_name']
+    search_fields = [   
+                    'private_apartment_name_ru',
+                    'internal_private_apartment_name__internal_private_apartment_name',
+                    'private_apartment_address_ru__city_ru__city_ru',
+                    'private_apartment_address_ru__pharentDistrict_ru__pharentDistrict_ru',
+                    'private_apartment_address_ru__district_ru__district_ru'
+                    ]
 
+    
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_private_apartment_name__created_at'),
@@ -649,7 +667,8 @@ class PromotionsAndOffersImageViewSet(viewsets.ModelViewSet):
 class PromotionsAndOffers_KA_ViewSet(viewsets.ModelViewSet):
     queryset = Promotions_and_offers_KA.objects.all()
     serializer_class = PromotionsAndOffersKASerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter,DjangoFilterBackend]
+    filterset_class = PromotionFilters_KA
     search_fields = [
         'promotion_name_ka', 
         'about_ka',
@@ -660,7 +679,8 @@ class PromotionsAndOffers_KA_ViewSet(viewsets.ModelViewSet):
 class PromotionsAndOffers_EN_ViewSet(viewsets.ModelViewSet):
     queryset = Promotions_and_offers_EN.objects.all()
     serializer_class = PromotionsAndOffersENSerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter,DjangoFilterBackend]
+    filterset_class = PromotionFilters_EN
     search_fields = [
         'promotion_name_en', 
         'about_en',
@@ -671,7 +691,8 @@ class PromotionsAndOffers_EN_ViewSet(viewsets.ModelViewSet):
 class PromotionsAndOffers_RU_ViewSet(viewsets.ModelViewSet):
     queryset = Promotions_and_offers_RU.objects.all()
     serializer_class = PromotionsAndOffersRUSerializer
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter,DjangoFilterBackend]
+    filterset_class = PromotionFilters_RU
     search_fields = [
         'promotion_name_ru', 
         'about_ru',
