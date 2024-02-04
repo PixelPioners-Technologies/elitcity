@@ -528,9 +528,9 @@ def generate_grounds(n):
 
 def generate_all_data():
     try:
-        print("Generating Locations...")
-        genrate_locations(15)
-        print("Locations generated.")
+        # print("Generating Locations...")
+        # genrate_locations(15)
+        # print("Locations generated.")
 
         print("Generating Companies...")
         generate_companies(10)
@@ -540,17 +540,17 @@ def generate_all_data():
         generate_complexes(10)
         print("Complexes generated.")
 
-        print("Generating Private Apartments...")
-        generate_private_apartments(50)
-        print("Private Apartments generated.")
+        # print("Generating Private Apartments...")
+        # generate_private_apartments(50)
+        # print("Private Apartments generated.")
 
-        print("Generating Apartments...")
-        generate_apartments(60)
-        print("Apartments generated.")
+        # print("Generating Apartments...")
+        # generate_apartments(60)
+        # print("Apartments generated.")
 
-        print("Generating Grounds...")
-        generate_grounds(60)
-        print("Grounds generated.")
+        # print("Generating Grounds...")
+        # generate_grounds(60)
+        # print("Grounds generated.")
 
         
     except Exception as e:

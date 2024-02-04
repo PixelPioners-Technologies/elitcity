@@ -264,6 +264,8 @@ class Complex_Names(models.Model):
     concierge_service = models.BooleanField(default=True)
     yard_description = models.BooleanField(default=True)
 
+    views_count = models.IntegerField(default=0)
+
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
