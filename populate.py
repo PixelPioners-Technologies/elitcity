@@ -130,8 +130,9 @@ def get_background_image_list():
 
 def create_fake_company():
     # Create a company name entry 
+    company_fake_name = fake.company()
     company_name = Company_Names.objects.create(
-        internal_name=fake.company(),
+        internal_name=company_fake_name,
         Mobile=fake.phone_number()[:20],
         Mobile_Home=fake.phone_number()[:20],
         email=fake.email(),
@@ -150,12 +151,13 @@ def create_fake_company():
     background_image_name = os.path.basename(background_image_path)
 
     # Create corresponding company images
-    with open(company_logo_image_path, 'rb') as logo_file, open(background_image_path, 'rb') as background_file:
-        company_images = Company_Images.objects.create(
-            internal_name=company_name,
-            logocompany=File(logo_file, name=company_logo_image_name),
-            background_image=File(background_file, name=background_image_name)
-        )
+    for _ in range(3): 
+        with open(company_logo_image_path, 'rb') as logo_file, open(background_image_path, 'rb') as background_file:
+            company_images = Company_Images.objects.create(
+                internal_name=company_name,
+                logocompany=File(logo_file, name=company_logo_image_name),
+                background_image=File(background_file, name=background_image_name)
+            )
 
     # Create localized company entries
     Company_KA.objects.create(
@@ -179,6 +181,7 @@ def create_fake_company():
         aboutcompany_ru=fake.text()
     )
 
+    print(f'Generated company: {company_fake_name}')
 
 def generate_companies(n):
     for _ in range(n):
@@ -270,6 +273,9 @@ def generate_complexes(n):
                 complex_name_ru=f"{fake.company_suffix()}_{unique_suffix}",
                 type_of_roof_ru=fake.word()
             )
+
+            print(f"Generated ground: {unique_name}")
+
         except django.db.utils.IntegrityError as e:
             print(f"Integrity error: {e}")  # Print the error for debugging
             continue
@@ -353,6 +359,8 @@ def generate_private_apartments(n):
                 private_apartment_name_ru=f"{fake.company_suffix()}_{internal_name}",
                 test_private_field_ru=fake.word()
             )
+
+            print(f"Generated ground: {internal_name}")
 
         except django.db.utils.IntegrityError as e:
             print(f"Integrity error: {e}")
@@ -447,6 +455,9 @@ def generate_apartments(n):
                 appartment_address_ru=address_ru,
                 test_field_ru=fake.word()
             )
+
+            print(f"Generated apartment: {internal_name}")
+
         except django.db.utils.IntegrityError as e:
             print(f"Integrity error: {e}")
             continue
@@ -534,6 +545,9 @@ def generate_grounds(n):
                 ground_images=ground_images,
                 ground_address_ru=address_ru
             )
+
+            print(f"Generated ground: {internal_name}")
+
         except django.db.utils.IntegrityError as e:
             print(f"Integrity error: {e}")
             continue
@@ -607,8 +621,6 @@ def generate_promotions_and_offers(n):
 
         print(f"Generated promotion: {internal_name} with images and localized details.")
 
-# Example usage
-generate_promotions_and_offers(10)
 
 
 
@@ -617,9 +629,9 @@ generate_promotions_and_offers(10)
 
 def generate_all_data():
     try:
-        print("Generating Locations...")
-        genrate_locations(15)
-        print("Locations generated.")
+        # print("Generating Locations...")
+        # genrate_locations(15)
+        # print("Locations generated.")
 
         print("Generating Companies...")
         generate_companies(10)
