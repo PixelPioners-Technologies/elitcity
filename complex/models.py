@@ -577,7 +577,7 @@ class Ground_Names(models.Model):
     ]
     
     rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
-
+    about_land = models.CharField(max_length= 10000   )
     
     def __str__(self):
         return f"{self.internal_ground_name}"

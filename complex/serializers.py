@@ -1340,7 +1340,8 @@ class Ground_Names_Serializer(serializers.ModelSerializer):
             'status',
             'rank',
             'is_available',
-            'visibiliti'
+            'visibiliti',
+            "about_land"
             ]
 
 class Ground_Images_Serializer(serializers.ModelSerializer):
@@ -1396,6 +1397,7 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
+                "about_land": data["internal_ground_name"]["about_land"],
             },
             'ground_address_ka': data["ground_address_ka"],
             'ground_name_ka':data['ground_name_ka'],
@@ -1456,6 +1458,7 @@ class Ground_EN_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
+                "about_land": data["internal_ground_name"]["about_land"]
             },
             'ground_address_en': data["ground_address_en"],
             'ground_name_en':data['ground_name_en'],
@@ -1516,6 +1519,7 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
+                "about_land": data["internal_ground_name"]["about_land"]
             },
             'ground_address_ru': data["ground_address_ru"],
             'ground_name_ru':data['ground_name_ru'],
@@ -1610,25 +1614,36 @@ class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
 
 class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+    internal_promotion_name_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_KA
-        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka']
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'internal_promotion_name_details']
+
+    def get_internal_promotion_name_details(self, obj):
+        return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
 
 class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+    internal_promotion_name_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_EN
-        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en']
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en', 'internal_promotion_name_details']
+
+    def get_internal_promotion_name_details(self, obj):
+        return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
 
 class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+    internal_promotion_name_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_RU
-        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru']
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'internal_promotion_name_details']
 
+    def get_internal_promotion_name_details(self, obj):
+        return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
 
 '''
 -----------------------------------------------------------------------

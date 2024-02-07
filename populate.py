@@ -213,15 +213,15 @@ def generate_complexes(n):
                 rank=random.choice(['A', 'B', 'C', 'D', 'E'])
             )
 
-            # Now create the corresponding Complex models in all languages
-            selected_image_path = random.choice(get_image_list())
-            selected_image_name = os.path.basename(selected_image_path)
-
-            with open(selected_image_path, 'rb') as img_file:
-                complex_images = Complex_Images.objects.create(
-                    internal_complex_name=complex_name,
-                    images=File(img_file, name=selected_image_name)
-                )
+            for _ in range(7):
+                # Now create the corresponding Complex models in all languages
+                selected_image_path = random.choice(get_image_list())
+                selected_image_name = os.path.basename(selected_image_path)
+                with open(selected_image_path, 'rb') as img_file:
+                    complex_images = Complex_Images.objects.create(
+                        internal_complex_name=complex_name,
+                        images=File(img_file, name=selected_image_name)
+                    )
 
             # Randomly select companies and addresses from those already created
             company_ka = Company_KA.objects.order_by('?').first()
@@ -277,6 +277,13 @@ def generate_complexes(n):
 
 
 
+def get_apartment_images():
+    images_path = os.path.join(os.path.dirname(__file__), 'random_appartment_images')
+    image_files = glob.glob(os.path.join(images_path, '*.[jJ][pP][gG]'))
+    return image_files
+
+
+
 def generate_private_apartments(n):
     for _ in range(n):
         try:
@@ -302,15 +309,17 @@ def generate_private_apartments(n):
                 visibiliti=visibiliti
             )
 
-            selected_image_path = random.choice(get_image_list())
-            selected_image_name = os.path.basename(selected_image_path)
 
-            # Create corresponding apartment images
-            with open(selected_image_path, 'rb') as img_file:
-                apartment_images = Private_Appartment_images.objects.create(
-                    internal_private_apartment_name=private_apartment,
-                    images=File(img_file, name=selected_image_name)
-                )
+            for _ in range(7):
+                selected_image_path = random.choice(get_apartment_images())
+                selected_image_name = os.path.basename(selected_image_path)  # Corrected to use selected_image_path
+                # Create corresponding apartment images
+                with open(selected_image_path, 'rb') as img_file:
+                    apartment_images = Private_Appartment_images.objects.create(
+                        internal_private_apartment_name=private_apartment,
+                        images=File(img_file, name=selected_image_name)
+                    )
+
 
             # Randomly select addresses from those already created
             address_en = Address_EN.objects.order_by('?').first()
@@ -349,6 +358,7 @@ def generate_private_apartments(n):
             print(f"Integrity error: {e}")
             continue
 
+
 def generate_apartments(n):
     for _ in range(n):
         try:
@@ -384,15 +394,16 @@ def generate_apartments(n):
                 square=square
             )
 
-            selected_image_path = random.choice(get_image_list())
-            selected_image_name = os.path.basename(selected_image_path)
+            for _ in range(7):
+                selected_image_path = random.choice(get_apartment_images())
+                selected_image_name = os.path.basename(selected_image_path)
+                # Create corresponding apartment images
+                with open(selected_image_path, 'rb') as img_file:
+                    apartment_images = Appartment_Images.objects.create(
+                        internal_apartment_name=apartment,
+                        images=File(img_file, name=selected_image_name)
+                    )
 
-            # Create corresponding apartment images
-            with open(selected_image_path, 'rb') as img_file:
-                apartment_images = Appartment_Images.objects.create(
-                    internal_apartment_name=apartment,
-                    images=File(img_file, name=selected_image_name)
-                )
 
             # Randomly select addresses and complexes from those already created
             address_en = Address_EN.objects.order_by('?').first()
@@ -470,7 +481,7 @@ def generate_grounds(n):
             visibiliti = random.choice([True, False])
             status = random.choice(["1", "2", "3"])
             rank = random.choice(['A', 'B', 'C', 'D', 'E'])
-
+            about_land = fake.text(max_nb_chars=200)
             ground = Ground_Names.objects.create(
                 internal_ground_name=internal_name,
                 area=area,
@@ -479,18 +490,20 @@ def generate_grounds(n):
                 is_available=is_available,
                 visibiliti=visibiliti,
                 status=status,
-                rank=rank
+                rank=rank,
+                about_land = about_land
             )
 
-            ground_selected_image_path = random.choice(get_ground_image_list())
-            ground_selected_image_name = os.path.basename(ground_selected_image_path)
 
+            for _ in range(7):
+                ground_selected_image_path = random.choice(get_ground_image_list())
+                ground_selected_image_name = os.path.basename(ground_selected_image_path)
             # Create corresponding ground images
-            with open(ground_selected_image_path, 'rb') as img_file:
-                ground_images = Ground_Images.objects.create(
-                    internal_ground_name=ground,
-                    images=File(img_file, name=ground_selected_image_name)
-                )
+                with open(ground_selected_image_path, 'rb') as img_file:
+                    ground_images = Ground_Images.objects.create(
+                        internal_ground_name=ground,
+                        images=File(img_file, name=ground_selected_image_name)
+                    )
 
             # Randomly select addresses from those already created
             address_en = Address_EN.objects.order_by('?').first()
@@ -526,32 +539,113 @@ def generate_grounds(n):
             continue
 
 
+
+
+# ------------------------------------------promotions --------------------------------------------
+
+def get_promotion_image_list():
+    images_path = os.path.join(os.path.dirname(__file__), 'random_ground_images')
+    image_files = glob.glob(os.path.join(images_path, '*.[jJ][pP][gG]'))
+    return image_files
+
+
+def generate_promotions_and_offers(n):
+    image_list = get_promotion_image_list()
+    
+    for _ in range(n):
+        company = random.choice(Company_Names.objects.all())
+        internal_name = f"Promotion_{fake.word()}_{random.randint(1000, 9999)}"
+        start_date = fake.date_between(start_date="-1y", end_date="today")
+        end_date = fake.date_between(start_date="today", end_date="+1y")
+        
+        promotion = Promotions_and_offers_Names.objects.create(
+            internal_promotion_name=internal_name,
+            start_date=start_date,
+            end_date=end_date,
+            company=company,
+            discount=random.choice([True, False]),
+            gift=random.choice([True, False]),
+            installment=random.choice([True, False]),
+            visibility=random.choice([True, False])
+        )
+
+        # Create promotion images
+        images = []
+        for _ in range(random.randint(2, 5)):  # Generate between 2 to 5 images for each promotion
+            selected_image_path = random.choice(image_list)
+            selected_image_name = os.path.basename(selected_image_path)
+            with open(selected_image_path, 'rb') as img_file:
+                image = Promotions_and_offers_Images.objects.create(
+                    internal_promotion_name=promotion,
+                    images=File(img_file, name=selected_image_name)
+                )
+                images.append(image)
+
+        # Assuming the first image is used for promotion details in localized models
+        first_image = images[0] if images else None
+
+        # Create localized promotion entries
+        about_text = fake.text(max_nb_chars=200)  # Sample text for about field
+        Promotions_and_offers_KA.objects.create(
+            internal_promotion_name=promotion,
+            promotion_name_ka=internal_name + " KA",
+            promotion_images=first_image,
+            about_ka=about_text
+        )
+        Promotions_and_offers_EN.objects.create(
+            internal_promotion_name=promotion,
+            promotion_name_en=internal_name + " EN",
+            promotion_images=first_image,
+            about_en=about_text
+        )
+        Promotions_and_offers_RU.objects.create(
+            internal_promotion_name=promotion,
+            promotion_name_ru=internal_name + " RU",
+            promotion_images=first_image,
+            about_ru=about_text
+        )
+
+        print(f"Generated promotion: {internal_name} with images and localized details.")
+
+# Example usage
+generate_promotions_and_offers(10)
+
+
+
+
+
+
 def generate_all_data():
     try:
-        # print("Generating Locations...")
-        # genrate_locations(15)
-        # print("Locations generated.")
+        print("Generating Locations...")
+        genrate_locations(15)
+        print("Locations generated.")
 
         print("Generating Companies...")
         generate_companies(10)
         print("Companies generated.")
 
         print("Generating Complexes...")
-        generate_complexes(10)
+        generate_complexes(15)
         print("Complexes generated.")
 
-        # print("Generating Private Apartments...")
-        # generate_private_apartments(50)
-        # print("Private Apartments generated.")
+        print("Generating Private Apartments...")
+        generate_private_apartments(15)
+        print("Private Apartments generated.")
 
-        # print("Generating Apartments...")
-        # generate_apartments(60)
-        # print("Apartments generated.")
+        print("Generating Apartments...")
+        generate_apartments(15)
+        print("Apartments generated.")
 
-        # print("Generating Grounds...")
-        # generate_grounds(60)
-        # print("Grounds generated.")
+        print("Generating Grounds...")
+        generate_grounds(15)
+        print("Grounds generated.")
 
+        print("Generating promotions...")
+        generate_promotions_and_offers(15)
+        print("Promotions generated.")
+
+        
         
     except Exception as e:
         print(f"An error occurred: {e}")
