@@ -199,5 +199,5 @@ USE_I18N = True
 
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'complex.translation'
 
-CSRF_TRUSTED_ORIGINS = ['https://api.storkhome.ge/admin/login/'] 
+CSRF_TRUSTED_ORIGINS = ['https://api.storkhome.ge'] 
 
