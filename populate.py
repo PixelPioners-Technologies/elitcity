@@ -604,18 +604,21 @@ def generate_promotions_and_offers(n):
             internal_promotion_name=promotion,
             promotion_name_ka=internal_name + " KA",
             promotion_images=first_image,
+            alert_ka=about_text,
             about_ka=about_text
         )
         Promotions_and_offers_EN.objects.create(
             internal_promotion_name=promotion,
             promotion_name_en=internal_name + " EN",
             promotion_images=first_image,
+            alert_en=about_text,
             about_en=about_text
         )
         Promotions_and_offers_RU.objects.create(
             internal_promotion_name=promotion,
             promotion_name_ru=internal_name + " RU",
             promotion_images=first_image,
+            alert_ru=about_text,
             about_ru=about_text
         )
 
@@ -629,9 +632,9 @@ def generate_promotions_and_offers(n):
 
 def generate_all_data():
     try:
-        # print("Generating Locations...")
-        # genrate_locations(15)
-        # print("Locations generated.")
+        print("Generating Locations...")
+        genrate_locations(15)
+        print("Locations generated.")
 
         print("Generating Companies...")
         generate_companies(10)

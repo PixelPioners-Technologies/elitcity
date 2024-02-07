@@ -1618,7 +1618,7 @@ class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Promotions_and_offers_KA
-        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
@@ -1629,7 +1629,7 @@ class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Promotions_and_offers_EN
-        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
@@ -1640,7 +1640,7 @@ class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Promotions_and_offers_RU
-        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
