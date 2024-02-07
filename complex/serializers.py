@@ -1602,10 +1602,46 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
 -----------------------------------------------------------------------
 '''
 
+# from rest_framework import serializers
+
+# # Assuming Company_Image_serializers and Company_Names are already imported
+
+# class PromotionsAndOffersNamesSerializer(serializers.ModelSerializer):
+#     company_image = serializers.SerializerMethodField()  # Add this line
+
+#     class Meta:
+#         model = Promotions_and_offers_Names
+#         fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility', 'company_image']  # Include the new field here
+
+#     def get_company_image(self, obj):
+#         # Assuming `company` field in Promotions_and_offers_Names points to a Company_Names instance
+#         company_image_instance = Company_Images.objects.filter(internal_name=obj.company).first()
+#         if company_image_instance:
+#             return Company_Image_serializers(company_image_instance).data
+#         return None
+
+class company_ImageSerializer_new(serializers.ModelSerializer):
+    class Meta:
+        model = Company_Images
+        fields = ["logocompany"]
+
+
+
 class PromotionsAndOffersNamesSerializer(serializers.ModelSerializer):
+    company_image = serializers.SerializerMethodField()  # Add this line
     class Meta:
         model = Promotions_and_offers_Names
-        fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility']
+        fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility', 'company_image']
+
+    def get_company_image(self, obj):
+        # Assuming `company` field in Promotions_and_offers_Names points to a Company_Names instance
+        company_image_instance = Company_Images.objects.filter(internal_name=obj.company).first()
+        if company_image_instance:
+            return company_ImageSerializer_new(company_image_instance).data
+        return None
+
+
+
 
 class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -1615,35 +1651,63 @@ class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
 class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
-
+    company_image = serializers.SerializerMethodField()
     class Meta:
         model = Promotions_and_offers_KA
-        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details', 'company_image']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+    
+    def get_company_image(self, obj):
+        # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
+        company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
+        if company_image_instance:
+            return company_ImageSerializer_new(company_image_instance).data
+        return None
+    
+
 
 class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
+    company_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_EN
-        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details', 'company_image']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+
+    def get_company_image(self, obj):
+        # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
+        company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
+        if company_image_instance:
+            return company_ImageSerializer_new(company_image_instance).data
+        return None
+    
+
 
 class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
+    company_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_RU
-        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details', 'company_image']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+
+    def get_company_image(self, obj):
+        # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
+        company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
+        if company_image_instance:
+            return company_ImageSerializer_new(company_image_instance).data
+        return None
+    
 
 '''
 -----------------------------------------------------------------------

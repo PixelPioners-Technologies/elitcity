@@ -657,7 +657,7 @@ def generate_all_data():
         print("Grounds generated.")
 
         print("Generating promotions...")
-        generate_promotions_and_offers(15)
+        generate_promotions_and_offers(1)
         print("Promotions generated.")
 
         
