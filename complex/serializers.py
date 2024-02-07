@@ -1651,63 +1651,48 @@ class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
 class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
-    company_image = serializers.SerializerMethodField()
+    # company_image = serializers.SerializerMethodField()
     class Meta:
         model = Promotions_and_offers_KA
-        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details', 'company_image']
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
     
-    def get_company_image(self, obj):
-        # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
-        company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
-        if company_image_instance:
-            return company_ImageSerializer_new(company_image_instance).data
-        return None
+    # def get_company_image(self, obj):
+    #     # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
+    #     company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
+    #     if company_image_instance:
+    #         return company_ImageSerializer_new(company_image_instance).data
+    #     return None
     
 
 
 class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
-    company_image = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Promotions_and_offers_EN
-        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details', 'company_image']
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
-
-    def get_company_image(self, obj):
-        # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
-        company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
-        if company_image_instance:
-            return company_ImageSerializer_new(company_image_instance).data
-        return None
-    
 
 
 class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
-    company_image = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Promotions_and_offers_RU
-        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details', 'company_image']
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
 
-    def get_company_image(self, obj):
-        # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
-        company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
-        if company_image_instance:
-            return company_ImageSerializer_new(company_image_instance).data
-        return None
-    
 
 '''
 -----------------------------------------------------------------------
