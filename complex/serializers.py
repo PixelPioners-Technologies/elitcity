@@ -1541,9 +1541,7 @@ class Blog_Names_Serializer(serializers.ModelSerializer):
         model = Blog_Names
         fields = [
             'id',
-            'title',
-            'description',
-            'picture_link',
+            'internal_blog_name',
             'created_at'
         ]
 
@@ -1553,8 +1551,14 @@ class Blog_Images_Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Blog_KA_Serializer(serializers.ModelSerializer):
-    internal_blog_name = Blog_Names_Serializer(read_only=True)
-    blog_images = Blog_Images_Serializer(many=True, read_only=True)
+    # internal_blog_name = Blog_Names_Serializer(read_only=True)
+    blog_images = Blog_Images_Serializer(read_only=True)
+    blog_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Images.objects.all(),
+        source = "blog_images",
+        write_only=True,
+    )
+
     
     class Meta:
         model = Blog_KA
@@ -1562,12 +1566,21 @@ class Blog_KA_Serializer(serializers.ModelSerializer):
             'id',
             'internal_blog_name',
             'blog_name_ka',
-            'blog_images'
+            'description_ka',
+            'blog_images',
+            'blog_images_id'
         ]
-
+    def to_representation(self, instance):
+        print(super().to_representation(instance))
+        images= self.get_image_urls(instance)
+        return 
+    def get_image_urls(self, instance):
+        images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
 class Blog_EN_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
-    blog_images = Blog_Images_Serializer(many=True, read_only=True)
+    blog_images = Blog_Images_Serializer( read_only=True)
     
     class Meta:
         model = Blog_EN
@@ -1575,12 +1588,13 @@ class Blog_EN_Serializer(serializers.ModelSerializer):
             'id',
             'internal_blog_name',
             'blog_name_en',
+            'description_en',
             'blog_images'
         ]
 
 class Blog_RU_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
-    blog_images = Blog_Images_Serializer(many=True, read_only=True)
+    blog_images = Blog_Images_Serializer(read_only=True)
     
     class Meta:
         model = Blog_RU
@@ -1588,6 +1602,7 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
             'id',
             'internal_blog_name',
             'blog_name_ru',
+            'description_ru',
             'blog_images'
         ]
 
