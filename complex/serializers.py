@@ -1545,9 +1545,7 @@ class Blog_Names_Serializer(serializers.ModelSerializer):
         model = Blog_Names
         fields = [
             'id',
-            'title',
-            'description',
-            'picture_link',
+            'internal_blog_name',
             'created_at'
         ]
 
@@ -1558,42 +1556,120 @@ class Blog_Images_Serializer(serializers.ModelSerializer):
 
 class Blog_KA_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
-    blog_images = Blog_Images_Serializer(many=True, read_only=True)
-    
+    blog_images = Blog_Images_Serializer(read_only=True)
+    blog_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Images.objects.all(),
+        source = "blog_name_ka",
+        write_only=True,
+    )
+    internal_blog_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Names.objects.all(),
+        source = 'internal_blog_name',
+        write_only = True
+    )
     class Meta:
         model = Blog_KA
         fields = [
             'id',
             'internal_blog_name',
+            'internal_blog_name_id',
             'blog_name_ka',
-            'blog_images'
+            'description_ka',
+            'blog_images',
+            'blog_images_id'
         ]
-
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_blog_name' : data["internal_blog_name"],
+            'blog_name_ka':data['blog_name_ka'],
+            'description_ka':data['description_ka'],
+            'blog_images': image_urls,
+        }
+    
+    def get_image_urls(self, instance):
+        images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
 class Blog_EN_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
-    blog_images = Blog_Images_Serializer(many=True, read_only=True)
-    
+    blog_images = Blog_Images_Serializer(read_only=True)
+    blog_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Images.objects.all(),
+        source = "blog_name_en",
+        write_only=True,
+    )
+    internal_blog_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Names.objects.all(),
+        source = 'internal_blog_name',
+        write_only = True
+    )
     class Meta:
         model = Blog_EN
         fields = [
             'id',
             'internal_blog_name',
+            'internal_blog_name_id',
             'blog_name_en',
-            'blog_images'
+            'description_en',
+            'blog_images',
+            'blog_images_id'
         ]
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_blog_name' : data["internal_blog_name"],
+            'blog_name_en':data['blog_name_en'],
+            'description_en':data['description_en'],
+            'blog_images': image_urls,
+        }
+    
+    def get_image_urls(self, instance):
+        images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
 class Blog_RU_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
-    blog_images = Blog_Images_Serializer(many=True, read_only=True)
-    
+    blog_images = Blog_Images_Serializer(read_only=True)
+    blog_images_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Images.objects.all(),
+        source = "blog_name_ru",
+        write_only=True,
+    )
+    internal_blog_name_id = serializers.PrimaryKeyRelatedField(
+        queryset = Blog_Names.objects.all(),
+        source = 'internal_blog_name',
+        write_only = True
+    )
     class Meta:
         model = Blog_RU
         fields = [
             'id',
             'internal_blog_name',
+            'internal_blog_name_id',
             'blog_name_ru',
-            'blog_images'
+            'description_ru',
+            'blog_images',
+            'blog_images_id'
         ]
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_image_urls(instance)
+        return {
+            "id": data['id'],
+            'internal_blog_name' : data["internal_blog_name"],
+            'blog_name_ru':data['blog_name_ru'],
+            'description_ru':data['description_ru'],
+            'blog_images': image_urls,
+        }
+    
+    def get_image_urls(self, instance):
+        images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
 
 '''
@@ -1729,11 +1805,6 @@ class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
             Complex_With_Appartments
 -----------------------------------------------------------------------
 ''' 
-class NewAppartment_names_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Appartment_Names
-        fields = '__all__'
-
 class NewAppartment_KA_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
     appartment_address_ka = Address_KA_Serializer(read_only=True)
@@ -1741,6 +1812,15 @@ class NewAppartment_KA_Serializer(serializers.ModelSerializer):
         model = Appartment_KA
         fields = '__all__'
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_apparment_image_urls(instance)
+        data["appartment_images"]= image_urls
+        return data
+    
+    def get_apparment_image_urls(self, instance):
+        images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
 class NewAppartment_EN_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
@@ -1748,6 +1828,16 @@ class NewAppartment_EN_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Appartment_EN
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_apparment_image_urls(instance)
+        data["appartment_images"]= image_urls
+        return data
+    
+    def get_apparment_image_urls(self, instance):
+        images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
 class NewAppartment_RU_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
@@ -1755,9 +1845,19 @@ class NewAppartment_RU_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Appartment_RU
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_apparment_image_urls(instance)
+        data["appartment_images"]= image_urls
+        return data
+    
+    def get_apparment_image_urls(self, instance):
+        images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
 
-class Complex_with_appartments_P2_KA_Serializer(serializers.ModelSerializer):
+class Complex_with_appartments_KA_Serializer(serializers.ModelSerializer):
     appartment_name_ka = NewAppartment_KA_Serializer(many=True, read_only=True)
     internal_complex_name = Complex_Name_Serializers(read_only=True)
     complex_images = Complex_Image_Serializers(read_only=True)
@@ -1765,8 +1865,18 @@ class Complex_with_appartments_P2_KA_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Complex_KA
         fields = '__all__'
+    
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_complex_image_urls(instance)
+        data["complex_images"]= image_urls
+        return data
+    
+    def get_complex_image_urls(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
-class Complex_with_appartments_P2_EN_Serializer(serializers.ModelSerializer):
+class Complex_with_appartments_EN_Serializer(serializers.ModelSerializer):
     appartment_name_en = NewAppartment_EN_Serializer(many=True, read_only=True)
     internal_complex_name = Complex_Name_Serializers(read_only=True)
     complex_images = Complex_Image_Serializers(read_only=True)
@@ -1774,8 +1884,17 @@ class Complex_with_appartments_P2_EN_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Complex_EN
         fields = '__all__'
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_complex_image_urls(instance)
+        data["complex_images"]= image_urls
+        return data
+    
+    def get_complex_image_urls(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
-class Complex_with_appartments_P2_RU_Serializer(serializers.ModelSerializer):
+class Complex_with_appartments_RU_Serializer(serializers.ModelSerializer):
     appartment_name_ru = NewAppartment_RU_Serializer(many=True, read_only=True)
     internal_complex_name = Complex_Name_Serializers(read_only=True)
     complex_images = Complex_Image_Serializers(read_only=True)
@@ -1783,3 +1902,42 @@ class Complex_with_appartments_P2_RU_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Complex_RU
         fields = '__all__'
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        image_urls = self.get_complex_image_urls(instance)
+        data["complex_images"]= image_urls
+        return data
+    
+    def get_complex_image_urls(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+    
+
+'''
+-----------------------------------------------------------------------
+            Company_With_Complex
+-----------------------------------------------------------------------
+''' 
+
+# class NewComplex_KA_Serializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Complex_Names
+#         fields = "__all__"
+
+# class Company_Complex_Sereializer_KA(serializers.ModelSerializer):
+#     complexes = NewComplex_KA_Serializer(many=True, read_only=True)
+#     class Meta:
+#         model = Company_KA
+#         fields = "__all__"
+    
+# class Company_Complex_Sereializer_EN(serializers.ModelSerializer):
+#     complex_name_en = Complex_EN_Serializers(many=True, read_only=True)
+#     class Meta:
+#         model = Company_EN
+#         fields = "__all__"
+
+# class Company_Complex_Sereializer_RU(serializers.ModelSerializer):
+#     complex_name_ru = Complex_RU_Serializers(many=True, read_only=True)
+#     class Meta:
+#         model = Company_RU
+#         fields = "__all__"

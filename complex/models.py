@@ -290,7 +290,7 @@ class Complex_Images(models.Model):
 class Complex_KA(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
     complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
-    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, null=True, blank=True)
+    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, null=True, blank=True, related_name = 'complexes')
     address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
@@ -621,13 +621,11 @@ class Ground_RU(models.Model):
 
 
 class Blog_Names(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    picture_link = models.URLField(max_length=200)
+    internal_blog_name = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return self.title
+        return self.internal_blog_name
 
 
 class Blog_Images(models.Model):
@@ -635,21 +633,24 @@ class Blog_Images(models.Model):
     images = models.ImageField(upload_to='blog_images/')
 
     def __str__(self):
-        return f"{self.internal_blog_name.title}"
+        return f"{self.internal_blog_name.internal_blog_name}"
 
 class Blog_KA(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_ka = models.CharField(max_length=100, null=True)
+    description_ka = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
 
 class Blog_EN(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_en = models.CharField(max_length=100, null=True)
+    description_en = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
 
 class Blog_RU(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_ru = models.CharField(max_length=100, null=True)
+    description_ru = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
     
 
