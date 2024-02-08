@@ -753,6 +753,7 @@ class PromotionsAndOffers_KA_ViewSet(viewsets.ModelViewSet):
     serializer_class = PromotionsAndOffersKASerializer
     filter_backends = [SearchFilter,DjangoFilterBackend]
     filterset_class = PromotionFilters_KA
+    pagination_class = None
     search_fields = [
         'promotion_name_ka', 
         'about_ka',
@@ -765,6 +766,7 @@ class PromotionsAndOffers_EN_ViewSet(viewsets.ModelViewSet):
     serializer_class = PromotionsAndOffersENSerializer
     filter_backends = [SearchFilter,DjangoFilterBackend]
     filterset_class = PromotionFilters_EN
+    pagination_class = None
     search_fields = [
         'promotion_name_en', 
         'about_en',
@@ -777,6 +779,7 @@ class PromotionsAndOffers_RU_ViewSet(viewsets.ModelViewSet):
     serializer_class = PromotionsAndOffersRUSerializer
     filter_backends = [SearchFilter,DjangoFilterBackend]
     filterset_class = PromotionFilters_RU
+    pagination_class = None
     search_fields = [
         'promotion_name_ru', 
         'about_ru',

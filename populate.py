@@ -637,7 +637,7 @@ def generate_all_data():
         print("Locations generated.")
 
         print("Generating Companies...")
-        generate_companies(10)
+        generate_companies(15)
         print("Companies generated.")
 
         print("Generating Complexes...")

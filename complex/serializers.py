@@ -1651,47 +1651,77 @@ class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
 class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
-    # company_image = serializers.SerializerMethodField()
+    company_mobile = serializers.SerializerMethodField() 
+    company_address_ka = serializers.SerializerMethodField()
+
     class Meta:
         model = Promotions_and_offers_KA
-        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details','company_mobile','company_address_ka']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
     
-    # def get_company_image(self, obj):
-    #     # Assuming `obj.internal_promotion_name` links to a `Promotions_and_offers_Names` instance with a `company` field
-    #     company_image_instance = Company_Images.objects.filter(internal_name=obj.internal_promotion_name.company).first()
-    #     if company_image_instance:
-    #         return company_ImageSerializer_new(company_image_instance).data
-    #     return None
+    def get_company_mobile(self, obj):
+        return obj.internal_promotion_name.company.Mobile
+
+    def get_company_address_ka(self, obj):
+        # Assuming there's a way to navigate from your promotion to the Company_EN model
+        company_ka_instance = Company_KA.objects.filter(internal_name__internal_name=obj.internal_promotion_name.company).first()
+        if company_ka_instance:
+            return company_ka_instance.address_ka
+        return None
     
 
 
 class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
-
+    company_mobile = serializers.SerializerMethodField() 
+    company_address_en = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_EN
-        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details' , 'company_mobile','company_address_en']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+    
 
+    def get_company_mobile(self, obj):
+        # Direct access if you have a direct relationship setup
+        return obj.internal_promotion_name.company.Mobile
+
+    def get_company_address_en(self, obj):
+        # Assuming there's a way to navigate from your promotion to the Company_EN model
+        company_en_instance = Company_EN.objects.filter(internal_name__internal_name=obj.internal_promotion_name.company).first()
+        if company_en_instance:
+            return company_en_instance.address_en
+        return None
 
 class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
     internal_promotion_name_details = serializers.SerializerMethodField()
+    company_mobile = serializers.SerializerMethodField() 
+    company_address_ru = serializers.SerializerMethodField()
 
 
     class Meta:
         model = Promotions_and_offers_RU
-        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details']
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details', 'company_mobile','company_address_ru']
 
     def get_internal_promotion_name_details(self, obj):
         return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+
+    def get_company_mobile(self, obj):
+        return obj.internal_promotion_name.company.Mobile
+
+    def get_company_address_ru(self, obj):
+        # Assuming there's a way to navigate from your promotion to the Company_EN model
+        company_ru_instance = Company_RU.objects.filter(internal_name__internal_name=obj.internal_promotion_name.company).first()
+        if company_ru_instance:
+            return company_ru_instance.address_ru
+        return None
+    
 
 
 '''
