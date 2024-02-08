@@ -51,6 +51,7 @@ admin.site.register(Ground_EN)
 admin.site.register(Ground_KA)
 admin.site.register(Ground_RU)
 
+
 admin.site.register(Blog_Names)
 admin.site.register(Blog_Images)
 admin.site.register(Blog_EN)
@@ -62,3 +63,4 @@ admin.site.register(Promotions_and_offers_Images)
 admin.site.register(Promotions_and_offers_KA)
 admin.site.register(Promotions_and_offers_EN)
 admin.site.register(Promotions_and_offers_RU)
+
