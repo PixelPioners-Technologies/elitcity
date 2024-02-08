@@ -75,10 +75,10 @@ def api_root(request, format=None):
         language.language: reverse(f'{language.language.lower()}-complexandappartments-list', request=request, format=format)
         for language in Language.objects.all()
     }
-    companycomplex_links = {
-        language.language: reverse(f'{language.language.lower()}-companycomplex-list', request=request, format=format)
-        for language in Language.objects.all()
-    }
+    # companycomplex_links = {
+    #     language.language: reverse(f'{language.language.lower()}-companycomplex-list', request=request, format=format)
+    #     for language in Language.objects.all()
+    # }
 
     company_links['uni-data'] = reverse('uni-company-list', request=request, format=format)
     company_links['uni-images'] = reverse('uni-company-images-list', request=request, format=format)
@@ -120,7 +120,7 @@ def api_root(request, format=None):
         'maps': map_links,
         "blogs" : blog_links,
         "complexandappartments":complexandappartments_links,
-        'companycomplex': companycomplex_links,
+        # 'companycomplex': companycomplex_links,
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
