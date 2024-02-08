@@ -288,7 +288,7 @@ class Complex_Images(models.Model):
 class Complex_KA(models.Model):
     internal_complex_name = models.ForeignKey(Complex_Names, on_delete=models.CASCADE)
     complex_images = models.ForeignKey(Complex_Images, on_delete=models.CASCADE)
-    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, null=True, blank=True)
+    company_ka = models.ForeignKey(Company_KA, on_delete=models.CASCADE, null=True, blank=True, related_name = 'complexes')
     address_ka = models.ForeignKey(Address_KA, on_delete=models.CASCADE)
     complex_name_ka = models.CharField(max_length=200, unique=True)
     type_of_roof_ka = models.CharField(max_length=100)
