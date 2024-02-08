@@ -75,6 +75,10 @@ def api_root(request, format=None):
         language.language: reverse(f'{language.language.lower()}-complexandappartments-list', request=request, format=format)
         for language in Language.objects.all()
     }
+    companycomplex_links = {
+        language.language: reverse(f'{language.language.lower()}-companycomplex-list', request=request, format=format)
+        for language in Language.objects.all()
+    }
 
     company_links['uni-data'] = reverse('uni-company-list', request=request, format=format)
     company_links['uni-images'] = reverse('uni-company-images-list', request=request, format=format)
@@ -116,6 +120,7 @@ def api_root(request, format=None):
         'maps': map_links,
         "blogs" : blog_links,
         "complexandappartments":complexandappartments_links,
+        'companycomplex': companycomplex_links,
     })
 
 class CustomLimitOffsetPagination(LimitOffsetPagination):
@@ -615,27 +620,27 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
 class Blog_Names_Viewset(viewsets.ModelViewSet):
     queryset = Blog_Names.objects.all()
     serializer_class = Blog_Names_Serializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = None
 
 class Blog_Images_Viewset(viewsets.ModelViewSet):
     queryset = Blog_Images.objects.all()
     serializer_class = Blog_Images_Serializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = None
 
 class Blog_KA_Viewset(viewsets.ModelViewSet):
     queryset = Blog_KA.objects.all()
     serializer_class = Blog_KA_Serializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = None
 
 class Blog_EN_Viewset(viewsets.ModelViewSet):
     queryset = Blog_EN.objects.all()
     serializer_class = Blog_EN_Serializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = None
 
 class Blog_RU_Viewset(viewsets.ModelViewSet):
     queryset = Blog_RU.objects.all()
     serializer_class = Blog_RU_Serializer
-    pagination_class = CustomLimitOffsetPagination
+    pagination_class = None
 
 
 '''
@@ -702,12 +707,24 @@ class PromotionsAndOffers_RU_ViewSet(viewsets.ModelViewSet):
 
 class Complex_With_Appartment_KA_ViewSet(viewsets.ModelViewSet):
     queryset = Complex_KA.objects.all()
-    serializer_class = Complex_with_appartments_P2_KA_Serializer
+    serializer_class = Complex_with_appartments_KA_Serializer
 
 class Complex_With_Appartment_EN_ViewSet(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
-    serializer_class = Complex_with_appartments_P2_EN_Serializer
+    serializer_class = Complex_with_appartments_EN_Serializer
 
 class Complex_With_Appartment_RU_ViewSet(viewsets.ModelViewSet):
     queryset = Complex_RU.objects.all()
-    serializer_class = Complex_with_appartments_P2_RU_Serializer
+    serializer_class = Complex_with_appartments_RU_Serializer
+
+# class Company_Complex_KA_ViewSet(viewsets.ModelViewSet):
+#     queryset = Company_KA.objects.all()
+#     serializer_class = Company_Complex_Sereializer_KA
+
+# class Company_Complex_EN_ViewSet(viewsets.ModelViewSet):
+#     queryset = Company_EN.objects.all()
+#     serializer_class = Company_Complex_Sereializer_EN
+
+# class Company_Complex_RU_ViewSet(viewsets.ModelViewSet):
+#     queryset = Company_RU.objects.all()
+#     serializer_class = Company_Complex_Sereializer_RU
