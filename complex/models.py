@@ -396,7 +396,11 @@ class Appartment_Names(models.Model):
     supermarket = models.BooleanField(default=True , blank=True , null = True)
     square = models.BooleanField(default=True , blank=True , null = True)
 
-    
+    rooms = models.IntegerField(validators=[MaxValueValidator(10)])
+    kitchen = models.IntegerField(validators=[MaxValueValidator(10)])
+    Bathroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
     def __str__(self):
         return f"{self.internal_apartment_name}"
 
@@ -495,6 +499,7 @@ class Private_Appartment_Names(models.Model):
     floor_number = models.IntegerField()
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
+
 
         
     def __str__(self):
@@ -639,18 +644,21 @@ class Blog_KA(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_ka = models.CharField(max_length=100, null=True)
     description_ka = models.TextField()
+    second_description_ka = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
 
 class Blog_EN(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_en = models.CharField(max_length=100, null=True)
     description_en = models.TextField()
+    second_description_en = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
 
 class Blog_RU(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_ru = models.CharField(max_length=100, null=True)
     description_ru = models.TextField()
+    second_description_ru = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
     
 
