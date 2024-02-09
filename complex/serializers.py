@@ -1340,7 +1340,8 @@ class Ground_Names_Serializer(serializers.ModelSerializer):
             'status',
             'rank',
             'is_available',
-            'visibiliti'
+            'visibiliti',
+            "about_land"
             ]
 
 class Ground_Images_Serializer(serializers.ModelSerializer):
@@ -1396,6 +1397,7 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
+                "about_land": data["internal_ground_name"]["about_land"],
             },
             'ground_address_ka': data["ground_address_ka"],
             'ground_name_ka':data['ground_name_ka'],
@@ -1456,6 +1458,7 @@ class Ground_EN_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
+                "about_land": data["internal_ground_name"]["about_land"]
             },
             'ground_address_en': data["ground_address_en"],
             'ground_name_en':data['ground_name_en'],
@@ -1516,6 +1519,7 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
+                "about_land": data["internal_ground_name"]["about_land"]
             },
             'ground_address_ru': data["ground_address_ru"],
             'ground_name_ru':data['ground_name_ru'],
@@ -1674,10 +1678,46 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
 -----------------------------------------------------------------------
 '''
 
+# from rest_framework import serializers
+
+# # Assuming Company_Image_serializers and Company_Names are already imported
+
+# class PromotionsAndOffersNamesSerializer(serializers.ModelSerializer):
+#     company_image = serializers.SerializerMethodField()  # Add this line
+
+#     class Meta:
+#         model = Promotions_and_offers_Names
+#         fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility', 'company_image']  # Include the new field here
+
+#     def get_company_image(self, obj):
+#         # Assuming `company` field in Promotions_and_offers_Names points to a Company_Names instance
+#         company_image_instance = Company_Images.objects.filter(internal_name=obj.company).first()
+#         if company_image_instance:
+#             return Company_Image_serializers(company_image_instance).data
+#         return None
+
+class company_ImageSerializer_new(serializers.ModelSerializer):
+    class Meta:
+        model = Company_Images
+        fields = ["logocompany"]
+
+
+
 class PromotionsAndOffersNamesSerializer(serializers.ModelSerializer):
+    company_image = serializers.SerializerMethodField()  # Add this line
     class Meta:
         model = Promotions_and_offers_Names
-        fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility']
+        fields = ['internal_promotion_name', 'start_date', 'end_date', 'company', 'discount', 'gift', 'installment', 'visibility', 'company_image']
+
+    def get_company_image(self, obj):
+        # Assuming `company` field in Promotions_and_offers_Names points to a Company_Names instance
+        company_image_instance = Company_Images.objects.filter(internal_name=obj.company).first()
+        if company_image_instance:
+            return company_ImageSerializer_new(company_image_instance).data
+        return None
+
+
+
 
 class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -1686,24 +1726,78 @@ class PromotionsAndOffersImagesSerializer(serializers.ModelSerializer):
 
 class PromotionsAndOffersKASerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+    internal_promotion_name_details = serializers.SerializerMethodField()
+    company_mobile = serializers.SerializerMethodField() 
+    company_address_ka = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_KA
-        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka']
+        fields = ['internal_promotion_name', 'promotion_name_ka', 'promotion_images', 'about_ka', 'alert_ka', 'internal_promotion_name_details','company_mobile','company_address_ka']
+
+    def get_internal_promotion_name_details(self, obj):
+        return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+    
+    def get_company_mobile(self, obj):
+        return obj.internal_promotion_name.company.Mobile
+
+    def get_company_address_ka(self, obj):
+        # Assuming there's a way to navigate from your promotion to the Company_EN model
+        company_ka_instance = Company_KA.objects.filter(internal_name__internal_name=obj.internal_promotion_name.company).first()
+        if company_ka_instance:
+            return company_ka_instance.address_ka
+        return None
+    
+
 
 class PromotionsAndOffersENSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+    internal_promotion_name_details = serializers.SerializerMethodField()
+    company_mobile = serializers.SerializerMethodField() 
+    company_address_en = serializers.SerializerMethodField()
 
     class Meta:
         model = Promotions_and_offers_EN
-        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en']
+        fields = ['internal_promotion_name', 'promotion_name_en', 'promotion_images', 'about_en','alert_en', 'internal_promotion_name_details' , 'company_mobile','company_address_en']
+
+    def get_internal_promotion_name_details(self, obj):
+        return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+    
+
+    def get_company_mobile(self, obj):
+        # Direct access if you have a direct relationship setup
+        return obj.internal_promotion_name.company.Mobile
+
+    def get_company_address_en(self, obj):
+        # Assuming there's a way to navigate from your promotion to the Company_EN model
+        company_en_instance = Company_EN.objects.filter(internal_name__internal_name=obj.internal_promotion_name.company).first()
+        if company_en_instance:
+            return company_en_instance.address_en
+        return None
 
 class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
     promotion_images = PromotionsAndOffersImagesSerializer(read_only=True)
+    internal_promotion_name_details = serializers.SerializerMethodField()
+    company_mobile = serializers.SerializerMethodField() 
+    company_address_ru = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Promotions_and_offers_RU
-        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru']
+        fields = ['internal_promotion_name', 'promotion_name_ru', 'promotion_images', 'about_ru', 'alert_ru','internal_promotion_name_details', 'company_mobile','company_address_ru']
+
+    def get_internal_promotion_name_details(self, obj):
+        return PromotionsAndOffersNamesSerializer(obj.internal_promotion_name).data
+
+    def get_company_mobile(self, obj):
+        return obj.internal_promotion_name.company.Mobile
+
+    def get_company_address_ru(self, obj):
+        # Assuming there's a way to navigate from your promotion to the Company_EN model
+        company_ru_instance = Company_RU.objects.filter(internal_name__internal_name=obj.internal_promotion_name.company).first()
+        if company_ru_instance:
+            return company_ru_instance.address_ru
+        return None
+    
 
 
 '''

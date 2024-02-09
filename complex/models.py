@@ -264,6 +264,8 @@ class Complex_Names(models.Model):
     concierge_service = models.BooleanField(default=True)
     yard_description = models.BooleanField(default=True)
 
+    views_count = models.IntegerField(default=0)
+
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
@@ -575,7 +577,7 @@ class Ground_Names(models.Model):
     ]
     
     rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
-
+    about_land = models.CharField(max_length= 10000   )
     
     def __str__(self):
         return f"{self.internal_ground_name}"
@@ -683,9 +685,12 @@ class Promotions_and_offers_Images(models.Model):
 
 class Promotions_and_offers_KA(models.Model):
     internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
+
     promotion_name_ka = models.CharField(max_length=255, null=True)
     promotion_images = models.ForeignKey(Promotions_and_offers_Images, on_delete=models.CASCADE, blank=True, null=True)
+    alert_ka = models.TextField(null=True, blank=True)
     about_ka = models.TextField(null=True, blank=True)
+
 
     def __str__(self):
         return self.promotion_name_ka
@@ -694,6 +699,7 @@ class Promotions_and_offers_EN(models.Model):
     internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
     promotion_name_en = models.CharField(max_length=255, null=True)
     promotion_images = models.ForeignKey(Promotions_and_offers_Images, on_delete=models.CASCADE, blank=True, null=True)
+    alert_en = models.TextField(null=True, blank=True)
     about_en = models.TextField(null=True, blank=True)
 
     def __str__(self):
@@ -704,6 +710,7 @@ class Promotions_and_offers_RU(models.Model):
     internal_promotion_name = models.ForeignKey(Promotions_and_offers_Names, on_delete=models.CASCADE)
     promotion_name_ru = models.CharField(max_length=255, null=True)
     promotion_images = models.ForeignKey(Promotions_and_offers_Images, on_delete=models.CASCADE, blank=True, null=True)
+    alert_ru = models.TextField(null=True, blank=True)
     about_ru = models.TextField(null=True, blank=True)
 
     def __str__(self):
