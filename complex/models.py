@@ -500,6 +500,11 @@ class Private_Appartment_Names(models.Model):
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
 
+    rooms = models.IntegerField(validators=[MaxValueValidator(10)])
+    kitchen = models.IntegerField(validators=[MaxValueValidator(10)])
+    Bathroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
 
         
     def __str__(self):

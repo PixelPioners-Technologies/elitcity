@@ -303,6 +303,12 @@ def generate_private_apartments(n):
             is_available = random.choice([True, False])
             visibiliti = random.choice([True, False])
 
+            rooms = random.randint(1, 8)
+            kitchen = random.randint(1, 8)
+            Bathroom = random.randint(1, 8)
+            bedroom = random.randint(1, 8)
+            Balcony = random.randint(1, 8)
+
             private_apartment = Private_Appartment_Names.objects.create(
                 internal_private_apartment_name=internal_name,
                 number_of_rooms=number_of_rooms,
@@ -312,7 +318,13 @@ def generate_private_apartments(n):
                 square_price=square_price,
                 floor_number=floor_number,
                 is_available=is_available,
-                visibiliti=visibiliti
+                visibiliti=visibiliti,
+                rooms = rooms,
+                kitchen = kitchen,
+                Bathroom = Bathroom,
+                bedroom = bedroom,
+                Balcony = Balcony,
+
             )
 
 
@@ -699,13 +711,13 @@ def generate_all_data():
         # generate_complexes(1)
         # print("Complexes generated.")
 
-        # print("Generating Private Apartments...")
-        # generate_private_apartments(1)
-        # print("Private Apartments generated.")
+        print("Generating Private Apartments...")
+        generate_private_apartments(1)
+        print("Private Apartments generated.")
 
-        print("Generating Apartments...")
-        generate_apartments(1)
-        print("Apartments generated.")
+        # print("Generating Apartments...")
+        # generate_apartments(1)
+        # print("Apartments generated.")
 
         # print("Generating Grounds...")
         # generate_grounds(1)
