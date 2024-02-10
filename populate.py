@@ -711,17 +711,17 @@ def generate_all_data():
         # generate_complexes(1)
         # print("Complexes generated.")
 
-        print("Generating Private Apartments...")
-        generate_private_apartments(1)
-        print("Private Apartments generated.")
+        # print("Generating Private Apartments...")
+        # generate_private_apartments(1)
+        # print("Private Apartments generated.")
 
         # print("Generating Apartments...")
         # generate_apartments(1)
         # print("Apartments generated.")
 
-        # print("Generating Grounds...")
-        # generate_grounds(1)
-        # print("Grounds generated.")
+        print("Generating Grounds...")
+        generate_grounds(1)
+        print("Grounds generated.")
 
         # print("Generating promotions...")
         # generate_promotions_and_offers(1)

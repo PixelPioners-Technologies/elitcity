@@ -36,9 +36,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -158,7 +158,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
+
+
+CORS_ALLOW_ALL_ORIGINS = False  # Set this to False
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',  # Include your frontend app's origin here
+]
+
+CORS_ALLOW_CREDENTIALS = True  # This allows cookies to be included in cross-origin requests
+
+
+
+
 
 
 STATICFILES_DIRS = [

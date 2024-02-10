@@ -506,6 +506,8 @@ class Private_Appartment_Names(models.Model):
     bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
     Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
 
+    views_count = models.IntegerField(default=0)
+
         
     def __str__(self):
         return f"{self.internal_private_apartment_name}"
@@ -589,6 +591,10 @@ class Ground_Names(models.Model):
     rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
     about_land = models.CharField(max_length= 10000   )
     
+    views_count = models.IntegerField(default=0)
+
+
+
     def __str__(self):
         return f"{self.internal_ground_name}"
 
