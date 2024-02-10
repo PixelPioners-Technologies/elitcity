@@ -553,6 +553,7 @@ class Private_Appartment_Names_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 
+
 class Private_Apartment_Images_Viewset(viewsets.ModelViewSet):
     queryset = Private_Appartment_images.objects.all()
     serializer_class = Private_Appartment_Images_Serializer
@@ -583,6 +584,7 @@ class Private_Apartment_EN_Viewset(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'square_price','full_price']
 
 
+
 class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     queryset = Private_Appartment_KA.objects.all()
     serializer_class = Private_Appartment_KA_Serializer
@@ -605,7 +607,6 @@ class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price']
-
 
 
 class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
@@ -632,6 +633,8 @@ class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['created_at', 'square_price','full_price']
 
+
+
 # -------------------------------------------ground viewsets  ----------------------------------------------
 
 
@@ -639,6 +642,8 @@ class Ground_Names_Viewset(viewsets.ModelViewSet):
     queryset = Ground_Names.objects.all()
     serializer_class = Ground_Names_Serializer
     pagination_class = CustomLimitOffsetPagination
+
+
 
 class Ground_Images_Viewset(viewsets.ModelViewSet):
     queryset = Ground_Images.objects.all()
@@ -681,6 +686,7 @@ class Ground_EN_Viewset(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
 
 
+
 class Ground_RU_Viewset(viewsets.ModelViewSet):
     queryset = Ground_RU.objects.all()
     serializer_class = Ground_RU_Serializer
@@ -697,7 +703,6 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
-
 
 
 # -------------------------------------------blog viewsets ----------------------------------------------

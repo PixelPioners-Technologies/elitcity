@@ -817,6 +817,12 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
             'Pharmacy',
             'supermarket',
             'square',
+            'rooms',
+            'kitchen',
+            'Bathroom',
+            'bedroom',
+            'Balcony',
+
             ]
 # --------------------------------------------------------------------------
         # fEW
@@ -886,6 +892,14 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
+
+                "rooms": data["internal_apartment_name"]['rooms'],
+                "kitchen": data["internal_apartment_name"]['kitchen'],
+                "Bathroom": data["internal_apartment_name"]['Bathroom'],
+                "bedroom": data["internal_apartment_name"]['bedroom'],
+                "Balcony": data["internal_apartment_name"]['Balcony'],
+
+
             },
             'appartment_address_ka': data["appartment_address_ka"],
             'appartment_images': image_urls,
@@ -893,7 +907,6 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
 
 
         }
-
 
     def get_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
@@ -958,6 +971,13 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
+                "rooms": data["internal_apartment_name"]['rooms'],
+                "kitchen": data["internal_apartment_name"]['kitchen'],
+                "Bathroom": data["internal_apartment_name"]['Bathroom'],
+                "bedroom": data["internal_apartment_name"]['bedroom'],
+                "Balcony": data["internal_apartment_name"]['Balcony'],
+
+
             },
             'appartment_address_en': data["appartment_address_en"],
             'appartment_images': image_urls,
@@ -1028,6 +1048,11 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_apartment_name"]['floor_number'],
                 "is_available": data["internal_apartment_name"]['is_available'],
                 "visibiliti": data["internal_apartment_name"]['visibiliti'],
+                "rooms": data["internal_apartment_name"]['rooms'],
+                "kitchen": data["internal_apartment_name"]['kitchen'],
+                "Bathroom": data["internal_apartment_name"]['Bathroom'],
+                "bedroom": data["internal_apartment_name"]['bedroom'],
+                "Balcony": data["internal_apartment_name"]['Balcony'],
             },
             'appartment_address_ru': data["appartment_address_ru"],
             'appartment_images': image_urls,
@@ -1133,7 +1158,13 @@ class Private_Appartment_Name_Serializer(serializers.ModelSerializer):
             'floor_number',
             'is_available',
             'visibiliti',
-            'rank'
+            'rank',
+            'rooms',
+            'kitchen',
+            'Bathroom',
+            'bedroom',
+            'Balcony',
+
         ]
 
 
@@ -1183,7 +1214,14 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_private_apartment_name"]['floor_number'],
                 "is_available": data["internal_private_apartment_name"]['is_available'],
                 "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
-                'rank':data['internal_private_apartment_name']['rank']
+                'rank':data['internal_private_apartment_name']['rank'],
+
+                'rooms':data['internal_private_apartment_name']['rooms'],
+                'kitchen':data['internal_private_apartment_name']['kitchen'],
+                'Bathroom':data['internal_private_apartment_name']['Bathroom'],
+                'bedroom':data['internal_private_apartment_name']['bedroom'],
+                'Balcony':data['internal_private_apartment_name']['Balcony'],
+
             },
             'private_apartment_address_en': data["private_apartment_address_en"],
             'private_apartment_images': image_urls,
@@ -1247,6 +1285,15 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
                 "is_available": data["internal_private_apartment_name"]['is_available'],
                 "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
                 'rank':data['internal_private_apartment_name']['rank'],
+
+
+                'rooms':data['internal_private_apartment_name']['rooms'],
+                'kitchen':data['internal_private_apartment_name']['kitchen'],
+                'Bathroom':data['internal_private_apartment_name']['Bathroom'],
+                'bedroom':data['internal_private_apartment_name']['bedroom'],
+                'Balcony':data['internal_private_apartment_name']['Balcony'],
+
+
             },
             'private_apartment_address_ka': data["private_apartment_address_ka"],
             'private_apartment_images': image_urls,
@@ -1309,7 +1356,16 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
                 "floor_number": data["internal_private_apartment_name"]['floor_number'],
                 "is_available": data["internal_private_apartment_name"]['is_available'],
                 "visibiliti": data["internal_private_apartment_name"]['visibiliti'],
-                'rank':data['internal_private_apartment_name']['rank']
+                'rank':data['internal_private_apartment_name']['rank'],
+
+
+                'rooms':data['internal_private_apartment_name']['rooms'],
+                'kitchen':data['internal_private_apartment_name']['kitchen'],
+                'Bathroom':data['internal_private_apartment_name']['Bathroom'],
+                'bedroom':data['internal_private_apartment_name']['bedroom'],
+                'Balcony':data['internal_private_apartment_name']['Balcony'],
+                
+
             },
             'private_apartment_address_ru': data["private_apartment_address_ru"],
             'private_apartment_images': image_urls,
@@ -1341,7 +1397,7 @@ class Ground_Names_Serializer(serializers.ModelSerializer):
             'rank',
             'is_available',
             'visibiliti',
-            "about_land"
+            "about_land",
             ]
 
 class Ground_Images_Serializer(serializers.ModelSerializer):
@@ -1398,6 +1454,8 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
                 "about_land": data["internal_ground_name"]["about_land"],
+
+
             },
             'ground_address_ka': data["ground_address_ka"],
             'ground_name_ka':data['ground_name_ka'],
@@ -1458,7 +1516,9 @@ class Ground_EN_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
-                "about_land": data["internal_ground_name"]["about_land"]
+                "about_land": data["internal_ground_name"]["about_land"],
+
+                
             },
             'ground_address_en': data["ground_address_en"],
             'ground_name_en':data['ground_name_en'],
@@ -1519,7 +1579,9 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
                 'rank':data['internal_ground_name']['rank'],
                 "is_available": data["internal_ground_name"]['is_available'],
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
-                "about_land": data["internal_ground_name"]["about_land"]
+                "about_land": data["internal_ground_name"]["about_land"],
+
+
             },
             'ground_address_ru': data["ground_address_ru"],
             'ground_name_ru':data['ground_name_ru'],
@@ -1575,6 +1637,7 @@ class Blog_KA_Serializer(serializers.ModelSerializer):
             'internal_blog_name_id',
             'blog_name_ka',
             'description_ka',
+            'second_description_ka',
             'blog_images',
             'blog_images_id'
         ]
@@ -1587,6 +1650,7 @@ class Blog_KA_Serializer(serializers.ModelSerializer):
             'blog_name_ka':data['blog_name_ka'],
             'description_ka':data['description_ka'],
             'blog_images': image_urls,
+            'second_description_ka': data['second_description_ka'],
         }
     
     def get_image_urls(self, instance):
@@ -1614,6 +1678,7 @@ class Blog_EN_Serializer(serializers.ModelSerializer):
             'internal_blog_name_id',
             'blog_name_en',
             'description_en',
+            'second_description_en',
             'blog_images',
             'blog_images_id'
         ]
@@ -1626,6 +1691,8 @@ class Blog_EN_Serializer(serializers.ModelSerializer):
             'blog_name_en':data['blog_name_en'],
             'description_en':data['description_en'],
             'blog_images': image_urls,
+            'second_description_en': data['second_description_en'],
+
         }
     
     def get_image_urls(self, instance):
@@ -1653,6 +1720,7 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
             'internal_blog_name_id',
             'blog_name_ru',
             'description_ru',
+            'second_description_ru',
             'blog_images',
             'blog_images_id'
         ]
@@ -1665,6 +1733,7 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
             'blog_name_ru':data['blog_name_ru'],
             'description_ru':data['description_ru'],
             'blog_images': image_urls,
+            'second_description_ru': data['second_description_ru'],
         }
     
     def get_image_urls(self, instance):

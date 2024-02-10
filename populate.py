@@ -303,6 +303,12 @@ def generate_private_apartments(n):
             is_available = random.choice([True, False])
             visibiliti = random.choice([True, False])
 
+            rooms = random.randint(1, 8)
+            kitchen = random.randint(1, 8)
+            Bathroom = random.randint(1, 8)
+            bedroom = random.randint(1, 8)
+            Balcony = random.randint(1, 8)
+
             private_apartment = Private_Appartment_Names.objects.create(
                 internal_private_apartment_name=internal_name,
                 number_of_rooms=number_of_rooms,
@@ -312,7 +318,13 @@ def generate_private_apartments(n):
                 square_price=square_price,
                 floor_number=floor_number,
                 is_available=is_available,
-                visibiliti=visibiliti
+                visibiliti=visibiliti,
+                rooms = rooms,
+                kitchen = kitchen,
+                Bathroom = Bathroom,
+                bedroom = bedroom,
+                Balcony = Balcony,
+
             )
 
 
@@ -379,7 +391,11 @@ def generate_apartments(n):
             floor_number = random.randint(1, 50)
             is_available = random.choice([True, False])
             visibiliti = random.choice([True, False])
-
+            rooms = random.randint(1, 8)
+            kitchen = random.randint(1, 8)
+            Bathroom = random.randint(1, 8)
+            bedroom = random.randint(1, 8)
+            Balcony = random.randint(1, 8)
             # Optional boolean fields
             metro = random.choice([True, False])
             pharmacy = random.choice([True, False])
@@ -399,7 +415,13 @@ def generate_apartments(n):
                 metro=metro,
                 Pharmacy=pharmacy,
                 supermarket=supermarket,
-                square=square
+                square=square,
+                rooms = rooms,
+                kitchen = kitchen,
+                Bathroom = Bathroom,
+                bedroom = bedroom,
+                Balcony = Balcony,
+
             )
 
             for _ in range(7):
@@ -626,40 +648,88 @@ def generate_promotions_and_offers(n):
 
 
 
+def get_blog_image_list():
+    images_path = os.path.join(os.path.dirname(__file__), 'random_blog_images')
+    image_files = glob.glob(os.path.join(images_path, '*.[jJ][pP][gG]'))
+    return image_files
+
+def create_fake_blog():
+    internal_blog_name = fake.word()
+    blog = Blog_Names.objects.create(internal_blog_name=internal_blog_name)
+
+    # Create blog images
+    image_list = get_blog_image_list()
+    for _ in range(2):  # Assuming you want between 1 and 5 images per blog
+        image_path = random.choice(image_list)
+        with open(image_path, 'rb') as img_file:
+            Blog_Images.objects.create(
+                internal_blog_name=blog,
+                images=File(img_file, name=os.path.basename(image_path))
+            )
+
+    # Create localized blog entries
+    Blog_KA.objects.create(
+        internal_blog_name=blog,
+        blog_name_ka=fake.word(),
+        description_ka=fake.text(),
+        second_description_ka=fake.text(),
+    )
+
+    Blog_EN.objects.create(
+        internal_blog_name=blog,
+        blog_name_en=fake.word(),
+        description_en=fake.text(),
+        second_description_en=fake.text(),
+    )
+
+    Blog_RU.objects.create(
+        internal_blog_name=blog,
+        blog_name_ru=fake.word(),
+        description_ru=fake.text(),
+        second_description_ru=fake.text(),
+    )
+
+def generate_blogs(n):
+    for _ in range(n):
+        create_fake_blog()
+
 
 
 
 
 def generate_all_data():
     try:
-        print("Generating Locations...")
-        genrate_locations(15)
-        print("Locations generated.")
+        # print("Generating Locations...")
+        # genrate_locations(15)
+        # print("Locations generated.")
 
-        print("Generating Companies...")
-        generate_companies(15)
-        print("Companies generated.")
+        # print("Generating Companies...")
+        # generate_companies(1)
+        # print("Companies generated.")
 
-        print("Generating Complexes...")
-        generate_complexes(15)
-        print("Complexes generated.")
+        # print("Generating Complexes...")
+        # generate_complexes(1)
+        # print("Complexes generated.")
 
-        print("Generating Private Apartments...")
-        generate_private_apartments(15)
-        print("Private Apartments generated.")
+        # print("Generating Private Apartments...")
+        # generate_private_apartments(1)
+        # print("Private Apartments generated.")
 
-        print("Generating Apartments...")
-        generate_apartments(15)
-        print("Apartments generated.")
+        # print("Generating Apartments...")
+        # generate_apartments(1)
+        # print("Apartments generated.")
 
         print("Generating Grounds...")
-        generate_grounds(15)
+        generate_grounds(1)
         print("Grounds generated.")
 
-        print("Generating promotions...")
-        generate_promotions_and_offers(15)
-        print("Promotions generated.")
+        # print("Generating promotions...")
+        # generate_promotions_and_offers(1)
+        # print("Promotions generated.")
 
+        # print("Generating blogs...")
+        # generate_blogs(1)
+        # print("blogs generated")
         
         
     except Exception as e:

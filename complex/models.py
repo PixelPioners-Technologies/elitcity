@@ -264,7 +264,6 @@ class Complex_Names(models.Model):
     concierge_service = models.BooleanField(default=True)
     yard_description = models.BooleanField(default=True)
 
-    views_count = models.IntegerField(default=0)
 
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
@@ -396,7 +395,11 @@ class Appartment_Names(models.Model):
     supermarket = models.BooleanField(default=True , blank=True , null = True)
     square = models.BooleanField(default=True , blank=True , null = True)
 
-    
+    rooms = models.IntegerField(validators=[MaxValueValidator(10)])
+    kitchen = models.IntegerField(validators=[MaxValueValidator(10)])
+    Bathroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
     def __str__(self):
         return f"{self.internal_apartment_name}"
 
@@ -496,6 +499,13 @@ class Private_Appartment_Names(models.Model):
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
 
+    rooms = models.IntegerField(validators=[MaxValueValidator(10)])
+    kitchen = models.IntegerField(validators=[MaxValueValidator(10)])
+    Bathroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
+    Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
+
+
         
     def __str__(self):
         return f"{self.internal_private_apartment_name}"
@@ -579,6 +589,9 @@ class Ground_Names(models.Model):
     rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
     about_land = models.CharField(max_length= 10000   )
     
+
+
+
     def __str__(self):
         return f"{self.internal_ground_name}"
 
@@ -639,18 +652,21 @@ class Blog_KA(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_ka = models.CharField(max_length=100, null=True)
     description_ka = models.TextField()
+    second_description_ka = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
 
 class Blog_EN(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_en = models.CharField(max_length=100, null=True)
     description_en = models.TextField()
+    second_description_en = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
 
 class Blog_RU(models.Model):
     internal_blog_name = models.ForeignKey(Blog_Names, on_delete=models.CASCADE)
     blog_name_ru = models.CharField(max_length=100, null=True)
     description_ru = models.TextField()
+    second_description_ru = models.TextField()
     blog_images = models.ForeignKey(Blog_Images, on_delete = models.CASCADE, blank=True, null=True)
     
 
