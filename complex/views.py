@@ -552,16 +552,7 @@ class Private_Appartment_Names_Viewset(viewsets.ModelViewSet):
     serializer_class = Private_Appartment_Name_Serializer
     pagination_class = CustomLimitOffsetPagination
 
-    # Override the retrieve method to increment views_count
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        # Increment the views_count by 1
-        instance.views_count = F('views_count') + 1
-        instance.save(update_fields=['views_count'])
-        # Refresh from DB to reflect the update
-        instance.refresh_from_db()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+
 
 class Private_Apartment_Images_Viewset(viewsets.ModelViewSet):
     queryset = Private_Appartment_images.objects.all()
@@ -593,26 +584,6 @@ class Private_Apartment_EN_Viewset(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'square_price','full_price']
 
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_private_apartment_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-
 
 class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     queryset = Private_Appartment_KA.objects.all()
@@ -636,26 +607,6 @@ class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price']
-
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_private_apartment_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
 
 class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
@@ -692,17 +643,6 @@ class Ground_Names_Viewset(viewsets.ModelViewSet):
     serializer_class = Ground_Names_Serializer
     pagination_class = CustomLimitOffsetPagination
 
-    # Override the retrieve method to increment views_count
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        # Increment the views_count by 1
-        instance.views_count = F('views_count') + 1
-        instance.save(update_fields=['views_count'])
-        # Refresh from DB to reflect the update
-        instance.refresh_from_db()
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
 
 
 class Ground_Images_Viewset(viewsets.ModelViewSet):
@@ -727,24 +667,6 @@ class Ground_KA_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_ground_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
 class Ground_EN_Viewset(viewsets.ModelViewSet):
     queryset = Ground_EN.objects.all()
@@ -762,25 +684,6 @@ class Ground_EN_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_ground_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
 
 
@@ -800,26 +703,6 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_ground_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
 
 
 # -------------------------------------------blog viewsets ----------------------------------------------

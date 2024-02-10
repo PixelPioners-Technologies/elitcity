@@ -1164,7 +1164,6 @@ class Private_Appartment_Name_Serializer(serializers.ModelSerializer):
             'Bathroom',
             'bedroom',
             'Balcony',
-            "views_count"
 
         ]
 
@@ -1223,7 +1222,6 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
 
-                'views_count': data['internal_private_apartment_name']['views_count'],
             },
             'private_apartment_address_en': data["private_apartment_address_en"],
             'private_apartment_images': image_urls,
@@ -1295,7 +1293,6 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
 
-                'views_count': data['internal_private_apartment_name']['views_count'],
 
             },
             'private_apartment_address_ka': data["private_apartment_address_ka"],
@@ -1368,7 +1365,6 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
                 
-                'views_count': data['internal_private_apartment_name']['views_count'],
 
             },
             'private_apartment_address_ru': data["private_apartment_address_ru"],
@@ -1402,7 +1398,6 @@ class Ground_Names_Serializer(serializers.ModelSerializer):
             'is_available',
             'visibiliti',
             "about_land",
-            'views_count'
             ]
 
 class Ground_Images_Serializer(serializers.ModelSerializer):
@@ -1460,7 +1455,6 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
                 "about_land": data["internal_ground_name"]["about_land"],
 
-                "views_count": data["internal_ground_name"]["views_count"],
 
             },
             'ground_address_ka': data["ground_address_ka"],
@@ -1524,7 +1518,6 @@ class Ground_EN_Serializer(serializers.ModelSerializer):
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
                 "about_land": data["internal_ground_name"]["about_land"],
 
-                "views_count": data["internal_ground_name"]["views_count"],
                 
             },
             'ground_address_en': data["ground_address_en"],
@@ -1588,7 +1581,6 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
                 "visibiliti": data["internal_ground_name"]['visibiliti'],
                 "about_land": data["internal_ground_name"]["about_land"],
 
-                "views_count": data["internal_ground_name"]["views_count"],
 
             },
             'ground_address_ru': data["ground_address_ru"],

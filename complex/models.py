@@ -264,7 +264,6 @@ class Complex_Names(models.Model):
     concierge_service = models.BooleanField(default=True)
     yard_description = models.BooleanField(default=True)
 
-    views_count = models.IntegerField(default=0)
 
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
@@ -506,7 +505,6 @@ class Private_Appartment_Names(models.Model):
     bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
     Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
 
-    views_count = models.IntegerField(default=0)
 
         
     def __str__(self):
@@ -591,7 +589,6 @@ class Ground_Names(models.Model):
     rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
     about_land = models.CharField(max_length= 10000   )
     
-    views_count = models.IntegerField(default=0)
 
 
 
