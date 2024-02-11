@@ -2004,7 +2004,7 @@ class ComplexKASerializer(serializers.ModelSerializer):
             "construction_type_ka",
             "submission_type_ka",
             "protection_type_ka",
-            "Description_ka",
+            "description_ka",
         ]
 
     def get_complex_images(self, instance):
@@ -2039,7 +2039,7 @@ class ComplexENSerializer(serializers.ModelSerializer):
             "construction_type_en",
             "submission_type_en",
             "protection_type_en",
-            "Description_en",
+            "description_en",
         ]
 
     def get_complex_images(self, instance):
@@ -2073,7 +2073,7 @@ class ComplexRUSerializer(serializers.ModelSerializer):
             "construction_type_ru",
             "submission_type_ru",
             "protection_type_ru",
-            "Description_ru",
+            "description_ru",
         ]
 
     def get_complex_images(self, instance):
