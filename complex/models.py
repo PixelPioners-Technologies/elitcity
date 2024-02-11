@@ -265,9 +265,9 @@ class Complex_Names(models.Model):
     yard_description = models.BooleanField(default=True)
 
     metro = models.BooleanField(default=True)
-    Pharmacy = models.BooleanField(default=True)
+    pharmacy = models.BooleanField(default=True)
     supermarket = models.BooleanField(default=True)
-    Square = models.BooleanField(default=True)
+    square = models.BooleanField(default=True)
 
     
    
