@@ -669,11 +669,7 @@ class Complex_KA_Serializers(serializers.ModelSerializer):
             'construction_type_ka',
             'submission_type_ka',
             'protection_type_ka',
-            'metro_ka',
-            'Pharmacy_ka',
-            'supermarket_ka',
-            'Square_ka',
-            'Description_ka',
+            "description_ka", 
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
@@ -721,11 +717,8 @@ class Complex_EN_Serializers(serializers.ModelSerializer):
             'construction_type_en',
             'submission_type_en',
             'protection_type_en',
-            'metro_en',
-            'Pharmacy_en',
-            'supermarket_en',
-            'Square_en',
-            'Description_en',
+            "description_en", 
+ 
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
@@ -773,11 +766,8 @@ class Complex_RU_Serializers(serializers.ModelSerializer):
             'construction_type_ru',
             'submission_type_ru',
             'protection_type_ru',
-            'metro_ru',
-            'Pharmacy_ru',
-            'supermarket_ru',
-            'Square_ru',
-            'Description_ru',
+            "description_ru", 
+
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
@@ -1195,7 +1185,7 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
             'private_apartment_address_en_id',
             'private_apartment_name_en',
             'private_apartment_images_id',
-            'test_private_field_en',
+            'about_en',
 
         ]
     def to_representation(self, instance):
@@ -1226,7 +1216,8 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
             'private_apartment_address_en': data["private_apartment_address_en"],
             'private_apartment_images': image_urls,
             'private_apartment_name_en': data['private_apartment_name_en'],
-            'test_private_field_en': data['test_private_field_en'],
+            'about_en': data['about_en'],
+
         }
 
     def get_image_urls(self, instance):
@@ -1265,12 +1256,13 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
             'private_apartment_address_ka_id',
             'private_apartment_name_ka',
             'private_apartment_images_id',
-            'test_private_field_ka',
+            'about_ka',
 
         ]
     def to_representation(self, instance):
         data = super().to_representation(instance)
         image_urls = self.get_image_urls(instance)
+        print(data)
         return {
             "id": data['id'],
             'internal_private_apartment_name' : {
@@ -1292,13 +1284,13 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
                 'Bathroom':data['internal_private_apartment_name']['Bathroom'],
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
-
-
+                
             },
             'private_apartment_address_ka': data["private_apartment_address_ka"],
             'private_apartment_images': image_urls,
             'private_apartment_name_ka': data['private_apartment_name_ka'],
-            'test_private_field_ka': data['test_private_field_ka'],
+            'about_ka': data['about_ka'],
+
         }
 
     def get_image_urls(self, instance):
@@ -1336,7 +1328,8 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
             'private_apartment_address_ru_id',
             'private_apartment_name_ru',
             'private_apartment_images_id',
-            'test_private_field_ru',
+            'about_ru',
+            
 
         ]
 
@@ -1370,7 +1363,8 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
             'private_apartment_address_ru': data["private_apartment_address_ru"],
             'private_apartment_images': image_urls,
             'private_apartment_name_ru': data['private_apartment_name_ru'],
-            'test_private_field_ru': data['test_private_field_ru'],
+            'about_ru': data['about_ru'],
+
         }
 
     def get_image_urls(self, instance):
@@ -1877,6 +1871,7 @@ class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
 class NewAppartment_KA_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
     appartment_address_ka = Address_KA_Serializer(read_only=True)
+    
     class Meta:
         model = Appartment_KA
         fields = '__all__'
@@ -1931,6 +1926,8 @@ class Complex_with_appartments_KA_Serializer(serializers.ModelSerializer):
     internal_complex_name = Complex_Name_Serializers(read_only=True)
     complex_images = Complex_Image_Serializers(read_only=True)
     company_ka = Company_KA_serializers(read_only=True)
+    complex_address_ka = Address_KA_Serializer(source='address_ka', read_only=True)
+
     class Meta:
         model = Complex_KA
         fields = '__all__'
@@ -1950,6 +1947,8 @@ class Complex_with_appartments_EN_Serializer(serializers.ModelSerializer):
     internal_complex_name = Complex_Name_Serializers(read_only=True)
     complex_images = Complex_Image_Serializers(read_only=True)
     company_en = Company_EN_serializers(read_only=True)
+    complex_address_en = Address_EN_Serializer(source='address_en', read_only=True)
+
     class Meta:
         model = Complex_EN
         fields = '__all__'
@@ -1968,6 +1967,8 @@ class Complex_with_appartments_RU_Serializer(serializers.ModelSerializer):
     internal_complex_name = Complex_Name_Serializers(read_only=True)
     complex_images = Complex_Image_Serializers(read_only=True)
     company_ru = Company_RU_serializers(read_only=True)
+    complex_address_ru = Address_RU_Serializer(source='address_ru', read_only=True)
+
     class Meta:
         model = Complex_RU
         fields = '__all__'

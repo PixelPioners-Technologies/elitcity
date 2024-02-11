@@ -213,7 +213,15 @@ def generate_complexes(n):
                 number_of_floors=random.randint(1, 10),
                 phone_number=fake.phone_number()[:20],
                 plot_area=random.uniform(500, 10000),
-                rank=random.choice(['A', 'B', 'C', 'D', 'E'])
+                rank=random.choice(['A', 'B', 'C', 'D', 'E']),
+
+                metro = random.choice([True, False]),
+                Pharmacy = random.choice([True, False]),
+                supermarket = random.choice([True, False]),
+                Square = random.choice([True, False]),
+                Description = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
+
+    
             )
 
             for _ in range(7):
@@ -353,7 +361,7 @@ def generate_private_apartments(n):
                 private_apartment_images=apartment_images,
                 private_apartment_address_en=address_en,
                 private_apartment_name_en=f"{fake.company_suffix()}_{internal_name}",
-                test_private_field_en=fake.word()
+                about_en=fake.text(max_nb_chars=300)
             )
 
             Private_Appartment_KA.objects.create(
@@ -361,7 +369,7 @@ def generate_private_apartments(n):
                 private_apartment_images=apartment_images,
                 private_apartment_address_ka=address_ka,
                 private_apartment_name_ka=f"{fake.company_suffix()}_{internal_name}",
-                test_private_field_ka=fake.word()
+                about_ka=fake.text(max_nb_chars=300)
             )
 
             Private_Appartment_RU.objects.create(
@@ -369,7 +377,7 @@ def generate_private_apartments(n):
                 private_apartment_images=apartment_images,
                 private_apartment_address_ru=address_ru,
                 private_apartment_name_ru=f"{fake.company_suffix()}_{internal_name}",
-                test_private_field_ru=fake.word()
+                about_ru=fake.text(max_nb_chars=300)
             )
 
             print(f"Generated ground: {internal_name}")
@@ -700,35 +708,35 @@ def generate_blogs(n):
 def generate_all_data():
     try:
         # print("Generating Locations...")
-        # genrate_locations(15)
+        # genrate_locations(20)
         # print("Locations generated.")
 
         # print("Generating Companies...")
-        # generate_companies(1)
+        # generate_companies(2)
         # print("Companies generated.")
 
         # print("Generating Complexes...")
-        # generate_complexes(1)
+        # generate_complexes(20)
         # print("Complexes generated.")
 
-        # print("Generating Private Apartments...")
-        # generate_private_apartments(1)
-        # print("Private Apartments generated.")
+        print("Generating Private Apartments...")
+        generate_private_apartments(1)
+        print("Private Apartments generated.")
 
         # print("Generating Apartments...")
-        # generate_apartments(1)
+        # generate_apartments(20)
         # print("Apartments generated.")
 
-        print("Generating Grounds...")
-        generate_grounds(1)
-        print("Grounds generated.")
-
+        # print("Generating Grounds...")
+        # generate_grounds(20)
+        # print("Grounds generated.")
+    
         # print("Generating promotions...")
-        # generate_promotions_and_offers(1)
+        # generate_promotions_and_offers(20)
         # print("Promotions generated.")
 
         # print("Generating blogs...")
-        # generate_blogs(1)
+        # generate_blogs(20)
         # print("blogs generated")
         
         

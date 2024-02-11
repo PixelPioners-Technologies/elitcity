@@ -264,7 +264,12 @@ class Complex_Names(models.Model):
     concierge_service = models.BooleanField(default=True)
     yard_description = models.BooleanField(default=True)
 
+    metro = models.BooleanField(default=True)
+    Pharmacy = models.BooleanField(default=True)
+    supermarket = models.BooleanField(default=True)
+    Square = models.BooleanField(default=True)
 
+    
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
@@ -297,12 +302,7 @@ class Complex_KA(models.Model):
     construction_type_ka = models.CharField(max_length=100,null=True, blank=True)
     submission_type_ka = models.CharField(max_length=100,null=True, blank=True)
     protection_type_ka = models.CharField(max_length=100,null=True, blank=True)
-    metro_ka = models.CharField(max_length=50 ,null=True, blank=True)
-    Pharmacy_ka = models.CharField(max_length=50,null=True, blank=True)
-    supermarket_ka = models.CharField(max_length=50,null=True, blank=True)
-    Square_ka = models.CharField(max_length=50,null=True, blank=True)
-    Description_ka = models.TextField(max_length=500,null=True, blank=True)
-
+    description_ka = models.CharField(max_length=10000)
     
     def __str__(self):
         return self.internal_complex_name.internal_complex_name
@@ -318,12 +318,7 @@ class Complex_EN(models.Model):
     construction_type_en = models.CharField(max_length=100,null=True, blank=True)
     submission_type_en = models.CharField(max_length=100,null=True, blank=True)
     protection_type_en = models.CharField(max_length=100,null=True, blank=True)
-    metro_en = models.CharField(max_length=50,null=True, blank=True)
-    Pharmacy_en = models.CharField(max_length=50,null=True, blank=True)
-    supermarket_en = models.CharField(max_length=50,null=True, blank=True)
-    Square_en = models.CharField(max_length=50,null=True, blank=True)
-    Description_en = models.TextField(max_length=500,null=True, blank=True)
-
+    description_en = models.CharField(max_length=10000)
 
     
     def __str__(self):
@@ -340,11 +335,7 @@ class Complex_RU(models.Model):
     construction_type_ru = models.CharField(max_length=100,null=True, blank=True)
     submission_type_ru = models.CharField(max_length=100,null=True, blank=True)
     protection_type_ru = models.CharField(max_length=100,null=True, blank=True)
-    metro_ru = models.CharField(max_length=50,null=True, blank=True)
-    Pharmacy_ru = models.CharField(max_length=50,null=True, blank=True)
-    supermarket_ru = models.CharField(max_length=50,null=True, blank=True)
-    Square_ru = models.CharField(max_length=50,null=True, blank=True)
-    Description_ru = models.TextField(max_length=500,null=True, blank=True)
+    description_ru = models.CharField(max_length=10000)
 
 
 
@@ -525,7 +516,7 @@ class Private_Appartment_EN(models.Model):
     private_apartment_images = models.ForeignKey(Private_Appartment_images, on_delete = models.CASCADE, null=True)
     private_apartment_address_en = models.ForeignKey(Address_EN, on_delete = models.CASCADE,null = True)
     private_apartment_name_en = models.CharField(max_length=100,null=True)
-    test_private_field_en = models.CharField(max_length=100)
+    about_en = models.CharField(max_length=10000)
 
     def __str__(self):
         return f"{self.private_apartment_name_en} - {self.internal_private_apartment_name}"
@@ -537,7 +528,7 @@ class Private_Appartment_KA(models.Model):
     private_apartment_images = models.ForeignKey(Private_Appartment_images, on_delete = models.CASCADE, null=True)
     private_apartment_address_ka = models.ForeignKey(Address_KA, on_delete = models.CASCADE,null = True)
     private_apartment_name_ka = models.CharField(max_length=100,null=True)
-    test_private_field_ka = models.CharField(max_length=100)
+    about_ka = models.CharField(max_length=10000)
 
     def __str__(self):
         return f"{self.private_apartment_name_ka} - {self.internal_private_apartment_name}"
@@ -547,7 +538,7 @@ class Private_Appartment_RU(models.Model):
     private_apartment_images = models.ForeignKey(Private_Appartment_images, on_delete = models.CASCADE, null=True)
     private_apartment_address_ru = models.ForeignKey(Address_RU, on_delete = models.CASCADE,null = True)
     private_apartment_name_ru = models.CharField(max_length=100,null=True)
-    test_private_field_ru = models.CharField(max_length=100)
+    about_ru = models.CharField(max_length=10000)
 
     def __str__(self):
         return f"{self.private_apartment_name_ru} - {self.internal_private_apartment_name}"

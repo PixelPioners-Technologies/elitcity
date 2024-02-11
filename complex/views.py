@@ -265,7 +265,6 @@ class Company_Images_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 # ---------------------complex views--------------------------------------------------------
-    
 from django.db import transaction
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
@@ -279,19 +278,6 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     serializer_class = Complex_Name_Serializers
     pagination_class = CustomLimitOffsetPagination
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Use atomic transaction to ensure that the view count increment is thread-safe
-        with transaction.atomic():
-            instance.views_count = F('views_count') + 1
-            instance.save(update_fields=['views_count'])
-
-        logger.info(f"View Count Incremented for: {instance.internal_complex_name}")
-
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-    
 
 
 class Complex_KA_Viewset(viewsets.ModelViewSet):
@@ -324,26 +310,6 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['price_per_sq_meter', 'created_at','rank']
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_complex_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-
 
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
@@ -373,25 +339,6 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
         )
 
     ordering_fields = ['price_per_sq_meter', 'created_at','rank']
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_complex_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
 
 
 
@@ -424,27 +371,6 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['price_per_sq_meter', 'created_at','rank']
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_complex_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-
 
 
 
@@ -654,9 +580,15 @@ class Ground_KA_Viewset(viewsets.ModelViewSet):
     queryset = Ground_KA.objects.all()
     serializer_class = Ground_KA_Serializer
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Ground_KA_Filters
     
+    search_fields = [
+        'ground_name_ka', 
+        'ground_address_ka__address_ka',
+    ]
+
+
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
@@ -672,9 +604,15 @@ class Ground_EN_Viewset(viewsets.ModelViewSet):
     queryset = Ground_EN.objects.all()
     serializer_class = Ground_EN_Serializer
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter,SearchFilter]
     filterset_class = Ground_EN_Filters
     
+    
+    search_fields = [
+        'ground_name_en', 
+        'ground_address_en__address_en',
+    ]
+
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
@@ -691,9 +629,14 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
     queryset = Ground_RU.objects.all()
     serializer_class = Ground_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Ground_RU_Filters
     
+    search_fields = [
+        'ground_name_ru', 
+        'ground_address_ru__address_ru',
+    ]
+
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
