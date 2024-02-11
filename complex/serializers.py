@@ -501,7 +501,6 @@ class Company_Image_serializers(serializers.ModelSerializer):
         fields = ['id',"internal_name_id",'internal_name','logocompany','background_image']
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        print(data)
         return {
             'id':data['id'],
             'record_id':data['internal_name']['id'],
@@ -1918,26 +1917,115 @@ class Complex_with_appartments_RU_Serializer(serializers.ModelSerializer):
             Company_With_Complex
 -----------------------------------------------------------------------
 ''' 
+  
+class ComplexKASerializer(serializers.ModelSerializer):
+    complex_images = serializers.SerializerMethodField()
+    address_ka = Address_KA_Serializer()
+    internal_complex_name = Complex_Name_Serializers()
+    class Meta:
+        model = Complex_KA
+        fields = [
+            "internal_complex_name",
+            "complex_images",
+            "company_ka",
+            "address_ka",
+            "complex_name_ka", 
+            "type_of_roof_ka",
+            "construction_type_ka",
+            "submission_type_ka",
+            "protection_type_ka",
+            "metro_ka",
+            "Pharmacy_ka",
+            "supermarket_ka",
+            "Square_ka",
+            "Description_ka",
+        ]
 
-# class NewComplex_KA_Serializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Complex_Names
-#         fields = "__all__"
+    def get_complex_images(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
 
-# class Company_Complex_Sereializer_KA(serializers.ModelSerializer):
-#     complexes = NewComplex_KA_Serializer(many=True, read_only=True)
-#     class Meta:
-#         model = Company_KA
-#         fields = "__all__"
-    
-# class Company_Complex_Sereializer_EN(serializers.ModelSerializer):
-#     complex_name_en = Complex_EN_Serializers(many=True, read_only=True)
-#     class Meta:
-#         model = Company_EN
-#         fields = "__all__"
 
-# class Company_Complex_Sereializer_RU(serializers.ModelSerializer):
-#     complex_name_ru = Complex_RU_Serializers(many=True, read_only=True)
-#     class Meta:
-#         model = Company_RU
-#         fields = "__all__"
+class CompanyKASerializer(serializers.ModelSerializer):
+    complexes = ComplexKASerializer(many=True)
+    internal_name = Company_Image_serializers()
+
+    class Meta:
+        model = Company_KA
+        fields = '__all__'
+
+
+
+
+class ComplexENSerializer(serializers.ModelSerializer):
+    complex_images = serializers.SerializerMethodField()
+    address_en = Address_EN_Serializer()
+    internal_complex_name = Complex_Name_Serializers()
+    class Meta:
+        model = Complex_EN
+        fields = [
+            "internal_complex_name",
+            "complex_images",
+            "company_en",
+            "address_en",
+            "complex_name_en", 
+            "type_of_roof_en",
+            "construction_type_en",
+            "submission_type_en",
+            "protection_type_en",
+            "metro_en",
+            "Pharmacy_en",
+            "supermarket_en",
+            "Square_en",
+            "Description_en",
+        ]
+
+    def get_complex_images(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+
+
+class CompanyENSerializer(serializers.ModelSerializer):
+    complexes = ComplexENSerializer(many=True)
+    internal_name = Company_Image_serializers()
+    class Meta:
+        model = Company_EN
+        fields = '__all__'
+
+
+
+
+class ComplexRUSerializer(serializers.ModelSerializer):
+    complex_images = serializers.SerializerMethodField()
+    address_ru = Address_RU_Serializer()
+    internal_complex_name = Complex_Name_Serializers()
+    class Meta:
+        model = Complex_RU
+        fields = [
+            "internal_complex_name",
+            "complex_images",
+            "company_ru",
+            "address_ru",
+            "complex_name_ru", 
+            "type_of_roof_ru",
+            "construction_type_ru",
+            "submission_type_ru",
+            "protection_type_ru",
+            "metro_ru",
+            "Pharmacy_ru",
+            "supermarket_ru",
+            "Square_ru",
+            "Description_ru",
+        ]
+
+    def get_complex_images(self, instance):
+        images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
+        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+
+
+class CompanyRUSerializer(serializers.ModelSerializer):
+    complexes = ComplexRUSerializer(many=True)
+    internal_name = Company_Image_serializers()
+    class Meta:
+        model = Company_RU
+        fields = '__all__'
