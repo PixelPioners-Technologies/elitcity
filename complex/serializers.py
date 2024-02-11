@@ -2004,10 +2004,6 @@ class ComplexKASerializer(serializers.ModelSerializer):
             "construction_type_ka",
             "submission_type_ka",
             "protection_type_ka",
-            "metro_ka",
-            "Pharmacy_ka",
-            "supermarket_ka",
-            "Square_ka",
             "Description_ka",
         ]
 
@@ -2043,10 +2039,6 @@ class ComplexENSerializer(serializers.ModelSerializer):
             "construction_type_en",
             "submission_type_en",
             "protection_type_en",
-            "metro_en",
-            "Pharmacy_en",
-            "supermarket_en",
-            "Square_en",
             "Description_en",
         ]
 
@@ -2081,10 +2073,6 @@ class ComplexRUSerializer(serializers.ModelSerializer):
             "construction_type_ru",
             "submission_type_ru",
             "protection_type_ru",
-            "metro_ru",
-            "Pharmacy_ru",
-            "supermarket_ru",
-            "Square_ru",
             "Description_ru",
         ]
 
