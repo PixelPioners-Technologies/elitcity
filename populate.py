@@ -219,7 +219,6 @@ def generate_complexes(n):
                 Pharmacy = random.choice([True, False]),
                 supermarket = random.choice([True, False]),
                 Square = random.choice([True, False]),
-                Description = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
 
     
             )
@@ -261,7 +260,9 @@ def generate_complexes(n):
                 company_ka=company_ka,
                 address_ka=address_ka,
                 complex_name_ka=f"{fake.company_suffix()}_{unique_suffix}",
-                type_of_roof_ka=fake.word()
+                type_of_roof_ka=fake.word(),
+                description_ka = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
+
             )
 
             Complex_EN.objects.create(
@@ -270,7 +271,8 @@ def generate_complexes(n):
                 company_en=company_en,
                 address_en=address_en,
                 complex_name_en=f"{fake.company_suffix()}_{unique_suffix}",
-                type_of_roof_en=fake.word()
+                type_of_roof_en=fake.word(),
+                description_en = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
             )
 
             Complex_RU.objects.create(
@@ -279,7 +281,9 @@ def generate_complexes(n):
                 company_ru=company_ru,
                 address_ru=address_ru,
                 complex_name_ru=f"{fake.company_suffix()}_{unique_suffix}",
-                type_of_roof_ru=fake.word()
+                type_of_roof_ru=fake.word(),
+                description_ru = f"{fake.word()}_{random.randint(1000, 9999)}_{int(time.time())}"
+
             )
 
             print(f"Generated ground: {unique_name}")
@@ -709,35 +713,35 @@ def generate_all_data():
     try:
 
         print("Generating Locations...")
-        genrate_locations(35)
+        genrate_locations(40)
         print("Locations generated.")
 
         print("Generating Companies...")
-        generate_companies(15)
+        generate_companies(10)
         print("Companies generated.")
 
         print("Generating Complexes...")
-        generate_complexes(25)
+        generate_complexes(35)
         print("Complexes generated.")
 
         print("Generating Private Apartments...")
-        generate_private_apartments(25)
+        generate_private_apartments(35)
         print("Private Apartments generated.")
 
         print("Generating Apartments...")
-        generate_apartments(25)
+        generate_apartments(35)
         print("Apartments generated.")
 
         print("Generating Grounds...")
-        generate_grounds(25)
+        generate_grounds(35)
         print("Grounds generated.")
 
         print("Generating promotions...")
-        generate_promotions_and_offers(25)
+        generate_promotions_and_offers(35)
         print("Promotions generated.")
 
         print("Generating blogs...")
-        generate_blogs(25)
+        generate_blogs(35)
         print("blogs generated")
 
         
