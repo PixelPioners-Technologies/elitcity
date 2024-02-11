@@ -707,37 +707,39 @@ def generate_blogs(n):
 
 def generate_all_data():
     try:
-        # print("Generating Locations...")
-        # genrate_locations(20)
-        # print("Locations generated.")
 
-        # print("Generating Companies...")
-        # generate_companies(2)
-        # print("Companies generated.")
+        print("Generating Locations...")
+        genrate_locations(35)
+        print("Locations generated.")
 
-        # print("Generating Complexes...")
-        # generate_complexes(20)
-        # print("Complexes generated.")
+        print("Generating Companies...")
+        generate_companies(15)
+        print("Companies generated.")
+
+        print("Generating Complexes...")
+        generate_complexes(25)
+        print("Complexes generated.")
 
         print("Generating Private Apartments...")
-        generate_private_apartments(1)
+        generate_private_apartments(25)
         print("Private Apartments generated.")
 
-        # print("Generating Apartments...")
-        # generate_apartments(20)
-        # print("Apartments generated.")
+        print("Generating Apartments...")
+        generate_apartments(25)
+        print("Apartments generated.")
 
-        # print("Generating Grounds...")
-        # generate_grounds(20)
-        # print("Grounds generated.")
-    
-        # print("Generating promotions...")
-        # generate_promotions_and_offers(20)
-        # print("Promotions generated.")
+        print("Generating Grounds...")
+        generate_grounds(25)
+        print("Grounds generated.")
 
-        # print("Generating blogs...")
-        # generate_blogs(20)
-        # print("blogs generated")
+        print("Generating promotions...")
+        generate_promotions_and_offers(25)
+        print("Promotions generated.")
+
+        print("Generating blogs...")
+        generate_blogs(25)
+        print("blogs generated")
+
         
         
     except Exception as e:

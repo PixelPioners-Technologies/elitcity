@@ -18,7 +18,7 @@ ground_routers = DefaultRouter()
 blog_routers = DefaultRouter()
 promotions_routers = DefaultRouter()
 complex_apartments = DefaultRouter()
-# company_complex = DefaultRouter()
+company_complex = DefaultRouter()
 
 
 router.register(r'language',LanguageViewset, basename="language")
@@ -96,9 +96,9 @@ complex_apartments.register(r'ka', Complex_With_Appartment_KA_ViewSet, basename=
 complex_apartments.register(r'en', Complex_With_Appartment_EN_ViewSet, basename='en-complexandappartments' )
 complex_apartments.register(r'ru', Complex_With_Appartment_RU_ViewSet, basename='ru-complexandappartments' )
 
-# company_complex.register(r'ka', Company_Complex_KA_ViewSet, basename='ka-companycomplex' )
-# company_complex.register(r'en', Company_Complex_EN_ViewSet, basename='en-companycomplex' )
-# company_complex.register(r'ru', Company_Complex_RU_ViewSet, basename='ru-companycomplex' )
+company_complex.register(r'ka', Company_Complex_KA_ViewSet, basename='ka-companycomplex' )
+company_complex.register(r'en', Company_Complex_EN_ViewSet, basename='en-companycomplex' )
+company_complex.register(r'ru', Company_Complex_RU_ViewSet, basename='ru-companycomplex' )
 
 
 urlpatterns = [
@@ -118,5 +118,5 @@ urlpatterns = [
     path('blog/', include(blog_routers.urls)),
     path('promotions/', include(promotions_routers.urls)),
     path('complexandappartments/', include(complex_apartments.urls)),
-    # path('companycomplex/',include(company_complex.urls))
+    path('companycomplex/',include(company_complex.urls))
 ]
