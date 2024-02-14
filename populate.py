@@ -216,9 +216,9 @@ def generate_complexes(n):
                 rank=random.choice(['A', 'B', 'C', 'D', 'E']),
 
                 metro = random.choice([True, False]),
-                Pharmacy = random.choice([True, False]),
+                pharmacy = random.choice([True, False]),
                 supermarket = random.choice([True, False]),
-                Square = random.choice([True, False]),
+                square = random.choice([True, False]),
 
     
             )
@@ -717,11 +717,11 @@ def generate_all_data():
         print("Locations generated.")
 
         print("Generating Companies...")
-        generate_companies(10)
+        generate_companies(3)
         print("Companies generated.")
 
         print("Generating Complexes...")
-        generate_complexes(35)
+        generate_complexes(7)
         print("Complexes generated.")
 
         print("Generating Private Apartments...")

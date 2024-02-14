@@ -289,10 +289,6 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_ka', 
         'type_of_roof_ka',
-        'metro_ka', 
-        'Pharmacy_ka', 
-        'supermarket_ka', 
-        'Square_ka',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -320,10 +316,6 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_en', 
         'type_of_roof_en',
-        'metro_en', 
-        'Pharmacy_en', 
-        'supermarket_en', 
-        'Square_en',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -352,10 +344,6 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_ru', 
         'type_of_roof_ru',
-        'metro_ru', 
-        'Pharmacy_ru', 
-        'supermarket_ru', 
-        'Square_ru',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
