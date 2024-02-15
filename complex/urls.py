@@ -118,5 +118,7 @@ urlpatterns = [
     path('blog/', include(blog_routers.urls)),
     path('promotions/', include(promotions_routers.urls)),
     path('complexandappartments/', include(complex_apartments.urls)),
-    path('companycomplex/',include(company_complex.urls))
+    path('companycomplex/',include(company_complex.urls)),
+    path('proxy/', google_apps_script_proxy, name='google_apps_script_proxy'),
+
 ]

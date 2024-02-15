@@ -264,12 +264,14 @@ class Complex_Names(models.Model):
     concierge_service = models.BooleanField(default=True)
     yard_description = models.BooleanField(default=True)
 
+
+
     metro = models.BooleanField(default=True)
     pharmacy = models.BooleanField(default=True)
     supermarket = models.BooleanField(default=True)
     square = models.BooleanField(default=True)
 
-    
+ 
    
     plot_area = models.DecimalField(max_digits=10, decimal_places=2) # am fildze savaraudod unda gaketdes fartis filtracia , da kvadratulobis filtracia albat iqneba apartmentebze
     RANK_CHOICES = [
@@ -391,6 +393,20 @@ class Appartment_Names(models.Model):
     Bathroom = models.IntegerField(validators=[MaxValueValidator(10)])
     bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
     Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
+    
+    RANK_CHOICES = [
+        ('A', 'Rank A'),
+        ('B', 'Rank B'),
+        ('C', 'Rank C'),
+        ('D', 'Rank D'),
+        ('E', 'Rank E'),
+    ]
+
+    rank = models.CharField(max_length=1, choices=RANK_CHOICES, default='E')
+
+   
+
+
     def __str__(self):
         return f"{self.internal_apartment_name}"
 
@@ -473,6 +489,9 @@ class Private_Appartment_Names(models.Model):
         choices = STATUS_CHOICES,
         default = "3",
     )
+
+
+
     RANK_CHOICES = [
         ('A', 'Rank A'),
         ('B', 'Rank B'),
@@ -496,6 +515,12 @@ class Private_Appartment_Names(models.Model):
     bedroom = models.IntegerField(validators=[MaxValueValidator(10)])
     Balcony = models.IntegerField(validators=[MaxValueValidator(10)])
 
+    metro = models.BooleanField(default=True)
+    pharmacy = models.BooleanField(default=True)
+    supermarket = models.BooleanField(default=True)
+    square = models.BooleanField(default=True)
+
+    
 
         
     def __str__(self):

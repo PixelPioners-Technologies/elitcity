@@ -216,9 +216,9 @@ def generate_complexes(n):
                 rank=random.choice(['A', 'B', 'C', 'D', 'E']),
 
                 metro = random.choice([True, False]),
-                Pharmacy = random.choice([True, False]),
+                pharmacy = random.choice([True, False]),
                 supermarket = random.choice([True, False]),
-                Square = random.choice([True, False]),
+                square = random.choice([True, False]),
 
     
             )
@@ -321,6 +321,12 @@ def generate_private_apartments(n):
             bedroom = random.randint(1, 8)
             Balcony = random.randint(1, 8)
 
+            metro =random.choice([True, False])
+            pharmacy = random.choice([True, False])
+            supermarket = random.choice([True, False])
+            square = random.choice([True, False])
+
+
             private_apartment = Private_Appartment_Names.objects.create(
                 internal_private_apartment_name=internal_name,
                 number_of_rooms=number_of_rooms,
@@ -336,6 +342,10 @@ def generate_private_apartments(n):
                 Bathroom = Bathroom,
                 bedroom = bedroom,
                 Balcony = Balcony,
+                metro=metro,
+                pharmacy=pharmacy,
+                supermarket=supermarket,
+                square=square,
 
             )
 
@@ -413,6 +423,8 @@ def generate_apartments(n):
             pharmacy = random.choice([True, False])
             supermarket = random.choice([True, False])
             square = random.choice([True, False])
+            rank=random.choice(['A', 'B', 'C', 'D', 'E'])
+
 
             apartment = Appartment_Names.objects.create(
                 internal_apartment_name=internal_name,
@@ -433,6 +445,7 @@ def generate_apartments(n):
                 Bathroom = Bathroom,
                 bedroom = bedroom,
                 Balcony = Balcony,
+                rank = rank,
 
             )
 
@@ -712,37 +725,37 @@ def generate_blogs(n):
 def generate_all_data():
     try:
 
-        print("Generating Locations...")
-        genrate_locations(40)
-        print("Locations generated.")
+        # print("Generating Locations...")
+        # genrate_locations(40)
+        # print("Locations generated.")
 
-        print("Generating Companies...")
-        generate_companies(10)
-        print("Companies generated.")
+        # print("Generating Companies...")
+        # generate_companies(1)
+        # print("Companies generated.")
 
-        print("Generating Complexes...")
-        generate_complexes(35)
-        print("Complexes generated.")
+        # print("Generating Complexes...")
+        # generate_complexes(1)
+        # print("Complexes generated.")
 
-        print("Generating Private Apartments...")
-        generate_private_apartments(35)
-        print("Private Apartments generated.")
+        # print("Generating Private Apartments...")
+        # generate_private_apartments(1)
+        # print("Private Apartments generated.")
 
         print("Generating Apartments...")
-        generate_apartments(35)
+        generate_apartments(1)
         print("Apartments generated.")
 
-        print("Generating Grounds...")
-        generate_grounds(35)
-        print("Grounds generated.")
+        # print("Generating Grounds...")
+        # generate_grounds(1)
+        # print("Grounds generated.")
 
-        print("Generating promotions...")
-        generate_promotions_and_offers(35)
-        print("Promotions generated.")
+        # print("Generating promotions...")
+        # generate_promotions_and_offers(35)
+        # print("Promotions generated.")
 
-        print("Generating blogs...")
-        generate_blogs(35)
-        print("blogs generated")
+        # print("Generating blogs...")
+        # generate_blogs(35)
+        # print("blogs generated")
 
         
         

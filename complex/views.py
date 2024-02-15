@@ -289,10 +289,6 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_ka', 
         'type_of_roof_ka',
-        'metro_ka', 
-        'Pharmacy_ka', 
-        'supermarket_ka', 
-        'Square_ka',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -320,10 +316,6 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_en', 
         'type_of_roof_en',
-        'metro_en', 
-        'Pharmacy_en', 
-        'supermarket_en', 
-        'Square_en',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -352,10 +344,6 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_ru', 
         'type_of_roof_ru',
-        'metro_ru', 
-        'Pharmacy_ru', 
-        'supermarket_ru', 
-        'Square_ru',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -765,3 +753,39 @@ class Company_Complex_EN_ViewSet(viewsets.ModelViewSet):
 class Company_Complex_RU_ViewSet(viewsets.ModelViewSet):
     queryset = Company_RU.objects.all()
     serializer_class = CompanyRUSerializer
+
+
+
+
+
+from django.http import JsonResponse
+import requests
+import json
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def google_apps_script_proxy(request):
+    script_url = 'https://script.google.com/macros/s/AKfycbySUzCq3wz0fR7gzy15UPljQMeajxVc1Gq70f0IQjoqv1QrCbaQd2fLatZGkx7EdVmN/exec'
+
+    # Ensure the request body is correctly formatted as JSON
+    data = json.loads(request.body.decode('utf-8'))
+    
+    try:
+        # Forward the request to the Google Apps Script, ensuring JSON data is sent
+        response = requests.post(script_url, json=data, headers={'Content-Type': 'application/json'})
+        
+        # Create a Django response object with the JSON data from Google Apps Script
+        django_response = JsonResponse(response.json(), safe=False, status=response.status_code)
+        
+        # Set CORS headers on the Django response object
+        django_response["Access-Control-Allow-Origin"] = "*"
+        django_response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        django_response["Access-Control-Allow-Headers"] = "Content-Type"
+        
+        # Return the response from Google Apps Script to the client, with CORS headers
+        return django_response
+    except Exception as e:
+        print("Error:", str(e))  # Log any errors
+        return JsonResponse({'error': 'Failed to send data to Google Apps Script', 'details': str(e)}, status=500)

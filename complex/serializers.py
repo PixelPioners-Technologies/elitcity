@@ -811,6 +811,7 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
             'Bathroom',
             'bedroom',
             'Balcony',
+            'rank',
 
             ]
 # --------------------------------------------------------------------------
@@ -887,7 +888,7 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
                 "Bathroom": data["internal_apartment_name"]['Bathroom'],
                 "bedroom": data["internal_apartment_name"]['bedroom'],
                 "Balcony": data["internal_apartment_name"]['Balcony'],
-
+                "rank": data["internal_apartment_name"]['rank'],
 
             },
             'appartment_address_ka': data["appartment_address_ka"],
@@ -965,6 +966,8 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
                 "Bathroom": data["internal_apartment_name"]['Bathroom'],
                 "bedroom": data["internal_apartment_name"]['bedroom'],
                 "Balcony": data["internal_apartment_name"]['Balcony'],
+                "rank": data["internal_apartment_name"]['rank'],
+
 
 
             },
@@ -1042,6 +1045,8 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
                 "Bathroom": data["internal_apartment_name"]['Bathroom'],
                 "bedroom": data["internal_apartment_name"]['bedroom'],
                 "Balcony": data["internal_apartment_name"]['Balcony'],
+                "rank": data["internal_apartment_name"]['rank'],
+
             },
             'appartment_address_ru': data["appartment_address_ru"],
             'appartment_images': image_urls,
@@ -1153,6 +1158,11 @@ class Private_Appartment_Name_Serializer(serializers.ModelSerializer):
             'Bathroom',
             'bedroom',
             'Balcony',
+            "metro" ,
+            "pharmacy" ,
+            "supermarket" ,
+            "square" ,
+
 
         ]
 
@@ -1211,6 +1221,14 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
 
+                "metro" :data['internal_private_apartment_name']['metro'],
+                "pharmacy" :data['internal_private_apartment_name']['pharmacy'],
+                "supermarket" :data['internal_private_apartment_name']['supermarket'],
+                "square" :data['internal_private_apartment_name']['square'],
+                "metro" :data['internal_private_apartment_name']['metro'],
+                "pharmacy" :data['internal_private_apartment_name']['pharmacy'],
+                "supermarket" :data['internal_private_apartment_name']['supermarket'],
+                "square" :data['internal_private_apartment_name']['square'],
             },
             'private_apartment_address_en': data["private_apartment_address_en"],
             'private_apartment_images': image_urls,
@@ -1283,6 +1301,11 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
                 'Bathroom':data['internal_private_apartment_name']['Bathroom'],
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
+
+                "metro" :data['internal_private_apartment_name']['metro'],
+                "pharmacy" :data['internal_private_apartment_name']['pharmacy'],
+                "supermarket" :data['internal_private_apartment_name']['supermarket'],
+                "square" :data['internal_private_apartment_name']['square'],
                 
             },
             'private_apartment_address_ka': data["private_apartment_address_ka"],
@@ -1356,6 +1379,11 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
                 'Bathroom':data['internal_private_apartment_name']['Bathroom'],
                 'bedroom':data['internal_private_apartment_name']['bedroom'],
                 'Balcony':data['internal_private_apartment_name']['Balcony'],
+
+                "metro" :data['internal_private_apartment_name']['metro'],
+                "pharmacy" :data['internal_private_apartment_name']['pharmacy'],
+                "supermarket" :data['internal_private_apartment_name']['supermarket'],
+                "square" :data['internal_private_apartment_name']['square'],
                 
 
             },
@@ -1870,7 +1898,9 @@ class PromotionsAndOffersRUSerializer(serializers.ModelSerializer):
 class NewAppartment_KA_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
     appartment_address_ka = Address_KA_Serializer(read_only=True)
-    
+    internal_apartment_name  = Appartment_Names_Serializer(read_only=True)
+
+
     class Meta:
         model = Appartment_KA
         fields = '__all__'
@@ -1888,6 +1918,8 @@ class NewAppartment_KA_Serializer(serializers.ModelSerializer):
 class NewAppartment_EN_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
     appartment_address_en = Address_EN_Serializer(read_only=True)
+    internal_apartment_name  = Appartment_Names_Serializer(read_only=True)
+
     class Meta:
         model = Appartment_EN
         fields = '__all__'
@@ -1905,6 +1937,9 @@ class NewAppartment_EN_Serializer(serializers.ModelSerializer):
 class NewAppartment_RU_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
     appartment_address_ru = Address_RU_Serializer(read_only=True)
+    internal_apartment_name  = Appartment_Names_Serializer(read_only=True)
+
+    
     class Meta:
         model = Appartment_RU
         fields = '__all__'
@@ -1926,6 +1961,9 @@ class Complex_with_appartments_KA_Serializer(serializers.ModelSerializer):
     complex_images = Complex_Image_Serializers(read_only=True)
     company_ka = Company_KA_serializers(read_only=True)
     complex_address_ka = Address_KA_Serializer(source='address_ka', read_only=True)
+    
+
+
 
     class Meta:
         model = Complex_KA
