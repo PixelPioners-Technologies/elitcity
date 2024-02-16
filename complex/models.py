@@ -362,9 +362,9 @@ class Appartment_Names(models.Model):
         ('5+', '5+'),
     ]
     STATUS_CHOICES=[
-        ("1" , 'Newly renovated'),
-        ('2' , 'with old repairs'),
-        ('3', 'to be repaired'),
+        ("1" , 'Planned'),
+        ('2' , 'Under Construction'),
+        ('3', 'Completed'),
     ]
     number_of_rooms = models.CharField( 
         max_length =10,
