@@ -812,6 +812,7 @@ class Appartment_Names_Serializer(serializers.ModelSerializer):
             'bedroom',
             'Balcony',
             'rank',
+            'status'
 
             ]
 # --------------------------------------------------------------------------
@@ -889,6 +890,8 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
                 "bedroom": data["internal_apartment_name"]['bedroom'],
                 "Balcony": data["internal_apartment_name"]['Balcony'],
                 "rank": data["internal_apartment_name"]['rank'],
+                "status": data["internal_apartment_name"]['status'],
+
 
             },
             'appartment_address_ka': data["appartment_address_ka"],
@@ -967,6 +970,8 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
                 "bedroom": data["internal_apartment_name"]['bedroom'],
                 "Balcony": data["internal_apartment_name"]['Balcony'],
                 "rank": data["internal_apartment_name"]['rank'],
+                "status": data["internal_apartment_name"]['status'],
+
 
 
 
@@ -1046,6 +1051,8 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
                 "bedroom": data["internal_apartment_name"]['bedroom'],
                 "Balcony": data["internal_apartment_name"]['Balcony'],
                 "rank": data["internal_apartment_name"]['rank'],
+                "status": data["internal_apartment_name"]['status'],
+
 
             },
             'appartment_address_ru': data["appartment_address_ru"],
