@@ -265,7 +265,6 @@ class Company_Images_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 # ---------------------complex views--------------------------------------------------------
-    
 from django.db import transaction
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
@@ -279,19 +278,6 @@ class Complex_Name_Viewset(viewsets.ModelViewSet):
     serializer_class = Complex_Name_Serializers
     pagination_class = CustomLimitOffsetPagination
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Use atomic transaction to ensure that the view count increment is thread-safe
-        with transaction.atomic():
-            instance.views_count = F('views_count') + 1
-            instance.save(update_fields=['views_count'])
-
-        logger.info(f"View Count Incremented for: {instance.internal_complex_name}")
-
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-    
 
 
 class Complex_KA_Viewset(viewsets.ModelViewSet):
@@ -303,10 +289,6 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_ka', 
         'type_of_roof_ka',
-        'metro_ka', 
-        'Pharmacy_ka', 
-        'supermarket_ka', 
-        'Square_ka',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -324,26 +306,6 @@ class Complex_KA_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['price_per_sq_meter', 'created_at','rank']
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_complex_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-
 
 class Complex_EN_Viewset(viewsets.ModelViewSet):
     queryset = Complex_EN.objects.all()
@@ -354,10 +316,6 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_en', 
         'type_of_roof_en',
-        'metro_en', 
-        'Pharmacy_en', 
-        'supermarket_en', 
-        'Square_en',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -374,25 +332,6 @@ class Complex_EN_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['price_per_sq_meter', 'created_at','rank']
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_complex_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
 
 
 
@@ -405,10 +344,6 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     search_fields = [
         'complex_name_ru', 
         'type_of_roof_ru',
-        'metro_ru', 
-        'Pharmacy_ru', 
-        'supermarket_ru', 
-        'Square_ru',
         'internal_complex_name__internal_complex_name', 
         'internal_complex_name__full_price',  
         'internal_complex_name__price_per_sq_meter',
@@ -424,27 +359,6 @@ class Complex_RU_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['price_per_sq_meter', 'created_at','rank']
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Access the related Complex_Names instance
-        complex_name_instance = instance.internal_complex_name
-
-        # Increment views_count for the related Complex_Names instance safely within a transaction
-        with transaction.atomic():
-            # Perform the update on Complex_Names directly
-            complex_name_instance.views_count = F('views_count') + 1
-            complex_name_instance.save(update_fields=['views_count'])
-            # Refresh the complex_name_instance to reflect the update
-            complex_name_instance.refresh_from_db()
-
-        # Proceed with serialization and response
-        logger.info(f"View count incremented for Complex_EN ID: {instance.pk}, Complex_Name ID: {complex_name_instance.pk}")
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-
 
 
 
@@ -553,6 +467,7 @@ class Private_Appartment_Names_Viewset(viewsets.ModelViewSet):
     pagination_class = CustomLimitOffsetPagination
 
 
+
 class Private_Apartment_Images_Viewset(viewsets.ModelViewSet):
     queryset = Private_Appartment_images.objects.all()
     serializer_class = Private_Appartment_Images_Serializer
@@ -583,6 +498,7 @@ class Private_Apartment_EN_Viewset(viewsets.ModelViewSet):
     ordering_fields = ['created_at', 'square_price','full_price']
 
 
+
 class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     queryset = Private_Appartment_KA.objects.all()
     serializer_class = Private_Appartment_KA_Serializer
@@ -605,7 +521,6 @@ class Private_Apartment_KA_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price']
-
 
 
 class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
@@ -632,6 +547,8 @@ class Private_Apartment_RU_Viewset(viewsets.ModelViewSet):
 
     ordering_fields = ['created_at', 'square_price','full_price']
 
+
+
 # -------------------------------------------ground viewsets  ----------------------------------------------
 
 
@@ -639,6 +556,8 @@ class Ground_Names_Viewset(viewsets.ModelViewSet):
     queryset = Ground_Names.objects.all()
     serializer_class = Ground_Names_Serializer
     pagination_class = CustomLimitOffsetPagination
+
+
 
 class Ground_Images_Viewset(viewsets.ModelViewSet):
     queryset = Ground_Images.objects.all()
@@ -649,9 +568,15 @@ class Ground_KA_Viewset(viewsets.ModelViewSet):
     queryset = Ground_KA.objects.all()
     serializer_class = Ground_KA_Serializer
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Ground_KA_Filters
     
+    search_fields = [
+        'ground_name_ka', 
+        'ground_address_ka__address_ka',
+    ]
+
+
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
@@ -667,9 +592,15 @@ class Ground_EN_Viewset(viewsets.ModelViewSet):
     queryset = Ground_EN.objects.all()
     serializer_class = Ground_EN_Serializer
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter,SearchFilter]
     filterset_class = Ground_EN_Filters
     
+    
+    search_fields = [
+        'ground_name_en', 
+        'ground_address_en__address_en',
+    ]
+
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
@@ -679,15 +610,21 @@ class Ground_EN_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
+
 
 
 class Ground_RU_Viewset(viewsets.ModelViewSet):
     queryset = Ground_RU.objects.all()
     serializer_class = Ground_RU_Serializer
     pagination_class = CustomLimitOffsetPagination
-    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = Ground_RU_Filters
     
+    search_fields = [
+        'ground_name_ru', 
+        'ground_address_ru__address_ru',
+    ]
+
     def get_queryset(self):
         return self.queryset.annotate(
         created_at=F('internal_ground_name__created_at'),
@@ -697,7 +634,6 @@ class Ground_RU_Viewset(viewsets.ModelViewSet):
     )
 
     ordering_fields = ['created_at', 'square_price','full_price', 'rank']
-
 
 
 # -------------------------------------------blog viewsets ----------------------------------------------
@@ -817,3 +753,39 @@ class Company_Complex_EN_ViewSet(viewsets.ModelViewSet):
 class Company_Complex_RU_ViewSet(viewsets.ModelViewSet):
     queryset = Company_RU.objects.all()
     serializer_class = CompanyRUSerializer
+
+
+
+
+
+from django.http import JsonResponse
+import requests
+import json
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def google_apps_script_proxy(request):
+    script_url = 'https://script.google.com/macros/s/AKfycbySUzCq3wz0fR7gzy15UPljQMeajxVc1Gq70f0IQjoqv1QrCbaQd2fLatZGkx7EdVmN/exec'
+
+    # Ensure the request body is correctly formatted as JSON
+    data = json.loads(request.body.decode('utf-8'))
+    
+    try:
+        # Forward the request to the Google Apps Script, ensuring JSON data is sent
+        response = requests.post(script_url, json=data, headers={'Content-Type': 'application/json'})
+        
+        # Create a Django response object with the JSON data from Google Apps Script
+        django_response = JsonResponse(response.json(), safe=False, status=response.status_code)
+        
+        # Set CORS headers on the Django response object
+        django_response["Access-Control-Allow-Origin"] = "*"
+        django_response["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+        django_response["Access-Control-Allow-Headers"] = "Content-Type"
+        
+        # Return the response from Google Apps Script to the client, with CORS headers
+        return django_response
+    except Exception as e:
+        print("Error:", str(e))  # Log any errors
+        return JsonResponse({'error': 'Failed to send data to Google Apps Script', 'details': str(e)}, status=500)
