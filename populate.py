@@ -725,37 +725,37 @@ def generate_blogs(n):
 def generate_all_data():
     try:
 
-        # print("Generating Locations...")
-        # genrate_locations(40)
-        # print("Locations generated.")
+        print("Generating Locations...")
+        genrate_locations(20)
+        print("Locations generated.")
 
-        # print("Generating Companies...")
-        # generate_companies(1)
-        # print("Companies generated.")
+        print("Generating Companies...")
+        generate_companies(5)
+        print("Companies generated.")
 
         print("Generating Complexes...")
         generate_complexes(5)
         print("Complexes generated.")
 
-        # print("Generating Private Apartments...")
-        # generate_private_apartments(1)
-        # print("Private Apartments generated.")
+        print("Generating Private Apartments...")
+        generate_private_apartments(5)
+        print("Private Apartments generated.")
 
-        # print("Generating Apartments...")
-        # generate_apartments(1)
-        # print("Apartments generated.")
+        print("Generating Apartments...")
+        generate_apartments(5)
+        print("Apartments generated.")
 
-        # print("Generating Grounds...")
-        # generate_grounds(1)
-        # print("Grounds generated.")
+        print("Generating Grounds...")
+        generate_grounds(5)
+        print("Grounds generated.")
 
-        # print("Generating promotions...")
-        # generate_promotions_and_offers(35)
-        # print("Promotions generated.")
+        print("Generating promotions...")
+        generate_promotions_and_offers(10)
+        print("Promotions generated.")
 
-        # print("Generating blogs...")
-        # generate_blogs(35)
-        # print("blogs generated")
+        print("Generating blogs...")
+        generate_blogs(5)
+        print("blogs generated")
 
         
         

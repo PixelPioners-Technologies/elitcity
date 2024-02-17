@@ -6,20 +6,48 @@ from .models import *
 
 from django.http import JsonResponse
 
-def get_items_by_ids(request):
+def get_items_by_ids(request, params):
     # Assuming you're sending the IDs as a GET parameter, for example: ?ids=1,2,3
-    ids = request.GET.get('ids', '')
-    if ids:  # Check if 'ids' is not empty
+    #complex,private app, app, ground 
+    target_category, target_language, param_ids = params.split('_')
+
+    if param_ids:  # Check if 'ids' is not empty
         # Convert the string of IDs into a list of integers, handling potential ValueError
         try:
-            ids_list = [int(id) for id in ids.split(',')]
+            ids_list = [int(id) for id in param_ids.split(',')]
         except ValueError:
             return JsonResponse({'error': 'Invalid ID format'}, status=400)
 
         # Use the __in filter to fetch items with the specified IDs
-        items = Complex_KA.objects.filter(id__in=ids_list)
+        if target_category == 'complex' and target_language == "ka":
+            items = Complex_KA.objects.filter(id__in=ids_list)
+        elif target_category == 'complex' and target_language == "en":
+            items = Complex_EN.objects.filter(id__in=ids_list)
+        elif target_category == 'complex' and target_language == "ru":
+            items = Complex_RU.objects.filter(id__in=ids_list)
+
+        elif target_category == 'privateapp' and target_language == "ka":
+            items = Private_Appartment_KA.objects.filter(id__in=ids_list)
+        elif target_category == 'privateapp' and target_language == "en":
+            items = Private_Appartment_EN.objects.filter(id__in=ids_list)
+        elif target_category == 'privateapp' and target_language == "ru":
+            items = Private_Appartment_RU.objects.filter(id__in=ids_list)
+
+        elif target_category == 'apps' and target_language == "ka":
+            items = Appartment_KA.objects.filter(id__in=ids_list)
+        elif target_category == 'apps' and target_language == "en":
+            items = Appartment_EN.objects.filter(id__in=ids_list)
+        elif target_category == 'apps' and target_language == "ru":
+            items = Appartment_RU.objects.filter(id__in=ids_list)
+
+        elif target_category == 'ground' and target_language == "ka":
+            items = Ground_KA.objects.filter(id__in=ids_list)
+        elif target_category == 'ground' and target_language == "en":
+            items = Ground_EN.objects.filter(id__in=ids_list)
+        elif target_category == 'ground' and target_language == "ru":
+            items = Ground_RU.objects.filter(id__in=ids_list)          
     else:
-        items = Complex_KA.objects.all()  # Or handle as an error, based on your requirements
+        return JsonResponse({'error': 'Invalid ID format'}, status=400)  # Or handle as an error, based on your requirements
 
     # Convert your items to a response format (e.g., list of dicts)
     items_data = list(items.values())
