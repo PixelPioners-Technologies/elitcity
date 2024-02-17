@@ -3,6 +3,7 @@
 from django_filters import rest_framework as filters
 from django.db.models import Q
 from .models import *
+from .serializers import *
 
 from django.http import JsonResponse
 
@@ -21,31 +22,43 @@ def get_items_by_ids(request, params):
         # Use the __in filter to fetch items with the specified IDs
         if target_category == 'complex' and target_language == "ka":
             items = Complex_KA.objects.filter(id__in=ids_list)
+            serializer = Complex_KA_Serializers(items, many=True, context={'request': request})
         elif target_category == 'complex' and target_language == "en":
             items = Complex_EN.objects.filter(id__in=ids_list)
+            serializer = Complex_EN_Serializers(items, many=True, context={'request': request})
         elif target_category == 'complex' and target_language == "ru":
             items = Complex_RU.objects.filter(id__in=ids_list)
+            serializer = Complex_RU_Serializers(items, many=True, context={'request': request})
 
         elif target_category == 'privateapp' and target_language == "ka":
             items = Private_Appartment_KA.objects.filter(id__in=ids_list)
+            serializer = Private_Appartment_KA_Serializer(items, many=True, context={'request': request})
         elif target_category == 'privateapp' and target_language == "en":
             items = Private_Appartment_EN.objects.filter(id__in=ids_list)
+            serializer = Private_Appartment_EN_Serializer(items, many=True, context={'request': request})
         elif target_category == 'privateapp' and target_language == "ru":
             items = Private_Appartment_RU.objects.filter(id__in=ids_list)
+            serializer = Private_Appartment_RU_Serializer(items, many=True, context={'request': request})
 
         elif target_category == 'apps' and target_language == "ka":
             items = Appartment_KA.objects.filter(id__in=ids_list)
+            serializer = Appartment_KA_Serializer(items, many=True, context={'request': request})
         elif target_category == 'apps' and target_language == "en":
             items = Appartment_EN.objects.filter(id__in=ids_list)
+            serializer = Appartment_EN_Serializer(items, many=True, context={'request': request})
         elif target_category == 'apps' and target_language == "ru":
             items = Appartment_RU.objects.filter(id__in=ids_list)
+            serializer = Appartment_RU_Serializer(items, many=True, context={'request': request})
 
         elif target_category == 'ground' and target_language == "ka":
             items = Ground_KA.objects.filter(id__in=ids_list)
+            serializer = Ground_KA_Serializer(items, many=True, context={'request': request})
         elif target_category == 'ground' and target_language == "en":
             items = Ground_EN.objects.filter(id__in=ids_list)
+            serializer = Ground_RU_Serializer(items, many=True, context={'request': request})
         elif target_category == 'ground' and target_language == "ru":
-            items = Ground_RU.objects.filter(id__in=ids_list)          
+            items = Ground_RU.objects.filter(id__in=ids_list)
+            serializer = Ground_RU_Serializer(items, many=True, context={'request': request})      
     else:
         return JsonResponse({'error': 'Invalid ID format'}, status=400)  # Or handle as an error, based on your requirements
 
@@ -53,7 +66,7 @@ def get_items_by_ids(request, params):
     items_data = list(items.values())
 
     # Return a JsonResponse
-    return JsonResponse({'items': items_data}, safe=False)
+    return JsonResponse({'items': serializer.data}, safe=False)
 
 
 class Complex_KA_Filter(filters.FilterSet):

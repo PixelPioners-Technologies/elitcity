@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import *
+from .utils import S3Helper
+
 
 class LangSerializer(serializers.ModelSerializer):
 
@@ -621,12 +623,11 @@ class Complex_Name_Serializers(serializers.ModelSerializer):
         fields = '__all__'
     
 class Complex_Image_Serializers(serializers.ModelSerializer):
-
     class Meta:
         model = Complex_Images
         fields = ['internal_complex_name','images']
 
-class Complex_KA_Serializers(serializers.ModelSerializer):
+class Complex_KA_Serializers(serializers.ModelSerializer):    
     image_urls = serializers.SerializerMethodField()
     address_ka = Address_KA_Serializer(read_only = True)
     address_ka_id = serializers.PrimaryKeyRelatedField(
@@ -670,9 +671,10 @@ class Complex_KA_Serializers(serializers.ModelSerializer):
             'protection_type_ka',
             "description_ka", 
             ]
+        
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 class Complex_EN_Serializers(serializers.ModelSerializer):
     image_urls = serializers.SerializerMethodField()
@@ -721,7 +723,7 @@ class Complex_EN_Serializers(serializers.ModelSerializer):
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 class Complex_RU_Serializers(serializers.ModelSerializer):
     image_urls = serializers.SerializerMethodField()
@@ -770,7 +772,7 @@ class Complex_RU_Serializers(serializers.ModelSerializer):
             ]
     def get_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 '''
 -----------------------------------------------------------------------
@@ -903,7 +905,7 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 class Appartment_EN_Serializer(serializers.ModelSerializer):
     internal_apartment_name = Appartment_Names_Serializer(read_only = True)
@@ -984,7 +986,7 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 class Appartment_RU_Serializer(serializers.ModelSerializer):
     internal_apartment_name = Appartment_Names_Serializer(read_only = True)
@@ -1065,7 +1067,7 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 
 '''
@@ -1246,7 +1248,7 @@ class Private_Appartment_EN_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 
 
@@ -1324,7 +1326,7 @@ class Private_Appartment_KA_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 
 
@@ -1403,7 +1405,7 @@ class Private_Appartment_RU_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Private_Appartment_images.objects.filter(internal_private_apartment_name=instance.internal_private_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
     
 '''
@@ -1493,7 +1495,7 @@ class Ground_KA_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
       
 class Ground_EN_Serializer(serializers.ModelSerializer):
     internal_ground_name = Ground_Names_Serializer(read_only = True)
@@ -1556,7 +1558,7 @@ class Ground_EN_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 class Ground_RU_Serializer(serializers.ModelSerializer):
     internal_ground_name = Ground_Names_Serializer(read_only = True)
@@ -1619,7 +1621,7 @@ class Ground_RU_Serializer(serializers.ModelSerializer):
 
     def get_image_urls(self, instance):
         images = Ground_Images.objects.filter(internal_ground_name=instance.internal_ground_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
     
 
@@ -1683,7 +1685,7 @@ class Blog_KA_Serializer(serializers.ModelSerializer):
     
     def get_image_urls(self, instance):
         images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 class Blog_EN_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
@@ -1725,7 +1727,7 @@ class Blog_EN_Serializer(serializers.ModelSerializer):
     
     def get_image_urls(self, instance):
         images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 class Blog_RU_Serializer(serializers.ModelSerializer):
     internal_blog_name = Blog_Names_Serializer(read_only=True)
@@ -1766,7 +1768,7 @@ class Blog_RU_Serializer(serializers.ModelSerializer):
     
     def get_image_urls(self, instance):
         images = Blog_Images.objects.filter(internal_blog_name=instance.internal_blog_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 
 '''
@@ -1920,7 +1922,7 @@ class NewAppartment_KA_Serializer(serializers.ModelSerializer):
     
     def get_apparment_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 class NewAppartment_EN_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
@@ -1939,7 +1941,7 @@ class NewAppartment_EN_Serializer(serializers.ModelSerializer):
     
     def get_apparment_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 class NewAppartment_RU_Serializer(serializers.ModelSerializer):
     appartment_images = Appartment_Images_Serializer(read_only = True)
@@ -1959,7 +1961,7 @@ class NewAppartment_RU_Serializer(serializers.ModelSerializer):
     
     def get_apparment_image_urls(self, instance):
         images = Appartment_Images.objects.filter(internal_apartment_name=instance.internal_apartment_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 
 class Complex_with_appartments_KA_Serializer(serializers.ModelSerializer):
@@ -1984,7 +1986,7 @@ class Complex_with_appartments_KA_Serializer(serializers.ModelSerializer):
     
     def get_complex_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 class Complex_with_appartments_EN_Serializer(serializers.ModelSerializer):
     appartment_name_en = NewAppartment_EN_Serializer(many=True, read_only=True)
@@ -2004,7 +2006,7 @@ class Complex_with_appartments_EN_Serializer(serializers.ModelSerializer):
     
     def get_complex_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 class Complex_with_appartments_RU_Serializer(serializers.ModelSerializer):
     appartment_name_ru = NewAppartment_RU_Serializer(many=True, read_only=True)
@@ -2024,7 +2026,7 @@ class Complex_with_appartments_RU_Serializer(serializers.ModelSerializer):
     
     def get_complex_image_urls(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
     
 
 '''
@@ -2054,7 +2056,7 @@ class ComplexKASerializer(serializers.ModelSerializer):
 
     def get_complex_images(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 
 class CompanyKASerializer(serializers.ModelSerializer):
@@ -2089,7 +2091,7 @@ class ComplexENSerializer(serializers.ModelSerializer):
 
     def get_complex_images(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 
 class CompanyENSerializer(serializers.ModelSerializer):
@@ -2123,7 +2125,7 @@ class ComplexRUSerializer(serializers.ModelSerializer):
 
     def get_complex_images(self, instance):
         images = Complex_Images.objects.filter(internal_complex_name=instance.internal_complex_name)
-        return [self.context['request'].build_absolute_uri(image.images.url) for image in images]
+        return [S3Helper.generate_signed_url(str(image.images)) for image in images]
 
 
 class CompanyRUSerializer(serializers.ModelSerializer):
