@@ -4,6 +4,30 @@ from django_filters import rest_framework as filters
 from django.db.models import Q
 from .models import *
 
+from django.http import JsonResponse
+
+def get_items_by_ids(request):
+    # Assuming you're sending the IDs as a GET parameter, for example: ?ids=1,2,3
+    ids = request.GET.get('ids', '')
+    if ids:  # Check if 'ids' is not empty
+        # Convert the string of IDs into a list of integers, handling potential ValueError
+        try:
+            ids_list = [int(id) for id in ids.split(',')]
+        except ValueError:
+            return JsonResponse({'error': 'Invalid ID format'}, status=400)
+
+        # Use the __in filter to fetch items with the specified IDs
+        items = Complex_KA.objects.filter(id__in=ids_list)
+    else:
+        items = Complex_KA.objects.all()  # Or handle as an error, based on your requirements
+
+    # Convert your items to a response format (e.g., list of dicts)
+    items_data = list(items.values())
+
+    # Return a JsonResponse
+    return JsonResponse({'items': items_data}, safe=False)
+
+
 class Complex_KA_Filter(filters.FilterSet):
     min_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='gte')
     max_price_per_sq_meter = filters.NumberFilter(field_name='internal_complex_name__price_per_sq_meter', lookup_expr='lte')

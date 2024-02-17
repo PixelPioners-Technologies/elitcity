@@ -120,5 +120,5 @@ urlpatterns = [
     path('complexandappartments/', include(complex_apartments.urls)),
     path('companycomplex/',include(company_complex.urls)),
     path('proxy/', google_apps_script_proxy, name='google_apps_script_proxy'),
-
+    path('/complexes/ids/', get_items_by_ids, name='complex-by-ids'),
 ]
