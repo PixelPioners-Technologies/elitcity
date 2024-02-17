@@ -10,6 +10,11 @@ from rest_framework.filters import SearchFilter
 from .filters import *
 from django.db.models import F
 from rest_framework.filters import OrderingFilter
+import boto3
+from django.conf import settings
+AWS_ACCESS_KEY_ID =settings.AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = settings.AWS_STORAGE_BUCKET_NAME
 
 
 @api_view(['GET'])
@@ -367,10 +372,6 @@ class Complex_Images_Viewset(viewsets.ModelViewSet):
     queryset = Complex_Images.objects.all()
     serializer_class = Complex_Image_Serializers
     pagination_class = CustomLimitOffsetPagination
-    # filter_backends = [DjangoFilterBackend]
-    # filterset_class = Complex_EN_Filter
-
-
 
 class Apartment_Names_Viewset(viewsets.ModelViewSet):
     queryset = Appartment_Names.objects.all()
