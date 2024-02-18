@@ -77,43 +77,7 @@ python manage.py createsuperuser
 ამ ეტაპისთვის ბექის სერვერი ატვირთულია AWS-ზე.
 ეხლანდელი სერვერის საიდუმლო კოდი აირს
 
-### 1. დააკოპირეთ ეს საიდუმლო კოდი
-
-```
------BEGIN RSA PRIVATE KEY-----
-MIIEpAIBAAKCAQEAgm1vaOd139ZBnjG6z5cFtKMBNNnTL3nHzV43iFBAC3bn9Pce
-OIIAyNZc97AwzTETshh/ngHrkx+/rCeN2GSn8v9jjjw54rjIwUG7Av4uH+lkcBes
-UVmypwzjKur8ooevJQSMPZ8OhhqAPjL0RIBycCszF1pU0opdhZ02eXvLLeWxLkm6
-4z/269yDSQlO64TRfJYoeJKQwYFmB99SmUTwk9dktSCeFMrQnCNznHZZHdXdFwK/
-IwdiEc9xNdZcNrCxNhn3E3c8xhcusA9dXaEhcDwHj7Ui9br+y1cT6X3CJyM8ERdX
-WAiETk3d5Hr/zL+mtDj21EDswZMfrCcnwwjtHwIDAQABAoIBADNqRo/5Jot9n9Jn
-0jfBVht2YqRd9hVyEWSQ7p1K3WRnlFsKC5zFCuAhOPbfOu24mgYMCErWgPI3gsyv
-rwgN7fMp4CoS7dLFe0ZLzhgI8U/dJp3VhzVugbG+r9KcXckIae/S0iH8kLImwkVC
-uu5CIFq9fN+I2YVBzEo+xlmvhlHp+J4sqOvPHsY2uuomgJ+DkphXGbtFBTvwgVDT
-4Okn8WHJCgHxsaa18ug4ZJBFCFe4o9HzVYKIqiXRJLqA/rUtTvHZwtgCLe1jMXBU
-gcKNXe+/wl9NFeHi6Hjpe/brG384mMufTQpkWo3K8fKid73OjerpkAekrBOB1siX
-/T2xZgECgYEAxfpmwz20Rud/cXtSzYKCGFNpOeZDX8FvvCVNop+kUOXZzy4VlY0U
-o5wMxvY2jE+iovqnVR3+y+Y+//Jn8c4/P21OrI2GvRyh8IgLrRR16XNxtp0/rxwQ
-XUeZg5FE7zmEpq/GNzB6ytJeFnuAVcQbIWUT7PRW6X3N1fpk69e8lwECgYEAqKby
-lUPcqI/oVHPz5O0vc5wz4KA21Hrf0ZFDdUiVh7txX42bGE0iI3dXQ39/vKqEkJ7o
-OhdIxUXhNyuStdqLqZ7F1ZGw+31U83Jm78hH3GMdMbaVd4HJDFDly7cwgZJdv57F
-lHhHVM6NoesezwL2O7/vO6pg53fVZadEbjh2pB8CgYEAusbbDlV3b/FVTbXAT7xR
-iiufOY2ggIVZKdKzpLoh5mSDEa/zkwzvrM87SrXcjpFO6Z26IlZTHQCS7Rs/r2Qa
-TXeNYsN+m4mYyfk/ssF74IwWeudtvoGmeqpjDToPI/ZKzItGYKjvH8xKEcHgOInz
-4pSesM1v9YbHm5lIfywgcwECgYAViBLqaZqPTqgbuB4IORvYx7V71RiK8hEHIWOa
-YqTsikrEJ0EIzjgwjPjwHiQBw0dfa1o8qGJbBTvmnkKBwyAXjLS3On187hhdaFqp
-/EjoYyMECMp2UnSHhQCBjKa9tCER6MRS2zRIKIK+jFUHmtoy8KMrW+o5QvxUmRFM
-fRrwgwKBgQCGfhRYunbLlXnyNqlAzwQCq9lss16w2Zpzx3fttbToUPBJwbXrGNLH
-L/6/hm0BHfpnTEKkE8JNVo4Izh19GDr66dLu1ZdmnoCwo7kAISB2lcxGzwRKphCI
-bXWNyXdBEIcaD8UMWd8DQhldUFiVyn7uLaiCumQ6DQQs0TpuVJT2TA==
------END RSA PRIVATE KEY-----
-```
-
-### 2. და შეინახეთ ფაილში სახელით. შეინახეთ ეს ფაილი თქვენთვის სასურველ ადგილას.
-
-```
-privateKey.pem
-```
+მას შემდეგ რაც თქვენ გექნებათ ფაილი გასაღებით.
 
 ### 3. ტერმინალში აკრიფეთ შემდეგი ბრძანება.
 ```
