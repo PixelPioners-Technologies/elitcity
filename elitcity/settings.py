@@ -1,5 +1,8 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
+load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@yb+t!s_#0r+&(*xvi1ycpdfc@^_vjv6+j$m@n4d79qt+@s4g5'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -20,7 +23,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    # 'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -74,11 +76,11 @@ WSGI_APPLICATION = 'elitcity.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgresito',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres5432',
-        'HOST': 'database-2.cdrym9kklu4m.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
     }
 }
 
@@ -156,14 +158,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
 CORS_ALLOW_ALL_ORIGINS = True
-
-
-
-
-
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -187,16 +182,16 @@ STORAGES = {
     },
 }
 
-AWS_ACCESS_KEY_ID = "AKIAVSIQSNG5MQ5K5VNJ"
-AWS_SECRET_ACCESS_KEY = "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"
-AWS_STORAGE_BUCKET_NAME = "elitecity"
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 
 
 # Page-pagination using rest
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAdminUserOrReadOnly',
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'complex.permissions.IsAdminUserOrReadOnly',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 15,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
