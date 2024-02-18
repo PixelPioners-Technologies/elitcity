@@ -12,6 +12,7 @@ from django.db.models import F
 from rest_framework.filters import OrderingFilter
 
 
+
 @api_view(['GET'])
 def api_root(request, format=None):
     city_links = {
