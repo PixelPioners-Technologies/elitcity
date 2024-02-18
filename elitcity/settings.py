@@ -76,8 +76,8 @@ WSGI_APPLICATION = 'elitcity.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
+        'NAME' : os.getenv('NAME'),
+        'USER' :  os.getenv('DATAUSER'),
         'PASSWORD': os.getenv('PASSWORD'),
         'HOST': os.getenv('HOST'),
         'PORT': os.getenv('PORT'),
