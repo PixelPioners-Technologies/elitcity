@@ -899,6 +899,7 @@ class Appartment_KA_Serializer(serializers.ModelSerializer):
             'appartment_address_ka': data["appartment_address_ka"],
             'appartment_images': image_urls,
             'test_field_ka': data['test_field_ka'],
+            'appartment_name_ka': data["appartment_name_ka"],
 
 
         }
@@ -981,6 +982,7 @@ class Appartment_EN_Serializer(serializers.ModelSerializer):
             'appartment_address_en': data["appartment_address_en"],
             'appartment_images': image_urls,
             'test_field_en': data['test_field_en'],
+            'appartment_name_en': data["appartment_name_en"],
         }
 
 
@@ -1060,6 +1062,7 @@ class Appartment_RU_Serializer(serializers.ModelSerializer):
             'appartment_address_ru': data["appartment_address_ru"],
             'appartment_images': image_urls,
             'test_field_ru': data['test_field_ru'],
+            'appartment_name_ru': data["appartment_name_ru"],
 
 
         }
