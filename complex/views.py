@@ -10,11 +10,6 @@ from rest_framework.filters import SearchFilter
 from .filters import *
 from django.db.models import F
 from rest_framework.filters import OrderingFilter
-import boto3
-from django.conf import settings
-AWS_ACCESS_KEY_ID =settings.AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = settings.AWS_SECRET_ACCESS_KEY
-AWS_STORAGE_BUCKET_NAME = settings.AWS_STORAGE_BUCKET_NAME
 
 
 @api_view(['GET'])
