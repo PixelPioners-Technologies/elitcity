@@ -246,7 +246,7 @@ class Complex_Names(models.Model):
     floor_number = models.IntegerField()
     space = models.DecimalField(max_digits=10, decimal_places=2)
     number_of_apartments = models.IntegerField()
-    number_of_floors = models.IntegerField()
+    number_of_floors = models.CharField(max_length=15)
     phone_number = models.CharField(max_length=20)
 
     # for information fields - integer da float fields aq davtove, Boolean - ebs qvemot davamateb
