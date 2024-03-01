@@ -764,7 +764,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @require_http_methods(["POST"])
 def google_apps_script_proxy(request):
-    script_url = 'https://script.google.com/macros/s/AKfycbySUzCq3wz0fR7gzy15UPljQMeajxVc1Gq70f0IQjoqv1QrCbaQd2fLatZGkx7EdVmN/exec'
+    script_url = 'https://script.google.com/macros/s/AKfycbzgaJ6q1C4eA-fwWAwzkRv81U0FdEsQ-cnCeZa47TqfmQcEQy6NbRKU8K1TDJ49ySwA/exec'
 
     # Ensure the request body is correctly formatted as JSON
     data = json.loads(request.body.decode('utf-8'))

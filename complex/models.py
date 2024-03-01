@@ -582,6 +582,7 @@ class Ground_Names(models.Model):
     area = models.DecimalField(max_digits=12, decimal_places=2)
     full_price = models.DecimalField(max_digits=12, decimal_places=2)
     square_price = models.DecimalField(max_digits=12, decimal_places=2)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     is_available = models.BooleanField(default=True)
     visibiliti = models.BooleanField(default=True)
     STATUS_CHOICES = [
