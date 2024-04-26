@@ -730,31 +730,31 @@ def generate_all_data():
         print("Locations generated.")
 
         print("Generating Companies...")
-        generate_companies(5)
+        generate_companies(15)
         print("Companies generated.")
 
         print("Generating Complexes...")
-        generate_complexes(5)
+        generate_complexes(15)
         print("Complexes generated.")
 
         print("Generating Private Apartments...")
-        generate_private_apartments(5)
+        generate_private_apartments(15)
         print("Private Apartments generated.")
 
         print("Generating Apartments...")
-        generate_apartments(5)
+        generate_apartments(15)
         print("Apartments generated.")
 
         print("Generating Grounds...")
-        generate_grounds(5)
+        generate_grounds(15)
         print("Grounds generated.")
 
         print("Generating promotions...")
-        generate_promotions_and_offers(10)
+        generate_promotions_and_offers(15)
         print("Promotions generated.")
 
         print("Generating blogs...")
-        generate_blogs(5)
+        generate_blogs(15)
         print("blogs generated")
 
         
